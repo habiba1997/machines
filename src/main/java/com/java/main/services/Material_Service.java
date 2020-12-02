@@ -15,13 +15,10 @@ public class Material_Service {
     @Autowired
     private Material_Repository repository;
 
-    public List<Material> getAllMaterials() {
+
+    public Iterable<Material> getAllMaterials() {
         return this.repository.findAll();
     }
 
 
-    @Cacheable("fetch_materials")
-    public List<Material> getAllMaterialsCached() {
-        return this.repository.findAll();
-    }
 }

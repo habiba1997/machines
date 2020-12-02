@@ -3,14 +3,21 @@ package com.java.main.models;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(name="machine")
+
+import java.io.Serializable;
+
 @Entity
-public class Machine  {
+@Table(name="machine")
+@Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
+public class Machine implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

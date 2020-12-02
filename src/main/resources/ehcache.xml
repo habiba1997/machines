@@ -1,0 +1,20 @@
+<ehcache>
+<!--    inbuild variable in java to store in temporary directory so by default our cache is stored in temorary directory-->
+    <diskStore path="java.io.tmpdir"/>
+
+<!--    default cache 100 cahe elements at a time,
+the cache object should be destroyed after some time, otherwise run out of memory
+object if not accessed within 5 seconds it is removed from the cache,
+after 10 seconds object wil be removed from the cache no matter what,
+if you have any flow memory will be saved on disk
+
+-->
+    <defaultCache
+            maxElementsInMemory="100"
+            eternal="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="600"
+            overflowToDisk="true"
+    />
+
+</ehcache>
