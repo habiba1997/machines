@@ -1,0 +1,69 @@
+package com.java.main.models;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Table(name="operation")
+@Entity
+public class Operation {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
+
+    @Column(name="name")
+    private String name;
+
+    @JoinColumn(name="machine_id")
+    @ManyToOne
+    @JsonIgnore
+    private Machine machine;
+
+    @ManyToMany(mappedBy = "operations")
+    @JsonIgnore
+    private List<Material> materials = new ArrayList<>();
+
+
+    public Operation(){}
+    public Operation(String name) {
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Machine getMachine() {
+        return machine;
+    }
+
+    public void setMachine(Machine machine) {
+        this.machine = machine;
+    }
+
+    public List<Material> getMaterials() {
+        return materials;
+    }
+
+    public void addMaterials(Material material) {
+        this.materials.add(material);
+    }
+
+}
