@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Table(name="operation")
 @Entity
@@ -26,7 +28,7 @@ public class Operation {
 
     @ManyToMany(mappedBy = "operations")
     @JsonIgnore
-    private List<Material> materials = new ArrayList<>();
+    private Set<Material> materials = new HashSet<>();
 
 
     public Operation(){}
@@ -58,7 +60,7 @@ public class Operation {
         this.machine = machine;
     }
 
-    public List<Material> getMaterials() {
+    public Set<Material> getMaterials() {
         return materials;
     }
 

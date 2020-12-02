@@ -30,23 +30,9 @@ public class Controller {
 
     @CrossOrigin
     @GetMapping(value ="/materials" )
-    public ResponseEntity<List<Material>> getAllMaterials()
+    public ResponseEntity<Iterable<Material>> getAllMaterials()
     {
         return new ResponseEntity<>(this.materialService.getAllMaterials(), HttpStatus.OK);
     }
 
-
-    @CrossOrigin
-    @GetMapping(value ="/cache/machines" )
-    public ResponseEntity<Iterable<Machine>> getAllMachinesCached()
-    {
-        return new ResponseEntity<>(this.machineService.getAllMachinesCached(), HttpStatus.OK);
-    }
-
-    @CrossOrigin
-    @GetMapping(value ="/cache/materials" )
-    public ResponseEntity<List<Material>> getAllMaterialsCached()
-    {
-        return new ResponseEntity<>(this.materialService.getAllMaterialsCached(), HttpStatus.OK);
-    }
 }

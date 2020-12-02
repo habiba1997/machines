@@ -1,13 +1,23 @@
 package com.java.main.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import java.io.Serializable;
 
-@Table(name="material")
 @Entity
-public class Material {
+@Table(name="material")
+@Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
+public class Material  implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,13 +30,14 @@ public class Material {
     @ManyToMany
     @JoinTable(
             name="materials_operations",
-            joinColumns = @JoinColumn(name="material_id"),
-            inverseJoinColumns = @JoinColumn(name="operation_id")
+            joinColumns = @JoinColumn(name="material_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name="operation_id", referencedColumnName = "id")
     )
-    private List<Operation> operations= new ArrayList<Operation>();
+    private Set<Operation> operations= new HashSet<>();
 
 
     @OneToOne(mappedBy = "material")
+    @JsonIgnore
     private MeasuredValue measuredValue;
 
     public Material(){}
@@ -50,20 +61,20 @@ public class Material {
         this.name = name;
     }
 
-    public List<Operation> getOperations() {
+    public Set<Operation> getOperations() {
         return operations;
     }
 
-    public void setOperations(List<Operation> operations) {
+    public void setOperations(Set<Operation> operations) {
         this.operations = operations;
     }
 
-    public MeasuredValue getMeasuredValue() {
-        return measuredValue;
-    }
-
-    public void setMeasuredValue(MeasuredValue measuredValue) {
-        this.measuredValue = measuredValue;
-    }
+//    public MeasuredValue getMeasuredValue() {
+//        return measuredValue;
+//    }
+//
+//    public void setMeasuredValue(MeasuredValue measuredValue) {
+//        this.measuredValue = measuredValue;
+//    }
 }
 

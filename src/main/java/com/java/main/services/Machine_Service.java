@@ -18,8 +18,4 @@ public class Machine_Service {
         return this.repository.findAll();
     }
 
-    @Cacheable("fetch_machines")
-    public Iterable<Machine> getAllMachinesCached(){
-        return this.repository.findAll();
-    }
 }
