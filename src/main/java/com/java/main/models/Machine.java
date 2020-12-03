@@ -27,7 +27,8 @@ public class Machine implements Serializable {
     @Column(name="name")
     private String name;
 
-    @OneToMany(mappedBy = "machine")
+    @OneToMany
+    @JoinColumn(name="machine_id", referencedColumnName = "id")
     private List<Operation> operations = new ArrayList<Operation>();
 
     public Machine() { }

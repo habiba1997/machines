@@ -21,10 +21,8 @@ public class Operation {
     @Column(name="name")
     private String name;
 
-    @JoinColumn(name="machine_id")
-    @ManyToOne
-    @JsonIgnore
-    private Machine machine;
+    @Column(name="machine_id")
+    private int machine_id;
 
     @ManyToMany(mappedBy = "operations")
     @JsonIgnore
@@ -52,13 +50,14 @@ public class Operation {
         this.name = name;
     }
 
-    public Machine getMachine() {
-        return machine;
-    }
 
-    public void setMachine(Machine machine) {
-        this.machine = machine;
-    }
+//    public Machine getMachine() {
+//        return machine;
+//    }
+//
+//    public void setMachine(Machine machine) {
+//        this.machine = machine;
+//    }
 
     public Set<Material> getMaterials() {
         return materials;

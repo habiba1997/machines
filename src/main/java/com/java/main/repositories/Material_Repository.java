@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface Material_Repository extends CrudRepository<Material, Integer> {
 
     @Override
-    @Query("SELECT m FROM Material m JOIN FETCH m.operations")
+    @Query("SELECT m FROM Material m left join fetch m.operations left join fetch m.measuredValue")
     Iterable<Material> findAll();
 
 }
