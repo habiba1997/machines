@@ -1,8 +1,4 @@
 package com.java.main.models;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,11 +17,11 @@ public class Operation {
     @Column(name="name")
     private String name;
 
-    @Column(name="machine_id")
-    private int machine_id;
+    @JoinColumn(name="machine_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Machine machine;
 
     @ManyToMany(mappedBy = "operations")
-    @JsonIgnore
     private Set<Material> materials = new HashSet<>();
 
 
@@ -50,14 +46,13 @@ public class Operation {
         this.name = name;
     }
 
+    public Machine getMachine() {
+        return machine;
+    }
 
-//    public Machine getMachine() {
-//        return machine;
-//    }
-//
-//    public void setMachine(Machine machine) {
-//        this.machine = machine;
-//    }
+    public void setMachine(Machine machine) {
+        this.machine = machine;
+    }
 
     public Set<Material> getMaterials() {
         return materials;

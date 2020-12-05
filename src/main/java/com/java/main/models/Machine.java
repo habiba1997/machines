@@ -9,10 +9,12 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name="machine")
@@ -27,9 +29,8 @@ public class Machine implements Serializable {
     @Column(name="name")
     private String name;
 
-    @OneToMany
-    @JoinColumn(name="machine_id", referencedColumnName = "id")
-    private List<Operation> operations = new ArrayList<Operation>();
+    @OneToMany(mappedBy = "machine")
+    private Set<Operation> operations = new HashSet<Operation>();
 
     public Machine() { }
 
@@ -53,8 +54,12 @@ public class Machine implements Serializable {
         this.name = name;
     }
 
-    public List<Operation> getOperations() {
+    public Set<Operation> getOperations() {
         return operations;
+    }
+
+    public void setOperations(Set<Operation> operations) {
+        this.operations = operations;
     }
 
     public void addOperations(Operation operation) {

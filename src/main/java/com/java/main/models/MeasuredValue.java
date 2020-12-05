@@ -1,8 +1,5 @@
 package com.java.main.models;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Table(name="measured_value")
@@ -20,8 +17,7 @@ public class MeasuredValue {
     @Column(name="unit")
     private String unit;
 
-    @OneToOne
-    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="material_id")
     private Material material;
 

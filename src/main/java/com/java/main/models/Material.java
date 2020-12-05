@@ -1,7 +1,6 @@
 package com.java.main.models;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -37,7 +36,6 @@ public class Material  implements Serializable{
 
 
     @OneToOne(mappedBy = "material")
-    @JsonIgnore
     private MeasuredValue measuredValue;
 
     public Material(){}
@@ -69,12 +67,20 @@ public class Material  implements Serializable{
         this.operations = operations;
     }
 
-//    public MeasuredValue getMeasuredValue() {
-//        return measuredValue;
-//    }
-//
-//    public void setMeasuredValue(MeasuredValue measuredValue) {
-//        this.measuredValue = measuredValue;
-//    }
+    public MeasuredValue getMeasuredValue() {
+        return measuredValue;
+    }
+
+    public void setMeasuredValue(MeasuredValue measuredValue) {
+        this.measuredValue = measuredValue;
+    }
+
+    @Override
+    public String toString() {
+        return "Material{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
 
