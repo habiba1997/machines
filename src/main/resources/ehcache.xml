@@ -12,8 +12,8 @@ if you have any flow memory will be saved on disk
     <defaultCache
             maxElementsInMemory="100"
             eternal="false"
-            timeToIdleSeconds="300"
-            timeToLiveSeconds="600"
+            timeToIdleSeconds="3"
+            timeToLiveSeconds="3"
             overflowToDisk="true"
     />
 
