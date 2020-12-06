@@ -1,7 +1,7 @@
 package com.java.main;
 
 import com.java.main.models.Material;
-import com.java.main.repositories.Material_Repository;
+import com.java.main.repositories.MaterialRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class testUrls {
 
     @Autowired
-    Material_Repository material_repository;
+    MaterialRepository material_repository;
 
     @Test
     public void testGetMaterial()

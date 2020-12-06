@@ -2,8 +2,8 @@ package com.java.main.controller;
 
 import com.java.main.models.dtos.MachineDTO;
 import com.java.main.models.dtos.MaterialDTO;
-import com.java.main.services.Machine_Service;
-import com.java.main.services.Material_Service;
+import com.java.main.services.MachineService;
+import com.java.main.services.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +18,9 @@ import java.util.Set;
 public class Controller {
 
     @Autowired
-    private Machine_Service machineService;
+    private MachineService machineService;
     @Autowired
-    private Material_Service materialService;
+    private MaterialService materialService;
 
     @CrossOrigin
     @GetMapping(value ="/machines" )

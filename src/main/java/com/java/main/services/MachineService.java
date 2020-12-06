@@ -3,7 +3,7 @@ package com.java.main.services;
 import com.java.main.mappers.MachineOperationMapper;
 import com.java.main.models.Machine;
 import com.java.main.models.dtos.MachineDTO;
-import com.java.main.repositories.Machine_Repository;
+import com.java.main.repositories.MachineRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class Machine_Service {
+public class MachineService {
 
     @Autowired
-    private Machine_Repository repository;
+    private MachineRepository repository;
 
     MachineOperationMapper mapper = Mappers.getMapper(MachineOperationMapper.class);
 

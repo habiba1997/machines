@@ -1,6 +1,6 @@
 package com.java.main.repositories;
 
-import com.java.main.models.Material;
+import com.java.main.models.Machine;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -9,11 +9,9 @@ import java.util.Set;
 
 
 @Repository
-public interface Material_Repository extends CrudRepository<Material, Integer> {
+public interface MachineRepository extends CrudRepository<Machine, Integer> {
 
     @Override
-    @Query("SELECT m FROM Material m left join fetch m.operations left join fetch m.measuredValue")
-    Set<Material> findAll();
-
-
+    @Query("select machine from Machine machine left join fetch machine.operations")
+    Set<Machine> findAll();
 }

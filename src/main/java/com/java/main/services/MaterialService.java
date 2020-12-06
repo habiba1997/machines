@@ -1,23 +1,21 @@
 package com.java.main.services;
 
 import com.java.main.mappers.MaterialOperationMapper;
-import com.java.main.models.Material;
 import com.java.main.models.dtos.MaterialDTO;
-import com.java.main.repositories.Material_Repository;
+import com.java.main.repositories.MaterialRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 
 @Service
-public class Material_Service {
+public class MaterialService {
 
     @Autowired
-    private Material_Repository repository;
+    private MaterialRepository repository;
 
     MaterialOperationMapper mapper = Mappers.getMapper(MaterialOperationMapper.class);
 
