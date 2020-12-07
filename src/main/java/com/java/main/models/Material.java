@@ -43,6 +43,11 @@ public class Material  implements Serializable{
         this.name = name;
     }
 
+    public Material(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
@@ -65,6 +70,10 @@ public class Material  implements Serializable{
 
     public void setOperations(Set<Operation> operations) {
         this.operations = operations;
+    }
+
+    public void addOperation(Operation operations) {
+        this.operations.add(operations);
     }
 
     public MeasuredValue getMeasuredValue() {

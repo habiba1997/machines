@@ -24,7 +24,7 @@ public class Controller {
 
     @CrossOrigin
     @GetMapping(value ="/machines" )
-    public ResponseEntity<List<MachineDTO>> getAllMachines()
+    public ResponseEntity<Set<MachineDTO>> getAllMachines()
     {
         return new ResponseEntity<>(this.machineService.getAllMachines(), HttpStatus.OK);
     }

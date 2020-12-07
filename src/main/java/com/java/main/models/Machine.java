@@ -37,6 +37,10 @@ public class Machine implements Serializable {
     public Machine(String name) {
         this.name = name;
     }
+    public Machine(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -62,7 +66,7 @@ public class Machine implements Serializable {
         this.operations = operations;
     }
 
-    public void addOperations(Operation operation) {
+    public void addOperation(Operation operation) {
         this.operations.add(operation);
     }
 }

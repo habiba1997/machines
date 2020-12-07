@@ -22,10 +22,9 @@ public class MeasuredValue {
     private Material material;
 
     public MeasuredValue(){}
-    public MeasuredValue(int value, String unit, Material material) {
+    public MeasuredValue(int value, String unit) {
         this.value = value;
         this.unit = unit;
-        this.material = material;
     }
 
     public int getId() {

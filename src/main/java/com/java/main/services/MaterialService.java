@@ -19,7 +19,7 @@ public class MaterialService {
     private MaterialRepository repository;
 
     @Autowired
-    MachineOperationMapper mapper;
+    private MaterialOperationMapper mapper;
 
     @Cacheable("materialsList")
     public Set<MaterialDTO> getAllMaterials() {
