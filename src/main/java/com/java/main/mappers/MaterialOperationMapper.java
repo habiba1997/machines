@@ -10,9 +10,8 @@ import org.mapstruct.Mapper;
 
 import java.util.Set;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface MaterialOperationMapper {
-
     Operation dtoToOperation(OperationDTO operationDTO);
 
     OperationDTO operationToDto(Operation operation);
@@ -22,7 +21,4 @@ public interface MaterialOperationMapper {
     MeasuredValue DtoToMeasuredValue(MeasuredValueDTO dto);
 
     Set<MaterialDTO> mapMaterialListToMaterialDtoList(Set<Material> materials);
-
-
-
 }

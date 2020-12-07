@@ -18,7 +18,8 @@ public class MachineService {
     @Autowired
     private MachineRepository repository;
 
-    MachineOperationMapper mapper = Mappers.getMapper(MachineOperationMapper.class);
+    @Autowired
+    MachineOperationMapper mapper;
 
     @Cacheable("machinesList")
     public List<MachineDTO> getAllMachines() {

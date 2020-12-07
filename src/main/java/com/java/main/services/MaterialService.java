@@ -1,5 +1,6 @@
 package com.java.main.services;
 
+import com.java.main.mappers.MachineOperationMapper;
 import com.java.main.mappers.MaterialOperationMapper;
 import com.java.main.models.dtos.MaterialDTO;
 import com.java.main.repositories.MaterialRepository;
@@ -17,7 +18,8 @@ public class MaterialService {
     @Autowired
     private MaterialRepository repository;
 
-    MaterialOperationMapper mapper = Mappers.getMapper(MaterialOperationMapper.class);
+    @Autowired
+    MachineOperationMapper mapper;
 
     @Cacheable("materialsList")
     public Set<MaterialDTO> getAllMaterials() {
