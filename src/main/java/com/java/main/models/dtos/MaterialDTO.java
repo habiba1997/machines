@@ -10,6 +10,14 @@ public class MaterialDTO {
     private Set<OperationDTO> operations = new HashSet<>();
     private MeasuredValueDTO measuredValue;
 
+    public MaterialDTO() {
+    }
+
+    public MaterialDTO(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

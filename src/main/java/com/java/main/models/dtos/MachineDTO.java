@@ -9,6 +9,14 @@ public class MachineDTO {
     private String name;
     private Set<OperationDTO> operations = new HashSet<>();
 
+    public MachineDTO() {
+    }
+
+    public MachineDTO(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

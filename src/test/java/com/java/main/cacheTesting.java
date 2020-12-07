@@ -39,8 +39,6 @@ public class cacheTesting {
 
         session.evict(machine);
         machine_repository.findById(1);
-
-
     }
 
     @Test
@@ -53,7 +51,5 @@ public class cacheTesting {
 
         session.evict(material);
         material_repository.findById(1);
-
-
     }
 }
