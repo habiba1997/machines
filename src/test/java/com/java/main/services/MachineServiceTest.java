@@ -68,7 +68,7 @@ class MachineServiceTest {
         Mockito.when(machineRepository.findAll())
                 .thenReturn(this.machineSet);
 
-        when(mapper.mapMachinesToMachineDtoList(this.machineSet)).thenCallRealMethod();
+        when(mapper.mapMachineSetToMachineDtoSet(this.machineSet)).thenCallRealMethod();
 
         Set<MachineDTO> machineList = machineService.getAllMachines();
 
@@ -84,7 +84,7 @@ class MachineServiceTest {
         Mockito.when(machineRepository.findAll())
                 .thenReturn(this.machineSet);
 
-        when(mapper.mapMachinesToMachineDtoList(this.machineSet)).thenCallRealMethod();
+        when(mapper.mapMachineSetToMachineDtoSet(this.machineSet)).thenCallRealMethod();
 
         Set<MachineDTO> machineList = machineService.getAllMachines();
 

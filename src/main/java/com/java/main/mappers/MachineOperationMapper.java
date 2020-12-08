@@ -19,5 +19,5 @@ public interface MachineOperationMapper {
 
     MachineDTO machineToDto( Machine machine);
 
-    Set<MachineDTO> mapMachinesToMachineDtoList(Set<Machine> machineSet);
+    Set<MachineDTO> mapMachineSetToMachineDtoSet(Set<Machine> machineSet);
 }

@@ -12,6 +12,8 @@ import java.util.Set;
 
 
 @DataJpaTest
+//We don't provide an embedded database by default.
+// By default DataJpaTest replaces your DataSource with an embedded database but you don't have one.
 @AutoConfigureTestDatabase(replace = NONE)
 class MachineRepositoryTest {
 

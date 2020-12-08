@@ -20,7 +20,7 @@ public class MachineService {
 
     @Cacheable("machinesList")
     public Set<MachineDTO> getAllMachines() {
-        return mapper.mapMachinesToMachineDtoList(repository.findAll());
+        return mapper.mapMachineSetToMachineDtoSet(repository.findAll());
     }
 
 }

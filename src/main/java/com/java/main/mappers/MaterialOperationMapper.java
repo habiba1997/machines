@@ -20,5 +20,5 @@ public interface MaterialOperationMapper {
 
     MeasuredValue DtoToMeasuredValue(MeasuredValueDTO dto);
 
-    Set<MaterialDTO> mapMaterialListToMaterialDtoList(Set<Material> materials);
+    Set<MaterialDTO> mapMaterialSetToMaterialDtoSet(Set<Material> materials);
 }

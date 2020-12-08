@@ -21,8 +21,6 @@ public class MaterialService {
 
     @Cacheable("materialsList")
     public Set<MaterialDTO> getAllMaterials() {
-        return mapper.mapMaterialListToMaterialDtoList(repository.findAll());
+        return mapper.mapMaterialSetToMaterialDtoSet(repository.findAll());
     }
-
-
 }

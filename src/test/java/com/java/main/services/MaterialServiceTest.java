@@ -62,7 +62,7 @@ class MaterialServiceTest {
         Mockito.when(materialRepository.findAll())
                 .thenReturn(this.materialSet);
 
-        when(mapper.mapMaterialListToMaterialDtoList(this.materialSet)).thenCallRealMethod();
+        when(mapper.mapMaterialSetToMaterialDtoSet(this.materialSet)).thenCallRealMethod();
 
         Set<MaterialDTO> materialDTOSet = materialService.getAllMaterials();
 
