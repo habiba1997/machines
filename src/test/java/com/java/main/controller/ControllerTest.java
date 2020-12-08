@@ -1,8 +1,5 @@
 package com.java.main.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.java.main.models.Machine;
 import com.java.main.models.dtos.MachineDTO;
 import com.java.main.models.dtos.MaterialDTO;
 import com.java.main.models.dtos.MeasuredValueDTO;
