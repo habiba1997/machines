@@ -2,6 +2,7 @@ package com.java.main.models;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -17,7 +18,7 @@ import java.io.Serializable;
 @Entity
 @Table(name="material")
 @Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
-@Data
+@Data @NoArgsConstructor
 public class Material  implements Serializable{
 
     @Id
@@ -40,7 +41,6 @@ public class Material  implements Serializable{
     @OneToOne(mappedBy = "material")
     private MeasuredValue measuredValue;
 
-    public Material(){}
     public Material(String name) {
         this.name = name;
     }
