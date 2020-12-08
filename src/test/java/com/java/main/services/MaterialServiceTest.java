@@ -14,23 +14,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.when;
 
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.HashSet;
 import java.util.Set;
 
 
 @ExtendWith(MockitoExtension.class)
-@ExtendWith(SpringExtension.class)
 class MaterialServiceTest {
 
-    @MockBean
+    @Mock
     private MaterialRepository materialRepository;
 
     @Spy

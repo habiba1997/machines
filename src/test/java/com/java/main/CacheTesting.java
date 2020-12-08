@@ -17,7 +17,7 @@ import javax.persistence.EntityManager;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class cacheTesting {
+public class CacheTesting {
 
     @Autowired
     EntityManager entityManager;

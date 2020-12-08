@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,20 +21,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import java.util.HashSet;
 import java.util.Set;
 
 
-//If you are using Junit version < 5, so you have to use @RunWith(SpringRunner.class) or @RunWith(MockitoJUnitRunner.class) etc.
-//If you are using Junit version = 5, so you have to use @ExtendWith(SpringExtension.class) or @ExtendWith(MockitoExtension.class) etc.
 @ExtendWith(MockitoExtension.class)
-@ExtendWith(SpringExtension.class)
 class MachineServiceTest {
 
-    @MockBean
+    @Mock
     private MachineRepository machineRepository;
 
     @Spy

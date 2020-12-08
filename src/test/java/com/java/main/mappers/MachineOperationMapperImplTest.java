@@ -6,9 +6,8 @@ import com.java.main.models.dtos.MachineDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,10 +15,9 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest(classes = { MachineOperationMapperImpl.class })
 class MachineOperationMapperImplTest {
 
-    @Autowired
+    @InjectMocks
     private MachineOperationMapperImpl impl;
 
     Set<Machine> machineSet;
