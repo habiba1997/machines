@@ -1,8 +1,14 @@
 package com.java.main.models.dtos;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.HashSet;
 import java.util.Set;
 
+
+@Data
+@NoArgsConstructor
 public class MaterialDTO {
 
     private int id;
@@ -10,44 +16,11 @@ public class MaterialDTO {
     private Set<OperationDTO> operations = new HashSet<>();
     private MeasuredValueDTO measuredValue;
 
-    public MaterialDTO() {
-    }
 
     public MaterialDTO(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<OperationDTO> getOperations() {
-        return operations;
-    }
-
-    public void setOperations(Set<OperationDTO> operations) {
-        this.operations = operations;
-    }
-
-    public MeasuredValueDTO getMeasuredValue() {
-        return measuredValue;
-    }
-
-    public void setMeasuredValue(MeasuredValueDTO measuredValue) {
-        this.measuredValue = measuredValue;
-    }
 }
 

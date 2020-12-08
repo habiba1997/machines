@@ -1,4 +1,9 @@
 package com.java.main.models;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,6 +12,7 @@ import java.util.Set;
 
 @Table(name="operation")
 @Entity
+@Getter @Setter
 public class Operation {
 
     @Id
@@ -33,33 +39,7 @@ public class Operation {
         this.id = id;
         this.name = name;
     }
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Machine getMachine() {
-        return machine;
-    }
-
-    public void setMachine(Machine machine) {
-        this.machine = machine;
-    }
-
-    public Set<Material> getMaterials() {
-        return materials;
-    }
 
     public void addMaterials(Material material) {
         this.materials.add(material);

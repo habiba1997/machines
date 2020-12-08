@@ -1,6 +1,7 @@
 package com.java.main.models;
 
 
+import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Cache;
@@ -19,6 +20,7 @@ import java.util.Set;
 @Entity
 @Table(name="machine")
 @Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
+@Data
 public class Machine implements Serializable {
 
     @Id
@@ -40,30 +42,6 @@ public class Machine implements Serializable {
     public Machine(int id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Operation> getOperations() {
-        return operations;
-    }
-
-    public void setOperations(Set<Operation> operations) {
-        this.operations = operations;
     }
 
     public void addOperation(Operation operation) {
