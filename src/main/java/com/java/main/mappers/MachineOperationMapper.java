@@ -6,7 +6,9 @@ import com.java.main.models.dtos.MachineDTO;
 import com.java.main.models.dtos.OperationDTO;
 import org.mapstruct.Mapper;
 
-@Mapper
+import java.util.Set;
+
+@Mapper(componentModel = "spring")
 public interface MachineOperationMapper {
 
     Operation dtoToOperation(OperationDTO operationDTO);
@@ -17,5 +19,5 @@ public interface MachineOperationMapper {
 
     MachineDTO machineToDto( Machine machine);
 
-
+    Set<MachineDTO> mapMachineSetToMachineDtoSet(Set<Machine> machineSet);
 }

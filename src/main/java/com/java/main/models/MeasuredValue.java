@@ -1,11 +1,15 @@
 package com.java.main.models;
 
+import lombok.*;
+
 import javax.persistence.*;
 
 @Table(name="measured_value")
 @Entity
+@Data
+@EqualsAndHashCode(of="id")
+@NoArgsConstructor
 public class MeasuredValue {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -21,43 +25,10 @@ public class MeasuredValue {
     @JoinColumn(name="material_id")
     private Material material;
 
-    public MeasuredValue(){}
-    public MeasuredValue(int value, String unit, Material material) {
+    public MeasuredValue(int value, String unit) {
         this.value = value;
         this.unit = unit;
-        this.material = material;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public Material getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
 }
 

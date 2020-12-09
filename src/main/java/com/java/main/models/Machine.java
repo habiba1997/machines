@@ -1,6 +1,8 @@
 package com.java.main.models;
 
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Cache;
@@ -19,6 +21,7 @@ import java.util.Set;
 @Entity
 @Table(name="machine")
 @Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
+@Data @NoArgsConstructor
 public class Machine implements Serializable {
 
     @Id
@@ -32,37 +35,16 @@ public class Machine implements Serializable {
     @OneToMany(mappedBy = "machine")
     private Set<Operation> operations = new HashSet<Operation>();
 
-    public Machine() { }
 
     public Machine(String name) {
         this.name = name;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public Machine(int id, String name) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 
-    public Set<Operation> getOperations() {
-        return operations;
-    }
-
-    public void setOperations(Set<Operation> operations) {
-        this.operations = operations;
-    }
-
-    public void addOperations(Operation operation) {
+    public void addOperation(Operation operation) {
         this.operations.add(operation);
     }
 }

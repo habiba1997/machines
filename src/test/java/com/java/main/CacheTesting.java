@@ -3,8 +3,8 @@ package com.java.main;
 
 import com.java.main.models.Machine;
 import com.java.main.models.Material;
-import com.java.main.repositories.Machine_Repository;
-import com.java.main.repositories.Material_Repository;
+import com.java.main.repositories.MachineRepository;
+import com.java.main.repositories.MaterialRepository;
 import org.hibernate.Session;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,17 +17,17 @@ import javax.persistence.EntityManager;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class cacheTesting {
+public class CacheTesting {
 
     @Autowired
     EntityManager entityManager;
 
 
     @Autowired
-    Machine_Repository machine_repository;
+    MachineRepository machine_repository;
 
     @Autowired
-    Material_Repository material_repository;
+    MaterialRepository material_repository;
 
     @Test
     @Transactional
@@ -39,8 +39,6 @@ public class cacheTesting {
 
         session.evict(machine);
         machine_repository.findById(1);
-
-
     }
 
     @Test
@@ -53,7 +51,5 @@ public class cacheTesting {
 
         session.evict(material);
         material_repository.findById(1);
-
-
     }
 }
