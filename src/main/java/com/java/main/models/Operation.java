@@ -27,7 +27,7 @@ public class Operation {
     private Machine machine;
 
     @JoinColumn(name="material_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Material material;
 
     @Column(name="status")

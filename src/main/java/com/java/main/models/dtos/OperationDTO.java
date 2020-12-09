@@ -12,6 +12,5 @@ import com.java.main.models.Status;
 public class OperationDTO {
     private int id;
     private String name;
-//    private Material material;
     private Status status;
 }

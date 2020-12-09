@@ -29,6 +29,13 @@ public class Controller {
     }
 
     @CrossOrigin
+    @GetMapping(value ="/machines-status" )
+    public ResponseEntity<Set<MachineDTO>> getAllMachinesWithSpecificStatus()
+    {
+        return new ResponseEntity<>(this.machineService.getAllMachinesWithSpecificStatus(), HttpStatus.OK);
+    }
+
+    @CrossOrigin
     @GetMapping(value ="/materials" )
     public ResponseEntity<Set<MaterialDTO>> getAllMaterials()
     {
