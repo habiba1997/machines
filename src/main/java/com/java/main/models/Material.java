@@ -29,17 +29,15 @@ public class Material  implements Serializable{
     @Column(name="name")
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name="materials_operations",
-            joinColumns = @JoinColumn(name="material_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name="operation_id", referencedColumnName = "id")
-    )
+    @OneToMany(mappedBy = "material")
     private Set<Operation> operations= new HashSet<>();
 
 
     @OneToOne(mappedBy = "material")
     private MeasuredValue measuredValue;
+
+    @Column(name="percentage_color")
+    private boolean percentageColor;
 
     public Material(String name) {
         this.name = name;
@@ -48,6 +46,13 @@ public class Material  implements Serializable{
     public Material(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Material(int id, String name, MeasuredValue measuredValue, boolean percentageColor) {
+        this.id = id;
+        this.name = name;
+        this.measuredValue = measuredValue;
+        this.percentageColor = percentageColor;
     }
 
     public void addOperation(Operation operations) {

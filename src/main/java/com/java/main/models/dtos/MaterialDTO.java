@@ -15,6 +15,7 @@ public class MaterialDTO {
     private String name;
     private Set<OperationDTO> operations = new HashSet<>();
     private MeasuredValueDTO measuredValue;
+    private boolean percentageColor;
 
 
     public MaterialDTO(int id, String name) {
@@ -22,5 +23,11 @@ public class MaterialDTO {
         this.name = name;
     }
 
+    public MaterialDTO(int id, String name, MeasuredValueDTO measuredValue, boolean percentageColor) {
+        this.id = id;
+        this.name = name;
+        this.measuredValue = measuredValue;
+        this.percentageColor = percentageColor;
+    }
 }
 

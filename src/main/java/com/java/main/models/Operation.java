@@ -26,9 +26,12 @@ public class Operation {
     @ManyToOne(fetch = FetchType.LAZY)
     private Machine machine;
 
-    @ManyToMany(mappedBy = "operations")
-    private Set<Material> materials = new HashSet<>();
+    @JoinColumn(name="material_id")
+    @ManyToOne
+    private Material material;
 
+    @Column(name="status")
+    private Status status;
 
     public Operation(String name) {
         this.name = name;
@@ -38,7 +41,11 @@ public class Operation {
         this.name = name;
     }
 
-    public void addMaterials(Material material) {
-        this.materials.add(material);
+    public Operation(int id, String name, Material material, Status status) {
+        this.id = id;
+        this.name = name;
+        this.machine = machine;
+        this.material = material;
+        this.status = status;
     }
 }
