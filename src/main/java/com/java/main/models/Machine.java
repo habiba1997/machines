@@ -20,7 +20,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="machine")
-@Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
 @Data @NoArgsConstructor
 public class Machine implements Serializable {
 

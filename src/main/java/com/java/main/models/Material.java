@@ -17,7 +17,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="material")
-@Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
 @Data @NoArgsConstructor
 public class Material  implements Serializable{
 

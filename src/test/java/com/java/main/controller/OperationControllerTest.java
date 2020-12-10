@@ -40,39 +40,55 @@ class OperationControllerTest {
         operationDTOSet = new HashSet<>();
     }
 
-
-
-    @Test
-    public void testGetOperationById() {
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
-
-        Mockito.when(operationService.getOperationById(1))
-                .thenReturn(this.operationDTOWithMaterialMachine);
-
-        ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.getOperationById(1);
-
-        assertEquals(responseEntity.getStatusCodeValue(),200);
-    }
-
-
     @Test
     public void testGettAllOperationsWithSetupAndInOverEndingProductionStatus() {
-
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
 
         Mockito.when(operationService.getAllOperationsWithSetupAndInOverEndingProductionStatus())
                 .thenReturn(this.operationDTOSet);
 
         ResponseEntity<Set<OperationDTO>> responseEntity = controller.getAllOperationsWithSetupAndInOverEndingProductionStatus();
-
         assertEquals(responseEntity.getStatusCodeValue(),200);
+    }
 
 
+    @Test
+    public void testGetOperationById() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+
+        Mockito.when(operationService.getOperationById(1))
+                .thenReturn(this.operationDTOWithMaterialMachine);
+
+        ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.getOperationById(1);
+        assertEquals(responseEntity.getStatusCodeValue(),200);
+    }
+
+
+
+    @Test
+    public void testTogglePercentageColor() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+
+        Mockito.when(operationService.togglePercentageColor(1))
+                .thenReturn(this.operationDTOWithMaterialMachine);
+
+        ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.togglePercentageColor(1);
+        assertEquals(responseEntity.getStatusCodeValue(),200);
+    }
+
+    @Test
+    public void testGetOperationIfSpecificProductionOrder() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+
+        Mockito.when(operationService.getOperationIfWithSetupInOverEndingProductionOrder(1))
+                .thenReturn(this.operationDTOWithMaterialMachine);
+
+        ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.operationIfSpecificProductionOrder(1);
+        assertEquals(responseEntity.getStatusCodeValue(),200);
     }
 
 
