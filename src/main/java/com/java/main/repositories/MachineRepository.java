@@ -17,5 +17,6 @@ public interface MachineRepository extends CrudRepository<Machine, Integer> {
     Set<Machine> findAll();
 
     @Query("select machine from Machine machine left join fetch machine.operations o where  o.status in :statuses")
-    Set<Machine> findMachinesWithSpecifiedProductionOrder(Status[] statuses);
+    Set<Machine> findMachinesWithSpecificProductionOrder(Status[] statuses);
+
 }

@@ -19,5 +19,10 @@ public class MachineDTO {
         this.id = id;
         this.name = name;
     }
+
+    public void addOperation(OperationDTO operationDTO)
+    {
+        operations.add(operationDTO);
+    }
 }
 

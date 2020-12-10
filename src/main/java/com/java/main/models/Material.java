@@ -33,7 +33,7 @@ public class Material  implements Serializable{
     private Set<Operation> operations= new HashSet<>();
 
 
-    @OneToOne(mappedBy = "material")
+    @OneToOne(mappedBy = "material", fetch = FetchType.LAZY)
     private MeasuredValue measuredValue;
 
     @Column(name="percentage_color")

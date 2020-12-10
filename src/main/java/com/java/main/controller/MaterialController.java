@@ -1,8 +1,6 @@
 package com.java.main.controller;
 
-import com.java.main.models.dtos.MachineDTO;
 import com.java.main.models.dtos.MaterialDTO;
-import com.java.main.services.MachineService;
 import com.java.main.services.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,26 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 
 @RestController
-public class Controller {
+public class MaterialController {
 
-    @Autowired
-    private MachineService machineService;
+
     @Autowired
     private MaterialService materialService;
-
-    @CrossOrigin
-    @GetMapping(value ="/machines" )
-    public ResponseEntity<Set<MachineDTO>> getAllMachines()
-    {
-        return new ResponseEntity<>(this.machineService.getAllMachines(), HttpStatus.OK);
-    }
-
-    @CrossOrigin
-    @GetMapping(value ="/machines-status" )
-    public ResponseEntity<Set<MachineDTO>> getAllMachinesWithSpecificStatus()
-    {
-        return new ResponseEntity<>(this.machineService.getAllMachinesWithSpecificStatus(), HttpStatus.OK);
-    }
 
     @CrossOrigin
     @GetMapping(value ="/materials" )
@@ -41,5 +24,4 @@ public class Controller {
     {
         return new ResponseEntity<>(this.materialService.getAllMaterials(), HttpStatus.OK);
     }
-
 }

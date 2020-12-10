@@ -48,4 +48,10 @@ public class Operation {
         this.material = material;
         this.status = status;
     }
+
+    public Operation(int id, String name, Status status) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+    }
 }

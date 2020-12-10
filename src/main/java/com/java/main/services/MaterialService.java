@@ -1,6 +1,6 @@
 package com.java.main.services;
 
-import com.java.main.mappers.MaterialOperationMapper;
+import com.java.main.mappers.MaterialMapper;
 import com.java.main.models.dtos.MaterialDTO;
 import com.java.main.repositories.MaterialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,11 @@ public class MaterialService {
     private MaterialRepository repository;
 
     @Autowired
-    private MaterialOperationMapper mapper;
+    private MaterialMapper mapper;
 
     @Cacheable("materialsList")
     public Set<MaterialDTO> getAllMaterials() {
         return mapper.mapMaterialSetToMaterialDtoSet(repository.findAll());
     }
+
 }

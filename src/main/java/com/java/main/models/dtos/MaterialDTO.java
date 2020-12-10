@@ -29,5 +29,9 @@ public class MaterialDTO {
         this.measuredValue = measuredValue;
         this.percentageColor = percentageColor;
     }
+    public void addOperations(OperationDTO operationDTO)
+    {
+        operations.add(operationDTO);
+    }
 }
 

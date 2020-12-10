@@ -1,6 +1,6 @@
 package com.java.main.services;
 
-import com.java.main.mappers.MaterialOperationMapperImpl;
+import com.java.main.mappers.MaterialMapperImpl;
 import com.java.main.models.Material;
 import com.java.main.models.MeasuredValue;
 import com.java.main.models.Operation;
@@ -32,7 +32,7 @@ class MaterialServiceTest {
     private MaterialRepository materialRepository;
 
     @Spy
-    private MaterialOperationMapperImpl mapper;
+    private MaterialMapperImpl mapper;
 
     @InjectMocks
     private MaterialService materialService;
@@ -64,7 +64,6 @@ class MaterialServiceTest {
 
         Set<MaterialDTO> materialDTOSet = materialService.getAllMaterials();
 
-//        materialDTOSet.forEach(m-> System.out.println(m.getName()));
         assertEquals(1,materialDTOSet.size());
     }
 
