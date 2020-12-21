@@ -18,14 +18,12 @@ public class MachineController {
     private MachineService machineService;
 
 
-    @CrossOrigin
     @GetMapping(value ="/machines" )
     public ResponseEntity<Set<MachineDTO>> getAllMachines()
     {
         return new ResponseEntity<>(this.machineService.getAllMachines(), HttpStatus.OK);
     }
 
-    @CrossOrigin
     @GetMapping(value ="/machines-status" )
     public ResponseEntity<Set<MachineDTO>> getAllMachinesSpecificProductionOrder()
     {

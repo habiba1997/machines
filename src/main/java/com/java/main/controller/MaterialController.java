@@ -18,7 +18,6 @@ public class MaterialController {
     @Autowired
     private MaterialService materialService;
 
-    @CrossOrigin
     @GetMapping(value ="/materials" )
     public ResponseEntity<Set<MaterialDTO>> getAllMaterials()
     {
