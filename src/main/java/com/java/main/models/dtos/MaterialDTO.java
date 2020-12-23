@@ -29,6 +29,12 @@ public class MaterialDTO {
         this.measuredValue = measuredValue;
         this.percentageColor = percentageColor;
     }
+
+    public MaterialDTO(int id, String name, MeasuredValueDTO measuredValue) {
+        this.id = id;
+        this.name = name;
+        this.measuredValue = measuredValue;
+    }
     public void addOperations(OperationDTO operationDTO)
     {
         operations.add(operationDTO);

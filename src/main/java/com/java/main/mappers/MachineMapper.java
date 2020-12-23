@@ -9,12 +9,10 @@ import org.mapstruct.*;
 import java.util.Set;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(uses = {OperationMapper.class}, componentModel = "spring")
 public interface MachineMapper {
 
     MachineDTO machineToDto( Machine machine);
-
-    OperationDTO operationToDto(Operation operation);
 
     Set<MachineDTO> mapMachineSetToMachineDtoSet(Set<Machine> machineSet);
 }

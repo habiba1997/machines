@@ -1,10 +1,11 @@
 package com.java.main.services;
 
-import com.java.main.mappers.MaterialMapperImpl;
+import com.java.main.mappers.MaterialMapper;
 import com.java.main.models.Material;
 import com.java.main.models.MeasuredValue;
 import com.java.main.models.Operation;
 import com.java.main.models.dtos.MaterialDTO;
+import com.java.main.models.dtos.MeasuredValueDTO;
 import com.java.main.repositories.MaterialRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -31,36 +32,41 @@ class MaterialServiceTest {
     @Mock
     private MaterialRepository materialRepository;
 
-    @Spy
-    private MaterialMapperImpl mapper;
+    @Mock
+    private MaterialMapper mapper;
 
     @InjectMocks
     private MaterialService materialService;
 
     Set<Material> materialSet;
+    Set<MaterialDTO> materialDTOSet;
 
+    Material material1;
 
     @BeforeEach
     void setUp() {
         this.materialSet = new HashSet<>();
+        materialDTOSet = new HashSet<>();
 
-        Material material1 = new Material(1,"Plastic");
+        material1 = new Material(1,"Plastic");
         material1.addOperation(new Operation(1,"operation1"));
         material1.addOperation(new Operation(2,"operation2"));
         material1.setMeasuredValue(new MeasuredValue(10,"kilo"));
 
         materialSet.add(material1);
+
+        materialDTOSet.add(new MaterialDTO(1,"Plastic", new MeasuredValueDTO(10,"kilo")));
+
     }
 
 
     @Test
     @DisplayName("Testing getting machine joining operations list with dummy values")
     public void testGetMachineListFilled() {
-
         Mockito.when(materialRepository.findAll())
                 .thenReturn(this.materialSet);
 
-        when(mapper.mapMaterialSetToMaterialDtoSet(this.materialSet)).thenCallRealMethod();
+        when(mapper.mapMaterialSetToMaterialDtoSet(this.materialSet)).thenReturn(materialDTOSet);
 
         Set<MaterialDTO> materialDTOSet = materialService.getAllMaterials();
 
