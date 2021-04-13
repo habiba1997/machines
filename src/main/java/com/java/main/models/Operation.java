@@ -10,8 +10,10 @@ import java.util.Set;
 @Table(name="operation")
 @Entity
 @Data
+@Builder
 @EqualsAndHashCode(of="id")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Operation {
 
     @Id

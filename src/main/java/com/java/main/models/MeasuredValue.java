@@ -7,6 +7,8 @@ import javax.persistence.*;
 @Table(name="measured_value")
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
 @EqualsAndHashCode(of="id")
 @NoArgsConstructor
 public class MeasuredValue {

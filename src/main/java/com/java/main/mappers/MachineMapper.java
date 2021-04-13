@@ -1,9 +1,7 @@
 package com.java.main.mappers;
 
 import com.java.main.models.Machine;
-import com.java.main.models.Operation;
 import com.java.main.models.dtos.MachineDTO;
-import com.java.main.models.dtos.OperationDTO;
 import org.mapstruct.*;
 
 import java.util.Set;

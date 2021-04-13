@@ -1,6 +1,8 @@
 package com.java.main.models;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Fetch;
@@ -19,9 +21,12 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
+@Builder
 @Table(name="machine")
 @Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Machine implements Serializable {
 
     @Id
@@ -43,6 +48,8 @@ public class Machine implements Serializable {
         this.id = id;
         this.name = name;
     }
+
+
 
     public void addOperation(Operation operation) {
         this.operations.add(operation);

@@ -1,6 +1,8 @@
 package com.java.main.models;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Fetch;
@@ -16,9 +18,11 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import java.io.Serializable;
 
 @Entity
+@Builder
 @Table(name="material")
 @Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
 @Data @NoArgsConstructor
+@AllArgsConstructor
 public class Material  implements Serializable{
 
     @Id
@@ -55,8 +59,8 @@ public class Material  implements Serializable{
         this.percentageColor = percentageColor;
     }
 
-    public void addOperation(Operation operations) {
-        this.operations.add(operations);
+    public void addOperation(Operation operation) {
+        this.operations.add(operation);
     }
 }
 
