@@ -1,15 +1,16 @@
 package com.java.main.controller;
 
-import com.java.main.event.EventPublisher;
-import com.java.main.models.dtos.MachineDTO;
-import com.java.main.services.MachineService;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Set;
+import com.java.main.event.EventPublisher;
+import com.java.main.models.dtos.MachineDTO;
+import com.java.main.services.MachineService;
 
 @RestController
 public class MachineController {

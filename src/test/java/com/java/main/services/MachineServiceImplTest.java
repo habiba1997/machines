@@ -1,5 +1,21 @@
 package com.java.main.services;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.when;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import com.java.main.mappers.MachineMapper;
 import com.java.main.models.Machine;
 import com.java.main.models.Operation;
@@ -8,26 +24,9 @@ import com.java.main.models.dtos.MachineDTO;
 import com.java.main.models.dtos.OperationDTO;
 import com.java.main.repositories.MachineRepository;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-
-
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-
-import java.util.HashSet;
-import java.util.Set;
-
 
 @ExtendWith(MockitoExtension.class)
-class MachineServiceTest {
+class MachineServiceImplTest {
 
     @Mock
     private MachineRepository machineRepository;
@@ -36,7 +35,7 @@ class MachineServiceTest {
     private MachineMapper mapper;
 
     @InjectMocks
-    private MachineService machineService;
+	private MachineServiceImpl machineServiceImpl;
 
     Set<Machine> machineSet;
     Set<MachineDTO> machineDTOSet;
@@ -80,7 +79,7 @@ class MachineServiceTest {
 
         Mockito.when(mapper.mapMachineSetToMachineDtoSet(this.machineSet)).thenReturn(machineDTOSet);
 
-        Set<MachineDTO> machineList = machineService.getAllMachines();
+		Set<MachineDTO> machineList = machineServiceImpl.getAllMachines();
 
         assertEquals(2,machineList.size());
         assertFalse(machineList.isEmpty());
@@ -97,7 +96,7 @@ class MachineServiceTest {
 
         when(mapper.mapMachineSetToMachineDtoSet(this.machineSet)).thenReturn(machineDTOSet);
 
-        Set<MachineDTO> machineList = machineService.getAllMachinesWithSetupAndInOverEndingProductionStatus();
+		Set<MachineDTO> machineList = machineServiceImpl.getAllMachinesWithSetupAndInOverEndingProductionStatus();
 
         assertEquals(2,machineList.size());
         assertFalse(machineList.isEmpty());

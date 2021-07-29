@@ -1,9 +1,11 @@
 package com.java.main.controller;
 
-import com.java.main.models.Status;
-import com.java.main.models.dtos.MachineDTO;
-import com.java.main.models.dtos.OperationDTO;
-import com.java.main.services.MachineService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,20 +18,23 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
+import com.java.main.event.EventPublisher;
+import com.java.main.models.Status;
+import com.java.main.models.dtos.MachineDTO;
+import com.java.main.models.dtos.OperationDTO;
+import com.java.main.services.MachineServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class MachineControllerTest {
 
     @Mock
-    private MachineService machineService;
+	private MachineServiceImpl machineServiceImpl;
 
     @InjectMocks
     private MachineController controller;
 
+	@Mock
+	private EventPublisher eventPublisher;
 
     Set<MachineDTO> machineDTOSet;
 
@@ -60,7 +65,7 @@ class MachineControllerTest {
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
 
-        Mockito.when(machineService.getAllMachines())
+		Mockito.when(machineServiceImpl.getAllMachines())
                 .thenReturn(this.machineDTOSet);
 
         ResponseEntity<Set<MachineDTO>> responseEntity = controller.getAllMachines();
@@ -80,7 +85,7 @@ class MachineControllerTest {
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
 
-        Mockito.when(machineService.getAllMachinesWithSetupAndInOverEndingProductionStatus())
+		Mockito.when(machineServiceImpl.getAllMachinesWithSetupAndInOverEndingProductionStatus())
                 .thenReturn(this.machineDTOSet);
 
         ResponseEntity<Set<MachineDTO>> responseEntity = controller.getAllMachinesSpecificProductionOrder();

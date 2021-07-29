@@ -1,8 +1,10 @@
 package com.java.main.controller;
 
-import com.java.main.models.dtos.OperationDTO;
-import com.java.main.models.dtos.operation.OperationDTOWithMaterialMachine;
-import com.java.main.services.OperationService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,16 +17,15 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
+import com.java.main.models.dtos.OperationDTO;
+import com.java.main.models.dtos.operation.OperationDTOWithMaterialMachine;
+import com.java.main.services.OperationServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class OperationControllerTest {
 
     @Mock
-    private OperationService operationService;
+	private OperationServiceImpl operationServiceImpl;
 
     @InjectMocks
     private OperationController controller;
@@ -41,11 +42,11 @@ class OperationControllerTest {
     }
 
     @Test
-    public void testGettAllOperationsWithSetupAndInOverEndingProductionStatus() {
+	public void testGetAllOperationsWithSetupAndInOverEndingProductionStatus() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
-        Mockito.when(operationService.getAllOperationsWithSetupAndInOverEndingProductionStatus())
+		Mockito.when(operationServiceImpl.getAllOperationsWithSetupAndInOverEndingProductionStatus())
                 .thenReturn(this.operationDTOSet);
 
         ResponseEntity<Set<OperationDTO>> responseEntity = controller.getAllOperationsWithSetupAndInOverEndingProductionStatus();
@@ -58,7 +59,7 @@ class OperationControllerTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
-        Mockito.when(operationService.getOperationById(1))
+		Mockito.when(operationServiceImpl.getOperationById(1))
                 .thenReturn(this.operationDTOWithMaterialMachine);
 
         ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.getOperationById(1);
@@ -72,7 +73,7 @@ class OperationControllerTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
-        Mockito.when(operationService.togglePercentageColor(1))
+		Mockito.when(operationServiceImpl.togglePercentageColor(1))
                 .thenReturn(this.operationDTOWithMaterialMachine);
 
         ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.togglePercentageColor(1);
@@ -84,7 +85,7 @@ class OperationControllerTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
-        Mockito.when(operationService.getOperationIfWithSetupInOverEndingProductionOrder(1))
+		Mockito.when(operationServiceImpl.getOperationIfWithSetupInOverEndingProductionOrder(1))
                 .thenReturn(this.operationDTOWithMaterialMachine);
 
         ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.operationIfSpecificProductionOrder(1);
