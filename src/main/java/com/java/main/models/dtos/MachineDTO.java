@@ -1,28 +1,28 @@
 package com.java.main.models.dtos;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class MachineDTO {
-    private int id;
-    private String name;
-    private Set<OperationDTO> operations = new HashSet<>();
+	private int id;
+	private String name;
+	private Set<OperationDTO> operations = new HashSet<>();
 
+	public MachineDTO(final int id, final String name) {
+		this.id = id;
+		this.name = name;
+	}
 
-    public MachineDTO(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public void addOperation(OperationDTO operationDTO)
-    {
-        operations.add(operationDTO);
-    }
+	public void addOperation(final OperationDTO operationDTO) {
+		operations.add(operationDTO);
+	}
 }
-

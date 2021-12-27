@@ -23,52 +23,49 @@ import com.java.main.models.dtos.MaterialDTO;
 import com.java.main.models.dtos.MeasuredValueDTO;
 import com.java.main.repositories.MaterialRepository;
 
-
 @ExtendWith(MockitoExtension.class)
 class MaterialServiceImplTest {
 
-    @Mock
-    private MaterialRepository materialRepository;
+	@Mock
+	private MaterialRepository materialRepository;
 
-    @Mock
-    private MaterialMapper mapper;
+	@Mock
+	private MaterialMapper mapper;
 
-    @InjectMocks
+	@InjectMocks
 	private MaterialServiceImpl materialServiceImpl;
 
-    Set<Material> materialSet;
-    Set<MaterialDTO> materialDTOSet;
+	Set<Material> materialSet;
+	Set<MaterialDTO> materialDTOSet;
 
-    Material material1;
+	Material material1;
 
-    @BeforeEach
-    void setUp() {
-        this.materialSet = new HashSet<>();
-        materialDTOSet = new HashSet<>();
+	@BeforeEach
+	void setUp() {
+		this.materialSet = new HashSet<>();
+		materialDTOSet = new HashSet<>();
 
-        material1 = new Material(1,"Plastic");
-        material1.addOperation(new Operation(1,"operation1"));
-        material1.addOperation(new Operation(2,"operation2"));
-        material1.setMeasuredValue(new MeasuredValue(10,"kilo"));
+		material1 = Material.builder().id(1).name("Plastic").build();
+		material1.addOperation(Operation.builder().id(1).name("operation1").build());
+		material1.addOperation(Operation.builder().id(2).name("operation2").build());
+		material1.setMeasuredValue(new MeasuredValue(10, "kilo"));
 
-        materialSet.add(material1);
+		materialSet.add(material1);
+		materialDTOSet.add(MaterialDTO.builder().id(1).name("Plastic").measuredValue(new MeasuredValueDTO(10, "kilo")).build());
 
-        materialDTOSet.add(new MaterialDTO(1,"Plastic", new MeasuredValueDTO(10,"kilo")));
+	}
 
-    }
+	@Test
+	@DisplayName("Testing getting machine joining operations list with dummy values")
+	public void testGetMachineListFilled() {
+		Mockito.when(materialRepository.findAll())
+				.thenReturn(this.materialSet);
 
+		when(mapper.mapMaterialSetToMaterialDtoSet(this.materialSet)).thenReturn(materialDTOSet);
 
-    @Test
-    @DisplayName("Testing getting machine joining operations list with dummy values")
-    public void testGetMachineListFilled() {
-        Mockito.when(materialRepository.findAll())
-                .thenReturn(this.materialSet);
+		materialDTOSet = materialServiceImpl.getAllMaterials();
 
-        when(mapper.mapMaterialSetToMaterialDtoSet(this.materialSet)).thenReturn(materialDTOSet);
-
-		Set<MaterialDTO> materialDTOSet = materialServiceImpl.getAllMaterials();
-
-        assertEquals(1,materialDTOSet.size());
-    }
+		assertEquals(1, materialDTOSet.size());
+	}
 
 }

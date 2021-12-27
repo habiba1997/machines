@@ -27,7 +27,7 @@ public class MachineServiceImpl implements MachineService {
 
 	@Cacheable("machineSpecifiedProductionOrder")
 	public Set<MachineDTO> getAllMachinesWithSetupAndInOverEndingProductionStatus() {
-		Status[] statuses = new Status[] { Status.setup, Status.in_production, Status.over_production, Status.ending_production };
+		Status[] statuses = new Status[] { Status.SETUP, Status.IN_PRODUCTION, Status.OVER_PRODUCTION, Status.ENDING_PRODUCTION };
 		return mapper.mapMachineSetToMachineDtoSet(repository.findMachinesWithSpecificProductionOrder(statuses));
 	}
 

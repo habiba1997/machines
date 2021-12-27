@@ -1,36 +1,34 @@
 package com.java.main.models;
 
-import lombok.*;
-
 import javax.persistence.*;
 
-@Table(name="measured_value")
+import lombok.*;
+
+@Table(name = "measured_value")
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 public class MeasuredValue {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
 
-    @Column(name="value")
-    private int value;
+	@Column(name = "value")
+	private int value;
 
-    @Column(name="unit")
-    private String unit;
+	@Column(name = "unit")
+	private String unit;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="material_id")
-    private Material material;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "material_id")
+	private Material material;
 
-    public MeasuredValue(int value, String unit) {
-        this.value = value;
-        this.unit = unit;
-    }
-
+	public MeasuredValue(final int value, final String unit) {
+		this.value = value;
+		this.unit = unit;
+	}
 }
-

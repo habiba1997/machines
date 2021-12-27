@@ -15,7 +15,7 @@ class VolatileData {
 class VolatileThread extends Thread {
 	private final VolatileData data;
 
-	public VolatileThread(VolatileData data) {
+	VolatileThread(final VolatileData data) {
 		this.data = data;
 	}
 
@@ -31,16 +31,19 @@ class VolatileThread extends Thread {
 
 public class VolatileMain {
 
-	private final static int noOfThreads = 2;
+	private static final int NO_OF_THREADS = 2;
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(final String[] args) throws InterruptedException {
 		VolatileData volatileData = new VolatileData(); // object of VolatileData class
-		Thread[] threads = new Thread[noOfThreads]; // creating Thread array
-		for (int i = 0; i < noOfThreads; ++i)
+		Thread[] threads = new Thread[NO_OF_THREADS]; // creating Thread array
+		for (int i = 0; i < NO_OF_THREADS; ++i) {
 			threads[i] = new VolatileThread(volatileData);
-		for (int i = 0; i < noOfThreads; ++i)
+		}
+		for (int i = 0; i < NO_OF_THREADS; ++i) {
 			threads[i].start(); // starts all reader threads
-		for (int i = 0; i < noOfThreads; ++i)
+		}
+		for (int i = 0; i < NO_OF_THREADS; ++i) {
 			threads[i].join(); // wait for all threads
+		}
 	}
 }

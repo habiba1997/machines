@@ -16,22 +16,22 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Builder
-@Table(name="machine")
-@Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
+@Table(name = "machine")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Machine implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
 
-    @Column(name="name")
-    private String name;
+	@Column(name = "name")
+	private String name;
 
-    @OneToMany(mappedBy = "machine")
+	@OneToMany(mappedBy = "machine")
 	private Set<Operation> operations = new HashSet<>();
 
 	// used to test GlobalRepositoryJPATest
@@ -43,40 +43,7 @@ public class Machine implements Serializable {
 	 * public void setYalaAy7aga(Long yalaAy7aga) { this.yalaAy7aga = yalaAy7aga; }
 	 */
 
-    public Machine(String name) {
-        this.name = name;
-    }
-    public Machine(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-	public int getId() {
-		return id;
+	public void addOperation(final Operation operation) {
+		this.operations.add(operation);
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Set<Operation> getOperations() {
-		return operations;
-	}
-
-	public void setOperations(Set<Operation> operations) {
-		this.operations = operations;
-	}
-
-    public void addOperation(Operation operation) {
-        this.operations.add(operation);
-    }
 }
-

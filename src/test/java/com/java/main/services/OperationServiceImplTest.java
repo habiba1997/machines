@@ -20,7 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.java.main.error.ConflictException;
 import com.java.main.error.NotFoundException;
-import com.java.main.mappers.OperationMapperImpl;
+import com.java.main.mappers.OperationMapper;
 import com.java.main.models.Material;
 import com.java.main.models.MeasuredValue;
 import com.java.main.models.Operation;
@@ -30,123 +30,117 @@ import com.java.main.models.dtos.operation.OperationDTOWithMaterialMachine;
 import com.java.main.repositories.MaterialRepository;
 import com.java.main.repositories.OperationRepository;
 
-
 @ExtendWith(MockitoExtension.class)
 class OperationServiceImplTest {
 
-    @Mock
-    private OperationRepository operationRepository;
+	@Mock
+	private OperationRepository operationRepository;
 
-    @Spy
-    private OperationMapperImpl mapper;
+	@Spy
+	private OperationMapper mapper;
 
-    @InjectMocks
+	@InjectMocks
 	private OperationServiceImpl operationServiceImpl;
 
-    @Mock
-    private MaterialRepository materialRepository;
+	@Mock
+	private MaterialRepository materialRepository;
 
+	Status[] statuses;
+	Operation operation;
+	Operation operationWithSetupStatus;
 
-    Status[] statuses;
-    Operation operation;
-    Operation operationWithSetupStatus;
+	Set<Operation> operationSet;
 
-    Set<Operation> operationSet;
-    @BeforeEach
-    public void setup(){
-        statuses = new Status[]{Status.setup, Status.in_production, Status.over_production, Status.ending_production};
-        operation = new Operation(1,"store", Status.planned);
+	@BeforeEach
+	public void setup() {
+		statuses = new Status[] { Status.SETUP, Status.IN_PRODUCTION, Status.OVER_PRODUCTION, Status.ENDING_PRODUCTION };
+		operation = Operation.builder().id(1).name("store").status(Status.PLANNED).build();
 
-        operationWithSetupStatus = new Operation(1,"label", Status.setup);
-        operationWithSetupStatus.setMaterial(new Material(1,"plastic",
-                new MeasuredValue(10,"kilo"),false));
+		operationWithSetupStatus = Operation.builder().id(1).name("label").status(Status.SETUP).build();
+		operationWithSetupStatus.setMaterial(Material.builder().id(1).name("plastic").measuredValue(new MeasuredValue(10, "kilo")).percentageColor(false).build());
 
-        operationSet = new HashSet<>();
-        operationSet.add(new Operation(1,"store", Status.ending_production));
+		operationSet = new HashSet<>();
+		operationSet.add(Operation.builder().id(1).name("store").status(Status.ENDING_PRODUCTION).build());
+	}
 
-    }
+	@Test
+	public void testFindOperationByStatusIn() {
+		Mockito.when(operationRepository.findByStatusIn(statuses))
+				.thenReturn(this.operationSet);
 
-    @Test
-    public void testFindOperationByStatusIn() {
-        Mockito.when(operationRepository.findByStatusIn(statuses))
-                .thenReturn(this.operationSet);
+		when(mapper.mapOperationsTOSetOfOperationDTOWithMaterialMachine(this.operationSet)).thenCallRealMethod();
 
-        when(mapper.mapOperationsTOSetOfOperationDTOWithMaterialMachine(this.operationSet)).thenCallRealMethod();
+		Set<OperationDTO> operationDTOSSet = operationServiceImpl.getAllOperationsWithSetupAndInOverEndingProductionStatus();
+		assertEquals(1, operationDTOSSet.size());
+		assertFalse(operationDTOSSet.isEmpty());
+	}
 
-		Set<OperationDTO> operationSet = operationServiceImpl.getAllOperationsWithSetupAndInOverEndingProductionStatus();
-        assertEquals(1,operationSet.size());
-        assertFalse(operationSet.isEmpty());
-    }
+	@Test
+	public void testGetOperationById() {
+		Mockito.when(operationRepository.findOperationById(1))
+				.thenReturn(this.operation);
 
-    @Test
-    public void testGetOperationById() {
-        Mockito.when(operationRepository.findOperationById(1))
-                .thenReturn(this.operation);
-
-        when(mapper.operationToOperationDTOWithMaterialMachine(this.operation)).thenCallRealMethod();
+		when(mapper.operationToOperationDTOWithMaterialMachine(this.operation)).thenCallRealMethod();
 
 		OperationDTOWithMaterialMachine actualResponse = operationServiceImpl.getOperationById(1);
 
-        assertEquals(actualResponse.getName(),"store");
-    }
+		assertEquals(actualResponse.getName(), "store");
+	}
 
-    @Test
-    public void testNotFoundExceptionThrown() {
-        Mockito.when(operationRepository.findOperationById(1))
-                .thenReturn(null);
+	@Test
+	public void testNotFoundExceptionThrown() {
+		Mockito.when(operationRepository.findOperationById(1))
+				.thenReturn(null);
 
 		assertThatThrownBy(() -> operationServiceImpl.getOperationById(1))
-                .isInstanceOf(NotFoundException.class)
-                .hasMessageContaining("Operation required doesn't exist");
+				.isInstanceOf(NotFoundException.class)
+				.hasMessageContaining("Operation required doesn't exist");
 
-    }
+	}
 
-    @Test
-    public void testGetOperationIfWithSetupInOverEndingProductionOrder() {
-        Mockito.when(operationRepository.findOperationById(1))
-                .thenReturn(operationWithSetupStatus);
+	@Test
+	public void testGetOperationIfWithSetupInOverEndingProductionOrder() {
+		Mockito.when(operationRepository.findOperationById(1))
+				.thenReturn(operationWithSetupStatus);
 
 		OperationDTOWithMaterialMachine actualResponse = operationServiceImpl.getOperationIfWithSetupInOverEndingProductionOrder(1);
 
-        assertEquals(actualResponse.getName(),"label");
-    }
+		assertEquals(actualResponse.getName(), "label");
+	}
 
-
-    @Test
-    public void testGetOperationThrowsConflictException() {
-        Mockito.when(operationRepository.findOperationById(1))
-                .thenReturn(operation);
+	@Test
+	public void testGetOperationThrowsConflictException() {
+		Mockito.when(operationRepository.findOperationById(1))
+				.thenReturn(operation);
 
 		assertThatThrownBy(() -> operationServiceImpl.getOperationIfWithSetupInOverEndingProductionOrder(1))
-                .isInstanceOf(ConflictException.class)
-                .hasMessageContaining("No production order step is running on this machine");
+				.isInstanceOf(ConflictException.class)
+				.hasMessageContaining("No production order step is running on this machine");
 
-    }
+	}
 
-    @Test
-    public void testTogglePercentageColor() {
-        Mockito.when(operationRepository.findOperationById(1))
-                .thenReturn(operationWithSetupStatus);
+	@Test
+	public void testTogglePercentageColor() {
+		Mockito.when(operationRepository.findOperationById(1))
+				.thenReturn(operationWithSetupStatus);
 
-        Mockito.when(materialRepository.save(operationWithSetupStatus.getMaterial()))
-                .thenReturn(operationWithSetupStatus.getMaterial());
+		Mockito.when(materialRepository.save(operationWithSetupStatus.getMaterial()))
+				.thenReturn(operationWithSetupStatus.getMaterial());
 
 		OperationDTOWithMaterialMachine actualResponse = operationServiceImpl.togglePercentageColor(1);
 
-        assertTrue(actualResponse.getMaterial().isPercentageColor());
-    }
+		assertTrue(actualResponse.getMaterial().isPercentageColor());
+	}
 
-
-    @Test
-    public void testTogglePercentageColorWithConflict() {
-        Mockito.when(operationRepository.findOperationById(1))
-                .thenReturn(operation);
+	@Test
+	public void testTogglePercentageColorWithConflict() {
+		Mockito.when(operationRepository.findOperationById(1))
+				.thenReturn(operation);
 
 		assertThatThrownBy(() -> operationServiceImpl.togglePercentageColor(1))
-                .isInstanceOf(ConflictException.class)
-                .hasMessageContaining("No production order step is running on this machine");
-    }
-
+				.isInstanceOf(ConflictException.class)
+				.hasMessageContaining("No production order step is running on this machine");
+	}
 
 	@Test
 	public void testArrayList() {
@@ -155,7 +149,5 @@ class OperationServiceImplTest {
 		list.add(1);
 		assertEquals(list.size(), 5);
 	}
-
-
 
 }

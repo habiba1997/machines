@@ -24,83 +24,78 @@ import com.java.main.models.dtos.MachineDTO;
 import com.java.main.models.dtos.OperationDTO;
 import com.java.main.repositories.MachineRepository;
 
-
 @ExtendWith(MockitoExtension.class)
 class MachineServiceImplTest {
 
-    @Mock
-    private MachineRepository machineRepository;
+	@Mock
+	private MachineRepository machineRepository;
 
-    @Mock
-    private MachineMapper mapper;
+	@Mock
+	private MachineMapper mapper;
 
-    @InjectMocks
+	@InjectMocks
 	private MachineServiceImpl machineServiceImpl;
 
-    Set<Machine> machineSet;
-    Set<MachineDTO> machineDTOSet;
+	Set<Machine> machineSet;
+	Set<MachineDTO> machineDTOSet;
 
+	@BeforeEach
+	public void setup() {
+		this.machineSet = new HashSet<>();
 
-    @BeforeEach
-    public void setup(){
-        this.machineSet = new HashSet<>();
+		Machine machine1 = Machine.builder().id(1).name("machine1").build();
+		machine1.addOperation(Operation.builder().id(1).name("operation1").status(Status.SETUP).build());
+		machine1.addOperation(Operation.builder().id(2).name("operation2").status(Status.ENDING_PRODUCTION).build());
+		Machine machine2 = Machine.builder().id(2).name("machine2").build();
+		machine2.addOperation(Operation.builder().id(3).name("operation3").status(Status.IN_PRODUCTION).build());
+		machine2.addOperation(Operation.builder().id(4).name("operation4").status(Status.OVER_PRODUCTION).build());
 
-        Machine machine1 = new Machine(1,"machine1");
-        machine1.addOperation(new Operation(1,"operation1", Status.setup));
-        machine1.addOperation(new Operation(2, "operation2", Status.ending_production));
-        Machine machine2 = new Machine(2,"machine2");
-        machine2.addOperation(new Operation(3,"operation3", Status.in_production));
-        machine2.addOperation(new Operation(4,"operation5", Status.over_production));
+		this.machineSet.add(machine1);
+		this.machineSet.add(machine2);
 
-        this.machineSet.add(machine1);
-        this.machineSet.add(machine2);
+		this.machineDTOSet = new HashSet<>();
 
+		MachineDTO machineDTO1 = new MachineDTO(1, "machine1");
+		machineDTO1.addOperation(new OperationDTO(1, "operation1", Status.SETUP));
+		machineDTO1.addOperation(new OperationDTO(2, "operation2", Status.ENDING_PRODUCTION));
 
-        this.machineDTOSet = new HashSet<>();
+		MachineDTO machineDTO2 = new MachineDTO(2, "machine2");
+		machineDTO2.addOperation(new OperationDTO(3, "operation3", Status.IN_PRODUCTION));
+		machineDTO2.addOperation(new OperationDTO(4, "operation5", Status.OVER_PRODUCTION));
 
-        MachineDTO machineDTO1 = new MachineDTO(1,"machine1");
-        machineDTO1.addOperation(new OperationDTO(1,"operation1", Status.setup));
-        machineDTO1.addOperation(new OperationDTO(2, "operation2",Status.ending_production));
+		this.machineDTOSet.add(machineDTO1);
+		this.machineDTOSet.add(machineDTO2);
+	}
 
-        MachineDTO machineDTO2 = new MachineDTO(2,"machine2");
-        machineDTO2.addOperation(new OperationDTO(3,"operation3", Status.in_production));
-        machineDTO2.addOperation(new OperationDTO(4,"operation5", Status.over_production));
+	@Test
+	@DisplayName("Testing getting machine joining operations list with dummy values")
+	public void testGetMachineListFilled() {
 
+		Mockito.when(machineRepository.findAll()).thenReturn(this.machineSet);
 
-        this.machineDTOSet.add(machineDTO1);
-        this.machineDTOSet.add(machineDTO2);
-    }
-
-    @Test
-    @DisplayName("Testing getting machine joining operations list with dummy values")
-    public void testGetMachineListFilled() {
-
-        Mockito.when(machineRepository.findAll()).thenReturn(this.machineSet);
-
-        Mockito.when(mapper.mapMachineSetToMachineDtoSet(this.machineSet)).thenReturn(machineDTOSet);
+		Mockito.when(mapper.mapMachineSetToMachineDtoSet(this.machineSet)).thenReturn(machineDTOSet);
 
 		Set<MachineDTO> machineList = machineServiceImpl.getAllMachines();
 
-        assertEquals(2,machineList.size());
-        assertFalse(machineList.isEmpty());
-    }
+		assertEquals(2, machineList.size());
+		assertFalse(machineList.isEmpty());
+	}
 
-    @Test
-    @DisplayName("Testing getting machines With Setup And In, Over and Ending Production Status")
-    public void testGetAllMachinesWithSetupAndInOverEndingProductionStatus() {
+	@Test
+	@DisplayName("Testing getting machines With Setup And In, Over and Ending Production Status")
+	public void testGetAllMachinesWithSetupAndInOverEndingProductionStatus() {
 
-        Status[] statuses = new Status[]{Status.setup, Status.in_production, Status.over_production, Status.ending_production};
+		Status[] statuses = new Status[] { Status.SETUP, Status.IN_PRODUCTION, Status.OVER_PRODUCTION, Status.ENDING_PRODUCTION };
 
-        Mockito.when(machineRepository.findMachinesWithSpecificProductionOrder(statuses))
-                .thenReturn(this.machineSet);
+		Mockito.when(machineRepository.findMachinesWithSpecificProductionOrder(statuses))
+				.thenReturn(this.machineSet);
 
-        when(mapper.mapMachineSetToMachineDtoSet(this.machineSet)).thenReturn(machineDTOSet);
+		when(mapper.mapMachineSetToMachineDtoSet(this.machineSet)).thenReturn(machineDTOSet);
 
 		Set<MachineDTO> machineList = machineServiceImpl.getAllMachinesWithSetupAndInOverEndingProductionStatus();
 
-        assertEquals(2,machineList.size());
-        assertFalse(machineList.isEmpty());
-    }
-
+		assertEquals(2, machineList.size());
+		assertFalse(machineList.isEmpty());
+	}
 
 }

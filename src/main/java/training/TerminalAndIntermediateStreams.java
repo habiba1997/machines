@@ -4,11 +4,13 @@ import java.util.stream.IntStream;
 
 public class TerminalAndIntermediateStreams {
 
-	public static void main(String[] args) {
+	public static final int FINAL = 3;
+
+	public static void main(final String[] args) {
 		int[] holder = new int[] { 2 };
 		System.out.println("hello");
 		try (IntStream sums = IntStream
-				.of(1, 2, 3)
+				.of(1, 2, FINAL)
 				.map(val -> val + holder[0])) {
 
 			System.out.println("hello2");

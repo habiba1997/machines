@@ -27,73 +27,65 @@ import com.java.main.services.MachineServiceImpl;
 @ExtendWith(MockitoExtension.class)
 class MachineControllerTest {
 
-    @Mock
+	@Mock
 	private MachineServiceImpl machineServiceImpl;
 
-    @InjectMocks
-    private MachineController controller;
+	@InjectMocks
+	private MachineController controller;
 
 	@Mock
 	private EventPublisher eventPublisher;
 
-    Set<MachineDTO> machineDTOSet;
+	Set<MachineDTO> machineDTOSet;
 
+	@BeforeEach
+	void setUp() {
+		this.machineDTOSet = new HashSet<>();
 
-    @BeforeEach
-    void setUp() {
-        this.machineDTOSet = new HashSet<>();
+		MachineDTO machine1 = new MachineDTO(1, "machine1");
+		machine1.addOperation(new OperationDTO(1, "operation1", Status.SETUP));
+		machine1.addOperation(new OperationDTO(1, "operation1", Status.ARCHIVE));
 
-        MachineDTO machine1 = new MachineDTO(1,"machine1");
-        machine1.addOperation(new OperationDTO(1,"operation1", Status.setup));
-        machine1.addOperation(new OperationDTO(1,"operation1", Status.archive));
+		MachineDTO machine2 = new MachineDTO(2, "machine2");
+		machine2.addOperation(new OperationDTO(1, "operation1", Status.IN_PRODUCTION));
+		machine2.addOperation(new OperationDTO(1, "operation1", Status.OVER_PRODUCTION));
 
-        MachineDTO machine2 = new MachineDTO(2,"machine2");
-        machine2.addOperation(new OperationDTO(1,"operation1", Status.in_production));
-        machine2.addOperation(new OperationDTO(1,"operation1", Status.over_production));
+		this.machineDTOSet.add(machine1);
+		this.machineDTOSet.add(machine2);
+	}
 
+	@Test
+	public void testGetMachinesUrl() {
 
-        this.machineDTOSet.add(machine1);
-        this.machineDTOSet.add(machine2);
-    }
-
-
-
-    @Test
-    public void testGetMachinesUrl() {
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
 		Mockito.when(machineServiceImpl.getAllMachines())
-                .thenReturn(this.machineDTOSet);
+				.thenReturn(this.machineDTOSet);
 
-        ResponseEntity<Set<MachineDTO>> responseEntity = controller.getAllMachines();
+		ResponseEntity<Set<MachineDTO>> responseEntity = controller.getAllMachines();
 
-        assertEquals(responseEntity.getStatusCodeValue(),200);
-        assertNotNull(responseEntity.getBody());
-        assertEquals(2, responseEntity.getBody().size());
+		assertEquals(responseEntity.getStatusCodeValue(), 200);
+		assertNotNull(responseEntity.getBody());
+		assertEquals(2, responseEntity.getBody().size());
 
-    }
+	}
 
+	@Test
+	public void testGetAllMachinesSpecificProductionOrder() {
 
-
-    @Test
-    public void testGetAllMachinesSpecificProductionOrder() {
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
 		Mockito.when(machineServiceImpl.getAllMachinesWithSetupAndInOverEndingProductionStatus())
-                .thenReturn(this.machineDTOSet);
+				.thenReturn(this.machineDTOSet);
 
-        ResponseEntity<Set<MachineDTO>> responseEntity = controller.getAllMachinesSpecificProductionOrder();
+		ResponseEntity<Set<MachineDTO>> responseEntity = controller.getAllMachinesSpecificProductionOrder();
 
-        assertEquals(responseEntity.getStatusCodeValue(),200);
-        assertNotNull(responseEntity.getBody());
-        assertEquals(2, responseEntity.getBody().size());
+		assertEquals(responseEntity.getStatusCodeValue(), 200);
+		assertNotNull(responseEntity.getBody());
+		assertEquals(2, responseEntity.getBody().size());
 
-    }
+	}
 
 }

@@ -34,15 +34,15 @@ public class OperationServiceImpl implements OperationService {
 
 	@Cacheable("operationSpecifiedProductionOrder")
 	public Set<OperationDTO> getAllOperationsWithSetupAndInOverEndingProductionStatus() {
-		Status[] statuses = new Status[] { Status.setup, Status.in_production, Status.over_production, Status.ending_production };
+		Status[] statuses = new Status[] { Status.SETUP, Status.IN_PRODUCTION, Status.OVER_PRODUCTION, Status.ENDING_PRODUCTION };
 		return mapper.mapOperationsTOSetOfOperationDTOWithMaterialMachine(operationRepository.findByStatusIn(statuses));
 	}
 
-	public OperationDTOWithMaterialMachine getOperationById(int id) {
+	public OperationDTOWithMaterialMachine getOperationById(final int id) {
 		return mapper.operationToOperationDTOWithMaterialMachine(findOperationById(id));
 	}
 
-	public Operation findOperationById(int id) {
+	public Operation findOperationById(final int id) {
 		Operation operation = operationRepository.findOperationById(id);
 		if (operation == null) {
 			throw new NotFoundException("Operation required doesn't exist");
@@ -51,25 +51,25 @@ public class OperationServiceImpl implements OperationService {
 	}
 
 	@Override
-	public Set<MachineDTO> getMachines(int id) {
+	public Set<MachineDTO> getMachines(final int id) {
 		return machineService.getAllMachines();
 	}
 
-	public OperationDTOWithMaterialMachine getOperationIfWithSetupInOverEndingProductionOrder(int id) {
+	public OperationDTOWithMaterialMachine getOperationIfWithSetupInOverEndingProductionOrder(final int id) {
 		Operation operation = findOperationById(id);
 		Status status = operation.getStatus();
-		if (status != Status.in_production && status != Status.over_production &&
-				status != Status.ending_production && status != Status.setup) {
+		if (status != Status.IN_PRODUCTION && status != Status.OVER_PRODUCTION &&
+				status != Status.ENDING_PRODUCTION && status != Status.SETUP) {
 			throw new ConflictException("No production order step is running on this machine");
 		}
 		return mapper.operationToOperationDTOWithMaterialMachine(operation);
 	}
 
-	public OperationDTOWithMaterialMachine togglePercentageColor(int operationId) {
+	public OperationDTOWithMaterialMachine togglePercentageColor(final int operationId) {
 		Operation operation = findOperationById(operationId);
 		Status status = operation.getStatus();
-		if (status != Status.in_production && status != Status.over_production &&
-				status != Status.ending_production && status != Status.setup) {
+		if (status != Status.IN_PRODUCTION && status != Status.OVER_PRODUCTION &&
+				status != Status.ENDING_PRODUCTION && status != Status.SETUP) {
 			throw new ConflictException("No production order step is running on this machine");
 		}
 		operation.getMaterial().setPercentageColor(!operation.getMaterial().isPercentageColor());

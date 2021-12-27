@@ -24,74 +24,67 @@ import com.java.main.services.OperationServiceImpl;
 @ExtendWith(MockitoExtension.class)
 class OperationControllerTest {
 
-    @Mock
+	@Mock
 	private OperationServiceImpl operationServiceImpl;
 
-    @InjectMocks
-    private OperationController controller;
+	@InjectMocks
+	private OperationController controller;
 
+	Set<OperationDTO> operationDTOSet;
+	OperationDTOWithMaterialMachine operationDTOWithMaterialMachine;
 
-    Set<OperationDTO> operationDTOSet;
-    OperationDTOWithMaterialMachine operationDTOWithMaterialMachine;
+	@BeforeEach
+	void setUp() {
+		operationDTOWithMaterialMachine = new OperationDTOWithMaterialMachine();
+		operationDTOSet = new HashSet<>();
+	}
 
-
-    @BeforeEach
-    void setUp() {
-        operationDTOWithMaterialMachine = new OperationDTOWithMaterialMachine();
-        operationDTOSet = new HashSet<>();
-    }
-
-    @Test
+	@Test
 	public void testGetAllOperationsWithSetupAndInOverEndingProductionStatus() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
 		Mockito.when(operationServiceImpl.getAllOperationsWithSetupAndInOverEndingProductionStatus())
-                .thenReturn(this.operationDTOSet);
+				.thenReturn(this.operationDTOSet);
 
-        ResponseEntity<Set<OperationDTO>> responseEntity = controller.getAllOperationsWithSetupAndInOverEndingProductionStatus();
-        assertEquals(responseEntity.getStatusCodeValue(),200);
-    }
+		ResponseEntity<Set<OperationDTO>> responseEntity = controller.getAllOperationsWithSetupAndInOverEndingProductionStatus();
+		assertEquals(responseEntity.getStatusCodeValue(), 200);
+	}
 
-
-    @Test
-    public void testGetOperationById() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+	@Test
+	public void testGetOperationById() {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
 		Mockito.when(operationServiceImpl.getOperationById(1))
-                .thenReturn(this.operationDTOWithMaterialMachine);
+				.thenReturn(this.operationDTOWithMaterialMachine);
 
-        ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.getOperationById(1);
-        assertEquals(responseEntity.getStatusCodeValue(),200);
-    }
+		ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.getOperationById(1);
+		assertEquals(responseEntity.getStatusCodeValue(), 200);
+	}
 
-
-
-    @Test
-    public void testTogglePercentageColor() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+	@Test
+	public void testTogglePercentageColor() {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
 		Mockito.when(operationServiceImpl.togglePercentageColor(1))
-                .thenReturn(this.operationDTOWithMaterialMachine);
+				.thenReturn(this.operationDTOWithMaterialMachine);
 
-        ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.togglePercentageColor(1);
-        assertEquals(responseEntity.getStatusCodeValue(),200);
-    }
+		ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.togglePercentageColor(1);
+		assertEquals(responseEntity.getStatusCodeValue(), 200);
+	}
 
-    @Test
-    public void testGetOperationIfSpecificProductionOrder() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+	@Test
+	public void testGetOperationIfSpecificProductionOrder() {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
 		Mockito.when(operationServiceImpl.getOperationIfWithSetupInOverEndingProductionOrder(1))
-                .thenReturn(this.operationDTOWithMaterialMachine);
+				.thenReturn(this.operationDTOWithMaterialMachine);
 
-        ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.operationIfSpecificProductionOrder(1);
-        assertEquals(responseEntity.getStatusCodeValue(),200);
-    }
-
-
+		ResponseEntity<OperationDTOWithMaterialMachine> responseEntity = controller.operationIfSpecificProductionOrder(1);
+		assertEquals(responseEntity.getStatusCodeValue(), 200);
+	}
 
 }

@@ -27,56 +27,51 @@ import com.java.main.services.MaterialServiceImpl;
 @ExtendWith(MockitoExtension.class)
 class MaterialControllerTest {
 
-    @Mock
+	@Mock
 	private MaterialServiceImpl materialServiceImpl;
 
-    @InjectMocks
-    private MaterialController controller;
+	@InjectMocks
+	private MaterialController controller;
 
 	@Mock
 	private EventPublisher eventPublisher;
 
-    Set<MachineDTO> machineDTOSet;
-    Set<MaterialDTO> materialDTOSet;
+	Set<MachineDTO> machineDTOSet;
+	Set<MaterialDTO> materialDTOSet;
 
+	@BeforeEach
+	void setUp() {
+		this.machineDTOSet = new HashSet<>();
 
-    @BeforeEach
-    void setUp() {
-        this.machineDTOSet = new HashSet<>();
+		MachineDTO machine1 = new MachineDTO(1, "machine1");
+		MachineDTO machine2 = new MachineDTO(2, "machine2");
 
-        MachineDTO machine1 = new MachineDTO(1,"machine1");
-        MachineDTO machine2 = new MachineDTO(2,"machine2");
+		this.machineDTOSet.add(machine1);
+		this.machineDTOSet.add(machine2);
 
-        this.machineDTOSet.add(machine1);
-        this.machineDTOSet.add(machine2);
+		this.materialDTOSet = new HashSet<>();
 
+		MaterialDTO material1 = new MaterialDTO(1, "Plastic");
+		material1.setMeasuredValue(new MeasuredValueDTO(10, "kilo"));
+		materialDTOSet.add(material1);
 
-        this.materialDTOSet = new HashSet<>();
+	}
 
-        MaterialDTO material1 = new MaterialDTO(1,"Plastic");
-        material1.setMeasuredValue(new MeasuredValueDTO(10,"kilo"));
-        materialDTOSet.add(material1);
+	@Test
+	public void testGetMaterialsUrl() {
 
-    }
-
-
-
-    @Test
-    public void testGetMaterialsUrl()  {
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
 		Mockito.when(materialServiceImpl.getAllMaterials())
-                .thenReturn(this.materialDTOSet);
+				.thenReturn(this.materialDTOSet);
 
-        ResponseEntity<Set<MaterialDTO>> responseEntity = controller.getAllMaterials();
+		ResponseEntity<Set<MaterialDTO>> responseEntity = controller.getAllMaterials();
 
-        assertEquals(responseEntity.getStatusCodeValue(),200);
-        assertNotNull(responseEntity.getBody());
-        assertEquals(1, responseEntity.getBody().size());
+		assertEquals(responseEntity.getStatusCodeValue(), 200);
+		assertNotNull(responseEntity.getBody());
+		assertEquals(1, responseEntity.getBody().size());
 
-    }
+	}
 
 }

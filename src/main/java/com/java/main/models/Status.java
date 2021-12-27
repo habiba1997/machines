@@ -1,13 +1,12 @@
 package com.java.main.models;
 
- public enum Status {
-     setup,
-     in_production,
-     ending_production,
-     over_production,
-     archive,
-     closed,
-     planned
-
+public enum Status {
+	SETUP,
+	IN_PRODUCTION,
+	ENDING_PRODUCTION,
+	OVER_PRODUCTION,
+	ARCHIVE,
+	CLOSED,
+	PLANNED
 
 }

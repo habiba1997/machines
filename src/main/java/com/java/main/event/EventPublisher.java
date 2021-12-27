@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class EventPublisher {
 
-    @Autowired
-    private ApplicationEventPublisher applicationEventPublisher;
+	@Autowired
+	private ApplicationEventPublisher applicationEventPublisher;
 
-    public void publishCustomEvent(final String message,boolean bool) {
-        System.out.println("Publishing custom event ");
-        Event event = new Event(this,message,bool);
-        applicationEventPublisher.publishEvent(event);
-    }
+	public void publishCustomEvent(final String message, final boolean bool) {
+		System.out.println("Publishing custom event ");
+		Event event = new Event(message, bool);
+		applicationEventPublisher.publishEvent(event);
+	}
 
 }

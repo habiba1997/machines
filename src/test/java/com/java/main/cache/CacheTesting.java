@@ -24,44 +24,41 @@ import com.java.main.repositories.MaterialRepository;
 @Profile({ SpringProfiles.HSQL })
 public class CacheTesting {
 
-    @Autowired
-    EntityManager entityManager;
+	@Autowired
+	EntityManager entityManager;
 
+	@Autowired
+	MachineRepository machineRepository;
 
-    @Autowired
-    MachineRepository machine_repository;
+	@Autowired
+	MaterialRepository materialRepository;
 
-    @Autowired
-    MaterialRepository material_repository;
-
-    @Test
-    @Transactional
-    public void testMachineCaching()
-    {
-        Session session = entityManager.unwrap(Session.class);
-		Optional<Machine> optionalMachine = machine_repository.findById(1);
+	@Test
+	@Transactional
+	public void testMachineCaching() {
+		Session session = entityManager.unwrap(Session.class);
+		Optional<Machine> optionalMachine = machineRepository.findById(1);
 		if (optionalMachine.isPresent()) {
 			Machine machine = optionalMachine.get();
-			machine_repository.findById(1);
+			machineRepository.findById(1);
 
 			session.evict(machine);
-			machine_repository.findById(1);
+			machineRepository.findById(1);
 		}
-    }
+	}
 
-    @Test
-    @Transactional
-    public void testMaterialCaching()
-    {
-        Session session = entityManager.unwrap(Session.class);
-		Optional<Material> optionalMaterial = material_repository.findById(1);
+	@Test
+	@Transactional
+	public void testMaterialCaching() {
+		Session session = entityManager.unwrap(Session.class);
+		Optional<Material> optionalMaterial = materialRepository.findById(1);
 		if (optionalMaterial.isPresent()) {
 			Material material = optionalMaterial.get();
-			material_repository.findById(1);
+			materialRepository.findById(1);
 
 			session.evict(material);
-			material_repository.findById(1);
+			materialRepository.findById(1);
 		}
 
-    }
+	}
 }

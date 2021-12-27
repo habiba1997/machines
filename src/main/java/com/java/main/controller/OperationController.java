@@ -26,17 +26,17 @@ public class OperationController {
 	}
 
 	@GetMapping(value = "/operation/{id}")
-	public ResponseEntity<OperationDTOWithMaterialMachine> getOperationById(@PathVariable("id") int id) {
+	public ResponseEntity<OperationDTOWithMaterialMachine> getOperationById(@PathVariable("id") final int id) {
 		return new ResponseEntity<>(this.operationService.getOperationById(id), HttpStatus.OK);
 	}
 
 	@PutMapping(value = "/operation/{id}")
-	public ResponseEntity<OperationDTOWithMaterialMachine> togglePercentageColor(@PathVariable("id") int id) {
+	public ResponseEntity<OperationDTOWithMaterialMachine> togglePercentageColor(@PathVariable("id") final int id) {
 		return new ResponseEntity<>(this.operationService.togglePercentageColor(id), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/operation-with-status/{id}")
-	public ResponseEntity<OperationDTOWithMaterialMachine> operationIfSpecificProductionOrder(@PathVariable("id") int id) {
+	public ResponseEntity<OperationDTOWithMaterialMachine> operationIfSpecificProductionOrder(@PathVariable("id") final int id) {
 		return new ResponseEntity<>(this.operationService.getOperationIfWithSetupInOverEndingProductionOrder(id), HttpStatus.OK);
 	}
 }

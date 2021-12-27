@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.java.main.event.EventPublisher;
 import com.java.main.models.dtos.MaterialDTO;
 import com.java.main.services.MaterialService;
 
@@ -17,15 +16,9 @@ public class MaterialController {
 
 	@Autowired
 	private MaterialService materialService;
-	@Autowired
-	private EventPublisher eventPublisher;
 
 	@GetMapping(value = "/materials")
 	public ResponseEntity<Set<MaterialDTO>> getAllMaterials() {
-		ResponseEntity<Set<MaterialDTO>> responce = new ResponseEntity<>(this.materialService.getAllMaterials(), HttpStatus.OK);
-		if (responce.getStatusCode() == HttpStatus.OK) {
-			eventPublisher.publishCustomEvent("Get My Machines", false);
-		}
-		return responce;
+		return new ResponseEntity<>(this.materialService.getAllMaterials(), HttpStatus.OK);
 	}
 }

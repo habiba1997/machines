@@ -16,49 +16,31 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Builder
-@Table(name="material")
-@Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
+@Table(name = "material")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Material  implements Serializable{
+public class Material implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
 
-    @Column(name="name")
-    private String name;
+	@Column(name = "name")
+	private String name;
 
-    @OneToMany(mappedBy = "material")
-    private Set<Operation> operations= new HashSet<>();
+	@OneToMany(mappedBy = "material")
+	private Set<Operation> operations = new HashSet<>();
 
+	@OneToOne(mappedBy = "material", fetch = FetchType.LAZY)
+	private MeasuredValue measuredValue;
 
-    @OneToOne(mappedBy = "material", fetch = FetchType.LAZY)
-    private MeasuredValue measuredValue;
+	@Column(name = "percentage_color")
+	private boolean percentageColor;
 
-    @Column(name="percentage_color")
-    private boolean percentageColor;
-
-    public Material(String name) {
-        this.name = name;
-    }
-
-    public Material(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Material(int id, String name, MeasuredValue measuredValue, boolean percentageColor) {
-        this.id = id;
-        this.name = name;
-        this.measuredValue = measuredValue;
-        this.percentageColor = percentageColor;
-    }
-
-    public void addOperation(Operation operation) {
-        this.operations.add(operation);
-    }
+	public void addOperation(final Operation operation) {
+		this.operations.add(operation);
+	}
 }
-
