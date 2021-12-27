@@ -6,13 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -24,8 +24,8 @@ import com.java.main.models.dtos.MaterialDTO;
 import com.java.main.models.dtos.MeasuredValueDTO;
 import com.java.main.services.MaterialServiceImpl;
 
-@ExtendWith(MockitoExtension.class)
-class MaterialControllerTest {
+@RunWith(MockitoJUnitRunner.class)
+public class MaterialControllerTest {
 
 	@Mock
 	private MaterialServiceImpl materialServiceImpl;
@@ -39,8 +39,8 @@ class MaterialControllerTest {
 	Set<MachineDTO> machineDTOSet;
 	Set<MaterialDTO> materialDTOSet;
 
-	@BeforeEach
-	void setUp() {
+	@Before
+	public void setUp() {
 		this.machineDTOSet = new HashSet<>();
 
 		MachineDTO machine1 = new MachineDTO(1, "machine1");

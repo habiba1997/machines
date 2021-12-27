@@ -9,14 +9,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import com.java.main.error.ConflictException;
 import com.java.main.error.NotFoundException;
@@ -30,14 +31,15 @@ import com.java.main.models.dtos.operation.OperationDTOWithMaterialMachine;
 import com.java.main.repositories.MaterialRepository;
 import com.java.main.repositories.OperationRepository;
 
-@ExtendWith(MockitoExtension.class)
-class OperationServiceImplTest {
+@RunWith(MockitoJUnitRunner.class)
+public class OperationServiceImplTest {
 
+	public static final String OPERATION_NAME = "store";
 	@Mock
 	private OperationRepository operationRepository;
 
 	@Spy
-	private OperationMapper mapper;
+	private OperationMapper mapper = Mappers.getMapper(OperationMapper.class);
 
 	@InjectMocks
 	private OperationServiceImpl operationServiceImpl;
@@ -48,19 +50,26 @@ class OperationServiceImplTest {
 	Status[] statuses;
 	Operation operation;
 	Operation operationWithSetupStatus;
-
 	Set<Operation> operationSet;
+	Set<OperationDTO> operationDTOSet;
+	OperationDTOWithMaterialMachine operationDTOWithMaterialMachine;
 
-	@BeforeEach
+	@Before
 	public void setup() {
 		statuses = new Status[] { Status.SETUP, Status.IN_PRODUCTION, Status.OVER_PRODUCTION, Status.ENDING_PRODUCTION };
-		operation = Operation.builder().id(1).name("store").status(Status.PLANNED).build();
+		operation = Operation.builder().id(1).name(OPERATION_NAME).status(Status.PLANNED).build();
 
 		operationWithSetupStatus = Operation.builder().id(1).name("label").status(Status.SETUP).build();
 		operationWithSetupStatus.setMaterial(Material.builder().id(1).name("plastic").measuredValue(new MeasuredValue(10, "kilo")).percentageColor(false).build());
 
 		operationSet = new HashSet<>();
-		operationSet.add(Operation.builder().id(1).name("store").status(Status.ENDING_PRODUCTION).build());
+		operationSet.add(Operation.builder().id(1).name(OPERATION_NAME).status(Status.ENDING_PRODUCTION).build());
+
+//		operationDTOSet = new HashSet<>();
+//		operationDTOSet.add(OperationDTO.builder().id(1).name(OPERATION_NAME).status(Status.ENDING_PRODUCTION).build());
+//
+//		operationDTOWithMaterialMachine = OperationDTOWithMaterialMachine.builder().name(OPERATION_NAME).build();
+
 	}
 
 	@Test
@@ -81,10 +90,11 @@ class OperationServiceImplTest {
 				.thenReturn(this.operation);
 
 		when(mapper.operationToOperationDTOWithMaterialMachine(this.operation)).thenCallRealMethod();
+//		when(mapper.operationToOperationDTOWithMaterialMachine(this.operation)).thenReturn(operationDTOWithMaterialMachine);
 
 		OperationDTOWithMaterialMachine actualResponse = operationServiceImpl.getOperationById(1);
 
-		assertEquals(actualResponse.getName(), "store");
+		assertEquals(actualResponse.getName(), OPERATION_NAME);
 	}
 
 	@Test
@@ -124,8 +134,7 @@ class OperationServiceImplTest {
 		Mockito.when(operationRepository.findOperationById(1))
 				.thenReturn(operationWithSetupStatus);
 
-		Mockito.when(materialRepository.save(operationWithSetupStatus.getMaterial()))
-				.thenReturn(operationWithSetupStatus.getMaterial());
+		Mockito.when(materialRepository.save(operationWithSetupStatus.getMaterial())).thenReturn(operationWithSetupStatus.getMaterial());
 
 		OperationDTOWithMaterialMachine actualResponse = operationServiceImpl.togglePercentageColor(1);
 

@@ -22,7 +22,7 @@ import com.java.main.repositories.MaterialRepository;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Profile({ SpringProfiles.HSQL })
-public class CacheTesting {
+public class CacheTest {
 
 	@Autowired
 	EntityManager entityManager;

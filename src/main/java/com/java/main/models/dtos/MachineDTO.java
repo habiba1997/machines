@@ -23,6 +23,9 @@ public class MachineDTO {
 	}
 
 	public void addOperation(final OperationDTO operationDTO) {
+		if (this.operations == null) {
+			this.operations = new HashSet<>();
+		}
 		operations.add(operationDTO);
 	}
 }

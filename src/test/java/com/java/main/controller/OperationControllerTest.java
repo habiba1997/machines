@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -21,8 +21,8 @@ import com.java.main.models.dtos.OperationDTO;
 import com.java.main.models.dtos.operation.OperationDTOWithMaterialMachine;
 import com.java.main.services.OperationServiceImpl;
 
-@ExtendWith(MockitoExtension.class)
-class OperationControllerTest {
+@RunWith(MockitoJUnitRunner.class)
+public class OperationControllerTest {
 
 	@Mock
 	private OperationServiceImpl operationServiceImpl;
@@ -33,8 +33,8 @@ class OperationControllerTest {
 	Set<OperationDTO> operationDTOSet;
 	OperationDTOWithMaterialMachine operationDTOWithMaterialMachine;
 
-	@BeforeEach
-	void setUp() {
+	@Before
+	public void setUp() {
 		operationDTOWithMaterialMachine = new OperationDTOWithMaterialMachine();
 		operationDTOSet = new HashSet<>();
 	}

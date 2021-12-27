@@ -32,7 +32,7 @@ public class Machine implements Serializable {
 	private String name;
 
 	@OneToMany(mappedBy = "machine")
-	private Set<Operation> operations = new HashSet<>();
+	private Set<Operation> operations;
 
 	// used to test GlobalRepositoryJPATest
 	/*
@@ -44,6 +44,9 @@ public class Machine implements Serializable {
 	 */
 
 	public void addOperation(final Operation operation) {
+		if (this.operations == null) {
+			this.operations = new HashSet<>();
+		}
 		this.operations.add(operation);
 	}
 }

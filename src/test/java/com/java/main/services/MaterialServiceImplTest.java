@@ -6,14 +6,14 @@ import static org.mockito.Mockito.when;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import com.java.main.mappers.MaterialMapper;
 import com.java.main.models.Material;
@@ -23,8 +23,8 @@ import com.java.main.models.dtos.MaterialDTO;
 import com.java.main.models.dtos.MeasuredValueDTO;
 import com.java.main.repositories.MaterialRepository;
 
-@ExtendWith(MockitoExtension.class)
-class MaterialServiceImplTest {
+@RunWith(MockitoJUnitRunner.class)
+public class MaterialServiceImplTest {
 
 	@Mock
 	private MaterialRepository materialRepository;
@@ -40,8 +40,8 @@ class MaterialServiceImplTest {
 
 	Material material1;
 
-	@BeforeEach
-	void setUp() {
+	@Before
+	public void setUp() {
 		this.materialSet = new HashSet<>();
 		materialDTOSet = new HashSet<>();
 

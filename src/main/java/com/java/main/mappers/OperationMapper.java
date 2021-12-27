@@ -2,8 +2,9 @@ package com.java.main.mappers;
 
 import java.util.Set;
 
-import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.ReportingPolicy;
 
 import com.java.main.models.Machine;
 import com.java.main.models.Material;
@@ -15,7 +16,7 @@ import com.java.main.models.dtos.operation.MachineDTONoOperation;
 import com.java.main.models.dtos.operation.MaterialDTONoOperation;
 import com.java.main.models.dtos.operation.OperationDTOWithMaterialMachine;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface OperationMapper {
 
 	MaterialDTONoOperation materialToMaterialDTONoOperation(Material material);
@@ -28,6 +29,5 @@ public interface OperationMapper {
 
 	OperationDTO operationToDto(Operation operation);
 
-	@IterableMapping(qualifiedByName = "operationToDto")
 	Set<OperationDTO> mapOperationsTOSetOfOperationDTOWithMaterialMachine(Set<Operation> operations);
 }

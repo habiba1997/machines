@@ -41,6 +41,9 @@ public class Material implements Serializable {
 	private boolean percentageColor;
 
 	public void addOperation(final Operation operation) {
+		if (this.operations == null) {
+			this.operations = new HashSet<>();
+		}
 		this.operations.add(operation);
 	}
 }

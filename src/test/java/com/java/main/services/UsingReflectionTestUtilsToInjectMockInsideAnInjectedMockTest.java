@@ -5,28 +5,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.java.main.mappers.MaterialMapper;
-import com.java.main.mappers.OperationMapper;
 import com.java.main.models.Material;
 import com.java.main.models.MeasuredValue;
 import com.java.main.models.Operation;
 import com.java.main.models.dtos.MaterialDTO;
 import com.java.main.repositories.MaterialRepository;
 
-@ExtendWith(MockitoExtension.class)
-class UsingReflectionTestUtilsToInjectMockInsideAnInjectedMock {
+@RunWith(MockitoJUnitRunner.class)
+public class UsingReflectionTestUtilsToInjectMockInsideAnInjectedMockTest {
 
 	@Mock
 	private MaterialRepository materialRepository;
@@ -46,8 +45,8 @@ class UsingReflectionTestUtilsToInjectMockInsideAnInjectedMock {
 
 	Set<Operation> set;
 
-	@BeforeEach
-	void setUp() {
+	@Before
+	public void setUp() {
 		this.materialSet = new HashSet<>();
 
 		set = new HashSet<>();
@@ -76,7 +75,6 @@ class UsingReflectionTestUtilsToInjectMockInsideAnInjectedMock {
 				.thenReturn(this.materialSet);
 
 		ReflectionTestUtils.setField(materialServiceImpl, "mapper", materialMapper);
-		ReflectionTestUtils.setField(materialMapper, "operationMapper", Mappers.getMapper(OperationMapper.class));
 
 		Set<MaterialDTO> materialDTOSet = materialServiceImpl.getAllMaterials();
 

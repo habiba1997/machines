@@ -7,14 +7,14 @@ import static org.mockito.Mockito.when;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import com.java.main.mappers.MachineMapper;
 import com.java.main.models.Machine;
@@ -24,8 +24,8 @@ import com.java.main.models.dtos.MachineDTO;
 import com.java.main.models.dtos.OperationDTO;
 import com.java.main.repositories.MachineRepository;
 
-@ExtendWith(MockitoExtension.class)
-class MachineServiceImplTest {
+@RunWith(MockitoJUnitRunner.class)
+public class MachineServiceImplTest {
 
 	@Mock
 	private MachineRepository machineRepository;
@@ -39,7 +39,7 @@ class MachineServiceImplTest {
 	Set<Machine> machineSet;
 	Set<MachineDTO> machineDTOSet;
 
-	@BeforeEach
+	@Before
 	public void setup() {
 		this.machineSet = new HashSet<>();
 
