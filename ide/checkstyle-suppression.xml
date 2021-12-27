@@ -1,0 +1,65 @@
+<!DOCTYPE suppressions PUBLIC
+        "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+        "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+<suppressions>
+    <!-- we exclude some rules for test files -->
+    <suppress checks="MagicNumberCheck" files=".*[\\/]src[\\/](test|it)[\\/]"/>
+    <suppress checks="JavadocMethod" files=".*[\\/]src[\\/](test|it)[\\/]"/>
+    <suppress checks="JavadocType" files=".*[\\/]src[\\/](test|it)[\\/]"/>
+    <suppress checks="FinalParameters" files=".*[\\/]src[\\/](test|it)[\\/]"/>
+
+    <!-- Special exclusions for JPA entities -->
+    <suppress checks="MagicNumberCheck" files=".*[\\/]dao[\\/]jpa[\\/]"/>
+    <suppress checks="FinalParameters" files=".*[\\/]dao[\\/]jpa[\\/]"/>
+    <suppress checks="JavadocType" files=".*[\\/]dao[\\/]jpa[\\/]"/>
+    <suppress checks="JavadocType" files=".*[\\/]dao[\\/]repository[\\/]"/>
+    <suppress checks="JavadocType" files=".*[\\/]data[\\/]xml[\\/]"/>
+
+    <suppress checks="JavadocMethod" files=".*[\\/]dao[\\/]jpa[\\/]"/>
+    <suppress checks="JavadocMethod" files=".*[\\/]jpa[\\/]rockwell[\\/]"/>
+    <suppress checks="JavadocMethod" files=".*[\\/]dao[\\/]repository[\\/]"/>
+
+
+    <!-- Special rules for model -->
+    <suppress checks="JavadocType" files=".*[\\/]mes[\\/]model[\\/]"/>
+    <suppress checks="JavadocType" files=".*[\\/]mes[\\/]events[\\/]"/>
+
+    <!-- Special rules for businesslogic -->
+    <!-- Class should respect business logic naming convention -->
+    <suppress checks="JavadocType" files=".*[\\/]businesslogic[\\/]aggregate[\\/]"/>
+    <suppress checks="JavadocType" files=".*[\\/]businesslogic[\\/]configuration[\\/]"/>
+    <suppress checks="JavadocType" files=".*[\\/]businesslogic[\\/]configuration[\\/]machine[\\/]"/>
+    <suppress checks="JavadocType" files=".*[\\/]businesslogic[\\/]logic[\\/]"/>
+
+    <!-- Special rules for data service -->
+    <suppress checks="JavadocType" files=".*[\\/]data[\\/]service[\\/]"/>
+
+    <!-- Special rules for runtime api -->
+    <suppress checks="JavadocType" files=".*[\\/]service[\\/]business[\\/]"/>
+    <suppress checks="JavadocType" files=".*[\\/]dto[\\/]request[\\/]"/>
+
+    <!-- Special rules for mappers -->
+    <suppress checks="JavadocType" files=".*[\\/]data[\\/]mapper[\\/]"/>
+    <suppress checks="JavadocType" files=".*[\\/]dto[\\/]mapper[\\/]"/>
+    <suppress checks="JavadocType" files=".*[\\/]model[\\/]calendar[\\/]"/>
+
+    <suppress checks="JavadocMethod" files=".*[\\/]data[\\/]mapper[\\/]"/>
+    <suppress checks="JavadocMethod" files=".*[\\/]dto[\\/]mapper[\\/]"/>
+
+    <!-- any others specific rules -->
+
+    <!-- they are not really constant -->
+    <suppress checks="MagicNumberCheck" files="ConverterMapperUtils\.java"/>
+    <suppress checks="ConstantName" files="ConverterMapperUtils\.java"/>
+    <suppress checks="MagicNumberCheck" files="ConverterMachineMapperUtils\.java"/>
+    <suppress checks="ConstantName" files="ConverterMachineMapperUtils\.java"/>
+
+    <!-- we exclude generated files -->
+    <suppress checks="[a-zA-Z0-9]*" files=".*[\\/]target[\\/]generated-sources[\\/]"/>
+
+    <suppress checks="[a-zA-Z0-9]*" files="Jcrypt\.java"/>
+    <suppress checks="MagicNumberCheck" files="Jcrypt\.java"/>
+
+    <suppress checks="JavadocType" files=".*[\\/]service[\\/]emsarnet[\\/]"/>
+
+</suppressions>
