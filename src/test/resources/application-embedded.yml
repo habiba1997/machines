@@ -1,5 +1,0 @@
-spring:
-  datasource:
-    schema: classpath:db/changelog/schema/*.sql
-    data: classpath:db/changelog/changes/*.sql
-    separator: // # the sepearator ; cannot be used due to stored procedure

@@ -1,13 +1,13 @@
 package com.java.main.services;
 
-import java.util.Set;
+import java.util.List;
 
-import com.java.main.models.dtos.MachineDTO;
+import com.java.main.dtos.Machine;
 
 public interface MachineService {
 
-	Set<MachineDTO> getAllMachines();
+	List<Machine> findAll();
 
-	Set<MachineDTO> getAllMachinesWithSetupAndInOverEndingProductionStatus();
+	List<Machine> findByLocationName(String locationName);
 
 }

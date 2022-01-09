@@ -1,7 +1,5 @@
 package com.java.main.cache;
 
-import java.util.Optional;
-
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
@@ -13,37 +11,41 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.java.main.models.Machine;
-import com.java.main.models.Material;
+import com.java.main.dtos.Material;
+import com.java.main.models.entity.LocationEntity;
 import com.java.main.profile.SpringProfiles;
-import com.java.main.repositories.MachineRepository;
-import com.java.main.repositories.MaterialRepository;
+import com.java.main.repositories.LocationRepository;
+import com.java.main.services.MaterialService;
 
+//todo (need jpa profile be on
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Profile({ SpringProfiles.HSQL })
 public class CacheTest {
 
 	@Autowired
-	EntityManager entityManager;
+	private EntityManager entityManager;
 
 	@Autowired
-	MachineRepository machineRepository;
+	private MaterialService materialService;
 
 	@Autowired
-	MaterialRepository materialRepository;
+	private LocationRepository locationRepository;
 
 	@Test
 	@Transactional
-	public void testMachineCaching() {
+	public void testLocationCache() {
+		// three calls to database => unsuccessful case
 		Session session = entityManager.unwrap(Session.class);
-		Optional<Machine> optionalMachine = machineRepository.findById(1);
-		if (optionalMachine.isPresent()) {
-			Machine machine = optionalMachine.get();
-			machineRepository.findById(1);
+		System.out.println(" 1st Database Call For Location");
+		LocationEntity locationEntity = locationRepository.findByName("mald");
+		if (locationEntity != null) {
+			System.out.println(" 2nd Database Call For Location");
+			locationRepository.findByName("mald");
 
-			session.evict(machine);
-			machineRepository.findById(1);
+			session.evict(locationEntity);
+			System.out.println(" 3rd Database Call For Location");
+			locationRepository.findByName("mald");
 		}
 	}
 
@@ -51,14 +53,16 @@ public class CacheTest {
 	@Transactional
 	public void testMaterialCaching() {
 		Session session = entityManager.unwrap(Session.class);
-		Optional<Material> optionalMaterial = materialRepository.findById(1);
-		if (optionalMaterial.isPresent()) {
-			Material material = optionalMaterial.get();
-			materialRepository.findById(1);
+		System.out.println(" 1st Database Call");
+		Material material = materialService.findByName("Plastic");
+		if (material != null) {
+			System.out.println(" NO Database Call => CacheInterceptor");
+			materialService.findByName("Plastic");
 
-			session.evict(material);
-			materialRepository.findById(1);
+			System.out.println(" NO Database Call => CacheInterceptor");
+			// todo find the session method that invalidate all entities
+			// session.clear();
+			materialService.findByName("Plastic");
 		}
-
 	}
 }

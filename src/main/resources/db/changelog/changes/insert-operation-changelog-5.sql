@@ -1,15 +1,11 @@
---liquibase formatted sql
---changeset habiba:insert-into-operation
---splitStatements:true endDelimiter:;
-INSERT INTO operation (name,machine_id,material_id,status) VALUES ('Shaping',1,1,6);
-INSERT INTO operation (name,machine_id,material_id,status) VALUES ('Labeling',1,1,5);
-INSERT INTO operation (name,machine_id,material_id,status) VALUES ('Storing',1,2,5);
+INSERT INTO operation (id,name,machine_key,material_key,production_order_key,status) VALUES (1,'Shaping',1,1,1,'in_production');
+INSERT INTO operation (id,name,machine_key,material_key,production_order_key,status)  VALUES (2,'Labeling',2,4,1,'suspended');
+INSERT INTO operation (id,name,machine_key,material_key,production_order_key,status)  VALUES (3,'Storing',1,3,1,'planned');
 
-INSERT INTO operation (name,machine_id,material_id,status) VALUES ('Shaping',2,2,1);
-INSERT INTO operation (name,machine_id,material_id,status) VALUES ('Labeling',2,3,3);
 
-INSERT INTO operation (name,machine_id,material_id,status) VALUES ('Storing',3,4,3);
+INSERT INTO operation (id,name,machine_key,material_key,production_order_key,status) VALUES (4,'fixing',3,2,2,'planned');
+INSERT INTO operation (id,name,machine_key,material_key,production_order_key,status)  VALUES (5,'calibrating',3,3,2,'planned');
+INSERT INTO operation (id,name,machine_key,material_key,production_order_key,status)  VALUES (6,'closing',4,1,2,'closed');
 
-INSERT INTO operation (name,machine_id,material_id,status) VALUES ('Shaping',4,3,6);
-INSERT INTO operation (name,machine_id,material_id,status) VALUES ('Labeling',4,4,0);
-INSERT INTO operation (name,machine_id,material_id,status) VALUES ('Storing',4,4,4);
+
+

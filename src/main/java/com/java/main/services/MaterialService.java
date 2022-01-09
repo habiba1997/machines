@@ -1,11 +1,12 @@
 package com.java.main.services;
 
-import java.util.Set;
+import java.util.List;
 
-import com.java.main.models.dtos.MaterialDTO;
+import com.java.main.dtos.Material;
 
 public interface MaterialService {
 
-	Set<MaterialDTO> getAllMaterials();
+	List<Material> findAll();
 
+	Material findByName(String name);
 }

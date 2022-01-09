@@ -1,19 +1,17 @@
 package com.java.main.repositories;
 
-import com.java.main.models.Material;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
-
+import com.java.main.models.entity.MaterialEntity;
 
 @Repository
-public interface MaterialRepository extends CrudRepository<Material, Integer> {
+public interface MaterialRepository extends JpaRepository<MaterialEntity, Integer> {
 
-    @Override
-    @Query("SELECT m FROM Material m left join fetch m.operations left join fetch m.measuredValue")
-    Set<Material> findAll();
+	List<MaterialEntity> findAll();
 
+	MaterialEntity findByName(String name);
 
 }

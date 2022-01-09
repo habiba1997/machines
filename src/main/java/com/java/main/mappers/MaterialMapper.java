@@ -1,16 +1,23 @@
 package com.java.main.mappers;
 
-import java.util.Set;
-
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.ReportingPolicy;
 
-import com.java.main.models.Material;
-import com.java.main.models.dtos.MaterialDTO;
+import com.java.main.dtos.Material;
+import com.java.main.models.entity.MaterialEntity;
 
-@Mapper(componentModel = "spring")
-public interface MaterialMapper {
+@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, unmappedTargetPolicy = ReportingPolicy.ERROR)
+public interface MaterialMapper extends ModelMapper<MaterialEntity, Material> {
+	@Mappings({
+			@Mapping(source = "id", target = "key")
+	})
+	Material toModel(MaterialEntity materialEntity);
 
-    MaterialDTO materialToDto(Material material);
-
-    Set<MaterialDTO> mapMaterialSetToMaterialDtoSet(Set<Material> materials);
+//	@Mappings({
+//			@Mapping(source = "key", target = "id")
+//	})
+//	MaterialEntity toEntity(Material material);
 }

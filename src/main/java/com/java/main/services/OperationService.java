@@ -1,23 +1,13 @@
 package com.java.main.services;
 
-import java.util.Set;
+import java.util.List;
 
-import com.java.main.models.Operation;
-import com.java.main.models.dtos.MachineDTO;
-import com.java.main.models.dtos.OperationDTO;
-import com.java.main.models.dtos.operation.OperationDTOWithMaterialMachine;
+import com.java.main.dtos.Operation;
+import com.java.main.models.enums.Status;
 
 public interface OperationService {
 
-	Set<OperationDTO> getAllOperationsWithSetupAndInOverEndingProductionStatus();
+	List<Operation> findByStatusIn(List<Status> statuses);
 
-	OperationDTOWithMaterialMachine getOperationById(int id);
-
-	Operation findOperationById(int id);
-
-	OperationDTOWithMaterialMachine getOperationIfWithSetupInOverEndingProductionOrder(int id);
-
-	OperationDTOWithMaterialMachine togglePercentageColor(int operationId);
-
-	Set<MachineDTO> getMachines(int id);
+	List<Operation> findByProductionOrderName(String productionOrderName);
 }

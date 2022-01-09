@@ -1,23 +1,24 @@
 package com.java.main.repositories;
 
-import com.java.main.models.Operation;
-import com.java.main.models.Status;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
+import com.java.main.models.entity.OperationEntity;
 
 // How to fetch entities multiple levels deep with Hibernate
 
 @Repository
-public interface OperationRepository extends CrudRepository<Operation, Integer> {
+public interface OperationRepository extends JpaRepository<OperationEntity, Integer> {
 
-    Set<Operation> findByStatusIn(Status[] statuses);
+	List<OperationEntity> findByStatusIn(List<String> statuses);
 
-    @Query("select operation from Operation operation left join fetch operation.machine ma" +
-            "left join fetch operation.material m " +
-            "join fetch m.measuredValue " +
-            "where operation.id=:id")
-    Operation findOperationById(int id);
+	@Query("select operation from OperationEntity operation " +
+			"join fetch operation.materialEntity material " +
+			"join fetch operation.productionOrderEntity production " +
+			"where production.name = ?1")
+	List<OperationEntity> findByProductionOrderName(String productionOrderName);
+
 }
