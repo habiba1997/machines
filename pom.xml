@@ -18,6 +18,7 @@
         <java.version>11</java.version>
         <checkstyle.dir>${project.basedir}/ide</checkstyle.dir>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <jacoco.version>0.8.2</jacoco.version>
     </properties>
 
     <dependencies>
@@ -48,6 +49,20 @@
             <version>2.5.1</version>
             <scope>test</scope>
         </dependency>
+        <!--        needed for mvn test to run all tests successfully
+        You might have been surprised, that no tests were run at all. I tried to add surefire plugin with no luck.
+        The answer was simple: pom.xml contained the following dependency: junit-vintage-engine
+        The exclusion, junit-vintage-engine, is dedicated for keeping backward compatibility with JUnit 4.x. So,
+        new versions of Spring Boot Initializr do not support it by default. After I removed the exclusion, Maven started to see project's tests
+
+        In my case it was adding the junit-vintage-engine which makes it compatible with older version of JUnit tests and can run them. As I'm using JUnit 5
+        junit 4 => execlude vintage from spring-boot-starter-test
+         after junit 5 => include vintage dependency -->
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -75,7 +90,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Mockito extention -->
+        <!-- Mockito extension -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -86,7 +101,7 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-        <!-- Liquibase database vesion -->
+        <!-- Liquibase database -->
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
@@ -119,6 +134,13 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.13.1</version>
         </dependency>
+        <!-- localhost:9000 => sonarQube (downloaded zib => bin -=> windows64 => cmd => StartSonar.bat )  open bat file server and user and pass is admin-->
+        <!-- https://mvnrepository.com/artifact/org.sonarsource.sonarqube/sonar-plugin-api -->
+        <dependency>
+            <groupId>org.sonarsource.sonarqube</groupId>
+            <artifactId>sonar-plugin-api</artifactId>
+            <version>8.9.0.43852</version>
+        </dependency>
 
     </dependencies>
 
@@ -127,31 +149,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <!--            checkstyle plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <configLocation>ide/checkstyle.xml</configLocation>
-                    <encoding>UTF-8</encoding>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    <linkXRef>false</linkXRef>
-                    <propertyExpansion>config_loc=${checkstyle.dir}
-                    </propertyExpansion><!-- check is executing in each sub child module -->
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>**/*Test.class</include>
-                    </includes>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -191,6 +188,58 @@
                         </arg>
                     </compilerArgs>
                 </configuration>
+            </plugin>
+            <!--            for mvn test to run all files that end with *TEST.java
+            y default, the Surefire Plugin will automatically include all test classes with wildcard pattern : "**/Test*.java" .-->
+            <!--            The Failsafe Plugin is designed to run integration tests while the Surefire Plugin is designed to run unit tests.
+            The name (failsafe) was chosen both because it is a synonym of surefire and because it implies that when it fails, it does so in a safe way.-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.0</version>
+            </plugin>
+            <!--            checkstyle plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <configLocation>ide/checkstyle.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <linkXRef>false</linkXRef>
+                    <propertyExpansion>config_loc=${checkstyle.dir}</propertyExpansion><!-- check is executing in each sub child module -->
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <!-- default target/jscoco/site/* -->
+                        <configuration>
+                            <outputDirectory>target/jacoco-report</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
