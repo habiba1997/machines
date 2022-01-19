@@ -2,6 +2,7 @@ package com.java.main.models.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -27,6 +28,7 @@ import com.java.main.models.helpers.MesUnit;
 @Entity
 @Builder
 @Table(name = "material")
+@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Data
 @NoArgsConstructor

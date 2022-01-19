@@ -64,6 +64,11 @@
             <scope>test</scope>
         </dependency>
 
+
+        <!-- make sure that hibernate-ehcache version is equal to Hibernate version which you use in your project,
+        e.g. if you use hibernate-ehcache 5.2.2.Final like in this example, then the version of Hibernate should also be 5.2.2.Final.
+        The hibernate-ehcache artifact has a dependency on the Ehcache implementation itself, which is thus transitively included in the classpath as well.
+        -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-ehcache</artifactId>
@@ -135,6 +140,21 @@
             <version>2.13.1</version>
         </dependency>
 
+        <!--       we use Spring Boot, then we can utilize the spring-boot-starter-cache starter package to easily add the caching dependencies:-->
+        <!--        Under the hood, the starter brings the spring-context-support module.-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>27.0.1-jre</version>
+        </dependency>
     </dependencies>
 
     <build>

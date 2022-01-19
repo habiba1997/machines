@@ -1,14 +1,13 @@
 spring:
-  profiles.include: embedded
+  profiles.include: changlog
   liquibase:
     change-log: classpath:db/changelog/changelog-schema-mysql.xml
     drop-first: true
-  jpa:
-    hibernate.ddl-auto: none
+
 
 logging:
   level:
     liquibase: INFO
     org:
       springframework:
-        cache: TRACE
+        cache: INFO

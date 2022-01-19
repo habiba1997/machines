@@ -2,6 +2,7 @@ package com.java.main.models.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -23,9 +24,19 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.java.main.converters.BooleanConverter;
 
+/* Cache Concurrency Strategies
+	READ_WRITE:
+ 		This strategy guarantees strong consistency which it achieves by using ‘soft' locks: When a cached entity is updated,
+ 		a soft lock is stored in the cache for that entity as well, which is released after the transaction is committed.
+ 		All concurrent transactions that access soft-locked entries will fetch the corresponding data directly from database
+	TRANSACTIONAL:
+ 		Cache changes are done in distributed XA transactions.
+ 		A change in a cached entity is either committed or rolled back in both database and cache in the same XA transaction 		
+*/
 @Entity
 @Builder
 @Table(name = "machine")
+@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Data
 @NoArgsConstructor
