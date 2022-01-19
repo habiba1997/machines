@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <checkstyle.dir>${maven.multiModuleProjectDirectory}/ide</checkstyle.dir>
+        <checkstyle.dir>${project.basedir}/ide</checkstyle.dir>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
     </properties>
 
