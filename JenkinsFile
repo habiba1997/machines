@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage('clean') {
+            steps {
+                 bat 'mvn clean'
+            }
+        }
+        stage('test') {
+            steps {
+                 bat 'mvn test'
+            }
+        }
+         stage('checkstyle') {
+              steps {
+                 bat 'mvn checkstyle:checkstyle'
+              }
+         }
+        stage('package') {
+            steps {
+                 bat 'mvn package'
+            }
+        }
+        stage('finalize') {
+             steps {
+                 echo 'Tests are completed SUCCESSFULLY'
+             }
+        }
+    }
+}

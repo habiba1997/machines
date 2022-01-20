@@ -1,0 +1,6 @@
+stage('consolidate') {
+            steps {
+                 junit '**/target/surefire-reports/Test-*.xml'
+                 archive 'target/*.jar'
+            }
+        }
