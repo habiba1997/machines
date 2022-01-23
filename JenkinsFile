@@ -16,6 +16,11 @@ pipeline {
                  bat 'mvn checkstyle:checkstyle'
               }
          }
+         stage('sonar-qube') {
+              steps {
+                 bat 'mvn sonar:sonar'
+              }
+         }
         stage('package') {
             steps {
                  bat 'mvn package'
