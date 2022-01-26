@@ -10,7 +10,7 @@
 #logging.level.org.hibernate=error
 
 #  The Spring/Hibernate classes, which generate SQL statements and set the parameters, already contain the code for logging them.
-#  However, the level of those log statements is set to DEBUG and TRACE respectively, which is lower than the default level in Spring Boot — INFO.
+#  However, the level of those log statements is set to DEBUG and TRACE respectively, which is lower than the default level in Spring Boot ? INFO.
 # DEFAULT INFO
 
 logging:

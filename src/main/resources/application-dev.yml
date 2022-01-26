@@ -1,8 +1,3 @@
-spring:
-  profiles.include: changlog
-  liquibase:
-    change-log: classpath:db/changelog/changelog-schema-mysql.xml
-    drop-first: true
 
 # for starting out the database only but once teh database is up and running (there is no need for the follwoing lines)
 #spring:
@@ -10,10 +5,3 @@ spring:
 #  liquibase:
 #    change-log: classpath:db/changelog/changelog-schema-mysql.xml
 #    drop-first: true
-
-logging:
-  level:
-    liquibase: INFO
-    org:
-      springframework:
-        cache: TRACE
