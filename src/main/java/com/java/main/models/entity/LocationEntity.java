@@ -2,6 +2,7 @@ package com.java.main.models.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -23,9 +24,15 @@ import com.java.main.converters.BooleanConverter;
 import com.java.main.converters.LocationTypeEnumConverter;
 import com.java.main.models.enums.LocationType;
 
+// Caching Regions are specific region into the cache provider that might store entities, collection or queries.
+// Each cache region resides in a specific cache namespace and has its own lifetime configuration.
 @Entity
 @Builder
 @Table(name = "location")
+// For each entity class, Hibernate will use a separate cache region to store state of instances for that class.
+// The region name is the fully qualified class name.
+@Cacheable
+// read and write to normally read ad cache element on read not specific transaction
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Data
 @NoArgsConstructor
@@ -35,8 +42,9 @@ public class LocationEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int key;
+	private Long key;
 
+//	 natural id annotation produce the sql logs of alter ( don't know the reason)
 	@NaturalId
 	@Column(name = "name")
 	private String name;

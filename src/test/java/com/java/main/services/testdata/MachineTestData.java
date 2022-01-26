@@ -18,11 +18,11 @@ public class MachineTestData {
 
 	public static MachineEntity generateMachineEntity() {
 		return MachineEntity.builder()
-				.id(2934014)
+				.key(2934014L)
 				.name(MACHINE_NAME)
 				.assembly(true)
 				.press(false)
-				.locationEntity(LocationTestData.generateLocationEntity())
+				.locationKey(LocationTestData.LOCATION_KEY)
 				.build();
 	}
 }

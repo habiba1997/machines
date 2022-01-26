@@ -14,7 +14,7 @@ import com.java.main.models.helpers.MesUnit;
 @AllArgsConstructor
 public class Material {
 
-	private int key;
+	private Long key;
 	private String name;
 	private MeasuredValue measuredValue;
 	private MesUnit baseUnit;

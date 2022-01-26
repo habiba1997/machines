@@ -1,14 +1,10 @@
 spring:
-  profiles.include: embedded
+  profiles.include: changlog
   liquibase:
-    change-log: classpath:/db/changelog/changelog-schema-hsql.xml
+    change-log: classpath:db/changelog/changelog-schema-test.xml
     drop-first: true
   jpa:
-    hibernate.ddl-auto: none
-
-logging:
-  level:
-    liquibase: INFO
-    org:
-      springframework:
-        cache: TRACE
+    generate-ddl: false
+#You can set spring.jpa.hibernate.ddl-auto explicitly and the standard Hibernate property values are none, validate, update, create-drop.
+#Spring Boot chooses a default value for you based on whether it thinks your database is embedded (default create-drop) or not (default none).
+#An embedded database is detected by looking at the Connection type: hsqldb, h2 and derby are embedded,

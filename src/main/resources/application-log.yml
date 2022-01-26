@@ -1,0 +1,38 @@
+#ALL < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+
+#All the supported logging systems can have the logger levels set in the Spring Environment (for example, in application.properties)
+#by using logging.level.<logger-name>=<level> where level is one of TRACE, DEBUG, INFO, WARN, ERROR, FATAL, or OFF.
+
+#The root logger can be configured by using logging.level.root.
+#The following example shows potential logging settings in application.properties:
+#logging.level.root=warn
+#logging.level.org.springframework.web=debug
+#logging.level.org.hibernate=error
+
+#  The Spring/Hibernate classes, which generate SQL statements and set the parameters, already contain the code for logging them.
+#  However, the level of those log statements is set to DEBUG and TRACE respectively, which is lower than the default level in Spring Boot ? INFO.
+# DEFAULT INFO
+
+logging:
+  level:
+    org.hibernate: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework: INFO
+    org.springframework.orm.jpa: DEBUG
+    org.springframework.transaction: DEBUG
+    org.springframework.cache: TRACE
+    liquibase: INFO
+
+#2019-03-05 10:57:51.698  INFO 45469 --- [ost-startStop-1] o.s.b.c.e.ServletRegistrationBean        : Mapping servlet: 'dispatcherServlet' to [/]
+#2019-03-05 10:57:51.702  INFO 45469 --- [ost-startStop-1] o.s.b.c.embedded.FilterRegistrationBean  : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+#The following items are output:
+#
+#1- Date and Time: Millisecond precision and easily sortable.
+#2- Log Level: ERROR, WARN, INFO, DEBUG, or TRACE.
+#3- Process ID.
+#4-  --- separator to distinguish the start of actual log messages.
+#5- Thread name: Enclosed in square brackets (may be truncated for console output).
+#6- Logger name: This is usually the source class name (often abbreviated).
+#7- The log message.
+

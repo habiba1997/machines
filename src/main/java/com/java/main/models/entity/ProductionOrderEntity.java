@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -22,13 +23,17 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 
 import com.java.main.converters.MeasureValueConverter;
 import com.java.main.models.helpers.MeasuredValue;
 
-@Table(name = "production_order")
 @Entity
+@Table(name = "production_order")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Data
 @Builder
 @EqualsAndHashCode(of = "id")
@@ -39,7 +44,7 @@ public class ProductionOrderEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int id;
+	private Long key;
 
 	// Hibernate 4 has bring lots of improvements and @NaturalId is one of such nice improvements.
 	// As you know @Id annotation is used as meta data for specifying the primary key of an entity.
@@ -60,6 +65,8 @@ public class ProductionOrderEntity implements Serializable {
 	@Convert(converter = MeasureValueConverter.class)
 	private MeasuredValue plannedQuantity;
 
+	// Collections are not cached by default, and we need to explicitly mark them as cacheable.
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "productionOrderEntity", fetch = FetchType.EAGER)
 	private List<OperationEntity> operationEntityList;
 

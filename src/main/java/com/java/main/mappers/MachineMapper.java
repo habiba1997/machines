@@ -9,18 +9,23 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.java.main.converters.ConverterEnumsClass;
 import com.java.main.dtos.Machine;
 import com.java.main.models.entity.MachineEntity;
+import com.java.main.services.LocationService;
 
-@Mapper(componentModel = "spring", uses = LocationMapper.class, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, unmappedTargetPolicy = ReportingPolicy.ERROR)
+@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, unmappedTargetPolicy = ReportingPolicy.ERROR)
 public abstract class MachineMapper implements ModelMapper<MachineEntity, Machine> {
+
+	@Autowired
+	private LocationService locationService;
 
 	@Override
 	@Mappings({
 			@Mapping(target = "machineType", ignore = true),
-			@Mapping(target = "location", source = "locationEntity"),
+			@Mapping(target = "location", ignore = true),
 	})
 	public abstract Machine toModel(MachineEntity machineEntity);
 
@@ -30,6 +35,9 @@ public abstract class MachineMapper implements ModelMapper<MachineEntity, Machin
 	@AfterMapping
 	public void fillMachineType(final MachineEntity machineEntity, @MappingTarget final Machine.MachineBuilder machine) {
 		machine.machineType(ConverterEnumsClass.MACHINE_TYPE.toModel(List.of(machineEntity.isAssembly(), machineEntity.isPress())));
+		if (machineEntity.getLocationKey() != null) {
+			machine.location(locationService.findByKey(machineEntity.getLocationKey()));
+		}
 	}
 
 //	@Override

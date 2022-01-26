@@ -11,8 +11,13 @@ public abstract class SpringProfiles {
 	public static final String NO_DATABASE = "no-database";
 
 	public static final String DEVELOPMENT = "dev";
+	public static final String CACHE = "cache";
+	public static final String CACHE_TEST = "cache-service-test-profile";
 	public static final String TEST = "test";
 
-	public static final String H2_DATABASE = "h2";
+	public static final String H2 = "h2";
 	public static final String HSQL = "hsql";
+
+	public static final String LOG = "log";
+	public static final String SQL_LOG = "sql-log";
 }

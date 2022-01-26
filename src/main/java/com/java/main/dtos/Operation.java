@@ -12,7 +12,7 @@ import com.java.main.models.enums.Status;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Operation {
-	private int id;
+	private Long key;
 	private String name;
 	private Status status;
 	private Material material;

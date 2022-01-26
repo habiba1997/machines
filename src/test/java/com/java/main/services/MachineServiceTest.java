@@ -19,9 +19,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import com.java.main.dtos.Machine;
 import com.java.main.impl.MachineServiceImpl;
-import com.java.main.mappers.LocationMapper;
 import com.java.main.mappers.MachineMapper;
-import com.java.main.models.entity.MachineEntity;
 import com.java.main.repositories.MachineRepository;
 import com.java.main.services.testdata.MachineTestData;
 
@@ -33,7 +31,7 @@ public class MachineServiceTest {
 	private MachineRepository machineRepository;
 
 	@Mock
-	private LocationMapper locationMapper;
+	private LocationService locationService;
 
 	@Spy
 	private MachineMapper mapper = Mappers.getMapper(MachineMapper.class);
@@ -41,14 +39,11 @@ public class MachineServiceTest {
 	@InjectMocks
 	private MachineService machineService = new MachineServiceImpl();
 
-	List<MachineEntity> machineEntities;
-	List<Machine> machine;
-
 	@Before
 	public void setup() {
 		when(machineRepository.findAll()).thenReturn(List.of(MachineTestData.generateMachineEntity()));
 		when(machineRepository.findMachinesByLocationName(LOCATION_NAME)).thenReturn(List.of(MachineTestData.generateMachineEntity()));
-		ReflectionTestUtils.setField(mapper, "locationMapper", locationMapper);
+		ReflectionTestUtils.setField(mapper, "locationService", locationService);
 	}
 
 	@Test

@@ -13,7 +13,7 @@ import com.java.main.models.helpers.MesUnit;
 public class ProductionOrderTestData {
 
 	public static final String PRODUCTION_ORDER_NAME = "ProductionOrder1";
-	public static final int PRODUCTION_ORDER_KEY = 34012480;
+	public static final long PRODUCTION_ORDER_KEY = 34012480L;
 	public static final MesUnit MES_UNIT = MesUnit.KILO_GRAM;
 	public static final MeasuredValue MEASURED_VALUE = new MeasuredValue(BigDecimal.TEN, MES_UNIT);
 
@@ -29,7 +29,7 @@ public class ProductionOrderTestData {
 
 	public static ProductionOrderEntity generateProductionOrderEntity() {
 		return ProductionOrderEntity.builder()
-				.id(PRODUCTION_ORDER_KEY)
+				.key(PRODUCTION_ORDER_KEY)
 				.name(PRODUCTION_ORDER_NAME)
 				.materialEntity(MaterialTestData.generateMaterialEntity())
 				.plannedQuantity(MEASURED_VALUE)

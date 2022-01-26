@@ -17,7 +17,7 @@ public class ProductionOrderController {
 	private ProductionOrderService productionOrderService;
 
 	@GetMapping(value = "/production-order")
-	public ResponseEntity<ProductionOrder> getMachinesByLocationName(@RequestParam(name = "name") final String productionOrderName) {
+	public ResponseEntity<ProductionOrder> getProductionOrderByName(@RequestParam(name = "name") final String productionOrderName) {
 		return new ResponseEntity<>(this.productionOrderService.findByName(productionOrderName), HttpStatus.OK);
 	}
 
