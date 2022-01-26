@@ -1,6 +1,7 @@
 package com.java.main.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class OperationController {
 
 	@GetMapping(value = "/operations")
 	public ResponseEntity<List<Operation>> getOperationsInStatus(@RequestParam("statuses") final String statusList) {
-		List<Status> statuses = Status.getEnum(List.of(statusList.split(",")));
+		List<Status> statuses = Status.getEnum(List.of(statusList.split(",")).stream().map(String::toUpperCase).collect(Collectors.toList()));
 		return new ResponseEntity<>(this.operationService.findByStatusIn(statuses), HttpStatus.OK);
 	}
 

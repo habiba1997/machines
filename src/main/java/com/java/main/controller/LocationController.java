@@ -19,12 +19,12 @@ public class LocationController {
 	private LocationService locationService;
 
 	@GetMapping(value = "/locations")
-	public ResponseEntity<List<Location>> getAllMaterials() {
+	public ResponseEntity<List<Location>> getAllLocations() {
 		return new ResponseEntity<>(this.locationService.findAll(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/location")
-	public ResponseEntity<Location> getMaterialByName(@RequestParam(name = "name") final String locationName) {
+	public ResponseEntity<Location> getLocationByName(@RequestParam(name = "name") final String locationName) {
 		return new ResponseEntity<>(this.locationService.findByName(locationName), HttpStatus.OK);
 	}
 }
