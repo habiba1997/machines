@@ -6,23 +6,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.java.main.services.CacheService;
+import com.java.main.cache.service.ClearCacheService;
 
 @RestController
 public class CacheController {
 
 	@Autowired
-	private CacheService cacheService;
+	private ClearCacheService clearCacheService;
 
 	@GetMapping(value = "/clear-cache")
 	public ResponseEntity<Void> clearCache() {
-		this.cacheService.clearAllSpringCache();
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-
-	@GetMapping(value = "/clear-machine-cache")
-	public ResponseEntity<Void> clearMachineCache() {
-		this.cacheService.clearMachinesCache();
+		this.clearCacheService.clearAllSpringCache();
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 

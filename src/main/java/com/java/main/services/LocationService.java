@@ -9,4 +9,7 @@ public interface LocationService {
 	List<Location> findAll();
 
 	Location findByName(String name);
+
+	Location findByKey(long key);
+
 }

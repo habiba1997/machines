@@ -12,6 +12,7 @@ public abstract class SpringProfiles {
 
 	public static final String DEVELOPMENT = "dev";
 	public static final String CACHE = "cache";
+	public static final String CACHE_TEST = "cache-service-test-profile";
 	public static final String TEST = "test";
 
 	public static final String H2 = "h2";

@@ -16,9 +16,7 @@ public interface MachineRepository extends JpaRepository<MachineEntity, Integer>
 	@Cacheable(cacheNames = CacheConstants.MACHINES)
 	List<MachineEntity> findAll();
 
-
-	@Query("select machineEntity from MachineEntity machineEntity " +
-			"left join fetch machineEntity.locationEntity l where  l.name = ?1")
+	@Query("select machineEntity from MachineEntity machineEntity left join LocationEntity l on machineEntity.locationKey = l.key  where l.name = ?1")
 	List<MachineEntity> findMachinesByLocationName(String locationName);
 
 }

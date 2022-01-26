@@ -6,12 +6,9 @@ import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -59,7 +56,6 @@ public class MachineEntity implements Serializable {
 	@Convert(converter = BooleanConverter.class)
 	private boolean press;
 
-	@JoinColumn(name = "location_key")
-	@OneToOne(fetch = FetchType.EAGER)
-	private LocationEntity locationEntity;
+	@Column(name = "location_key")
+	private Long locationKey;
 }
