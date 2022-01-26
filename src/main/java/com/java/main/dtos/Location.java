@@ -15,7 +15,7 @@ import com.java.main.models.enums.LocationType;
 @AllArgsConstructor
 public class Location implements Serializable {
 
-	private int key;
+	private Long key;
 	private String name;
 	private boolean temp;
 	private LocationType type;

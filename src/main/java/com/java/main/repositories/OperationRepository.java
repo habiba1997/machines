@@ -17,7 +17,7 @@ public interface OperationRepository extends JpaRepository<OperationEntity, Inte
 
 	List<OperationEntity> findByStatusIn(List<String> statuses);
 
-	@Cacheable(cacheManager = CacheConstants.CACHE_MANAGER_MAIN, cacheNames = CacheConstants.OPERATIONS_BY_PRODUCTION_ORDER)
+	@Cacheable(cacheNames = CacheConstants.OPERATIONS_BY_PRODUCTION_ORDER)
 	@Query("select operation from OperationEntity operation " +
 			"join fetch operation.materialEntity material " +
 			"join fetch operation.productionOrderEntity production " +

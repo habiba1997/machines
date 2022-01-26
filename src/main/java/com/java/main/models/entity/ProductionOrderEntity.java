@@ -44,7 +44,7 @@ public class ProductionOrderEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int id;
+	private Long key;
 
 	// Hibernate 4 has bring lots of improvements and @NaturalId is one of such nice improvements.
 	// As you know @Id annotation is used as meta data for specifying the primary key of an entity.

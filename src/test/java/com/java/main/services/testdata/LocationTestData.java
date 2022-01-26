@@ -7,7 +7,7 @@ import com.java.main.models.enums.LocationType;
 public class LocationTestData {
 
 	public static final String LOCATION_NAME = "location1";
-	public static final int LOCATION_KEY = 1920;
+	public static final long LOCATION_KEY = 1920l;
 
 	public static Location generateLocation() {
 		return generateLocation(false);
@@ -25,10 +25,10 @@ public class LocationTestData {
 
 	public static LocationEntity generateLocationEntity() {
 		return LocationEntity.builder()
-				.key(LOCATION_KEY)
 				.name(LOCATION_NAME)
-				.temp(false)
-				.type(LocationType.ON_DOOR)
+				.key(LOCATION_KEY)
+				.temp(true)
+				.type(LocationType.FLOOR)
 				.build();
 
 	}

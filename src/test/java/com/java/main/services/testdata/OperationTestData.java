@@ -15,7 +15,7 @@ import com.java.main.models.helpers.MesUnit;
 public class OperationTestData {
 
 	public static final String OPERATION_NAME = "OP1";
-	public static final int OPERATION_ID = 1248032;
+	public static final long OPERATION_ID = 1248032l;
 	public static final MesUnit MES_UNIT = MesUnit.KILO_GRAM;
 	public static final MeasuredValue MEASURED_VALUE = new MeasuredValue(BigDecimal.TEN, MES_UNIT);
 	public static final String PRODUCTION_ORDER_NAME = "production1";
@@ -30,7 +30,7 @@ public class OperationTestData {
 
 		return Operation.builder()
 				.name(OPERATION_NAME)
-				.id(OPERATION_ID)
+				.key(OPERATION_ID)
 				.material(MaterialTestData.generateMaterial())
 				.status(Status.PLANNED)
 				.productionOrder(productionOrder)
@@ -39,7 +39,7 @@ public class OperationTestData {
 
 	public static OperationEntity generateOperationEntity() {
 		ProductionOrderEntity productionOrderEntity = ProductionOrderEntity.builder()
-				.id(ProductionOrderTestData.PRODUCTION_ORDER_KEY)
+				.key(ProductionOrderTestData.PRODUCTION_ORDER_KEY)
 				.name(ProductionOrderTestData.PRODUCTION_ORDER_NAME)
 				.materialEntity(MaterialTestData.generateMaterialEntity())
 				.plannedQuantity(MEASURED_VALUE)
@@ -48,7 +48,7 @@ public class OperationTestData {
 
 		return OperationEntity.builder()
 				.name(OPERATION_NAME)
-				.id(OPERATION_ID)
+				.key(OPERATION_ID)
 				.materialEntity(MaterialTestData.generateMaterialEntity())
 				.status("suspended")
 				.productionOrderEntity(productionOrderEntity)

@@ -42,8 +42,9 @@ public class LocationEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int key;
+	private Long key;
 
+//	 natural id annotation produce the sql logs of alter ( don't know the reason)
 	@NaturalId
 	@Column(name = "name")
 	private String name;

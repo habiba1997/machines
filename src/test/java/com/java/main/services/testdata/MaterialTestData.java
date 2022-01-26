@@ -10,7 +10,7 @@ import com.java.main.models.helpers.MesUnit;
 public class MaterialTestData {
 
 	public static final String MATERIAL_NAME = "material1";
-	public static final int MATERIAL_KEY = 34012480;
+	public static final long MATERIAL_KEY = 34012480l;
 	public static final MesUnit MES_UNIT = MesUnit.KILO_GRAM;
 	public static final MeasuredValue MEASURED_VALUE = new MeasuredValue(BigDecimal.TEN, MES_UNIT);
 
@@ -25,7 +25,7 @@ public class MaterialTestData {
 
 	public static MaterialEntity generateMaterialEntity() {
 		return MaterialEntity.builder()
-				.id(MATERIAL_KEY)
+				.key(MATERIAL_KEY)
 				.name(MATERIAL_NAME)
 				.measuredValue(MEASURED_VALUE)
 				.baseUnit(MES_UNIT)

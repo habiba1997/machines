@@ -41,9 +41,6 @@ public class MachineServiceTest {
 	@InjectMocks
 	private MachineService machineService = new MachineServiceImpl();
 
-	List<MachineEntity> machineEntities;
-	List<Machine> machine;
-
 	@Before
 	public void setup() {
 		when(machineRepository.findAll()).thenReturn(List.of(MachineTestData.generateMachineEntity()));

@@ -13,7 +13,7 @@ import com.java.main.profile.CacheConstants;
 @Repository
 public interface MachineRepository extends JpaRepository<MachineEntity, Integer> {
 
-	@Cacheable(cacheManager = CacheConstants.CACHE_MANAGER_MAIN, cacheNames = CacheConstants.MACHINES)
+	@Cacheable(cacheNames = CacheConstants.MACHINES)
 	List<MachineEntity> findAll();
 
 

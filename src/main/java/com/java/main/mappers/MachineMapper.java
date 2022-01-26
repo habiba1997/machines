@@ -20,7 +20,7 @@ public abstract class MachineMapper implements ModelMapper<MachineEntity, Machin
 	@Override
 	@Mappings({
 			@Mapping(target = "machineType", ignore = true),
-			@Mapping(target = "location", source = "locationEntity"),
+			@Mapping(target = "location", ignore = true),
 	})
 	public abstract Machine toModel(MachineEntity machineEntity);
 

@@ -10,6 +10,8 @@ if you have any flow memory will be saved on disk
 
 timeToIdleSeconds – The maximum number of seconds an element can exist in the cache without being accessed.
 
+Read more:
+https://documentation.softwareag.com/terracotta/terracotta_439/bigmemory-max/webhelp/index.html#page/bigmemory-max-webhelp/co-cfgbasics_xml_configuration.html
 -->
     <defaultCache
             maxElementsInMemory="100"
@@ -18,9 +20,29 @@ timeToIdleSeconds – The maximum number of seconds an element can exist in the 
             timeToLiveSeconds="300"
             overflowToDisk="true"
     />
-<!--    <cache name="com.java.main.models.entity.LocationEntity" maxElementsInMemory="10" />-->
-<!--    <cache name="com.java.main.models.entity.OperationEntity" maxElementsInMemory="10" />-->
-<!--    <cache name="com.java.main.models.entity.MachineEntity" maxElementsInMemory="10" />-->
-<!--    <cache name="com.java.main.models.entity.ProductionOrderEntity" maxElementsInMemory="10" />-->
-<!--    <cache name="com.java.main.models.entity.MaterialEntity" maxElementsInMemory="10" />-->
+    <cache name="com.java.main.models.entity.LocationEntity" maxElementsInMemory="10" />
+    <cache name="com.java.main.models.entity.OperationEntity" maxElementsInMemory="10" />
+    <cache name="com.java.main.models.entity.MachineEntity" maxElementsInMemory="10" />
+    <cache name="com.java.main.models.entity.ProductionOrderEntity" maxElementsInMemory="10" />
+    <cache name="com.java.main.models.entity.MaterialEntity" maxElementsInMemory="10" />
+
+
+    <cache name="cache_test" maxElementsInMemory="1" />
+    <cache name="machines" maxElementsInMemory="10" />
+    <cache name="operationsByProductionOrder" maxElementsInMemory="10" />
 </ehcache>
+
+<!-- Note:
+If the CacheManager default constructor or factory method is called, Ehcache looks for a file called ehcache.xml in the top level of the classpath.
+Failing that, it looks for ehcache-failsafe.xml in the classpath. The ehcache-failsafe.xml file is packaged in the Ehcache JAR and should always be found.
+
+ehcache-failsafe.xml provides a simple default configuration to enable users to get started before they create their own ehcache.xml.
+When ehcache-failsafe.xml is used,Ehcache will emit a warning, reminding the user to set up a proper configuration.
+
+
+About Default Cache
+The defaultCache configuration is applied to any cache that is not explicitly configured.
+The defaultCache appears in the ehcache-failsafe.xml file by default, and can also be added to any BigMemory Max configuration file.
+While the defaultCache configuration is not required, an error is generated if caches are created by name (programmatically) with no defaultCache loaded.
+
+-->

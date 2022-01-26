@@ -22,4 +22,8 @@ public class MeasuredValue implements Serializable {
 		this.value = value;
 		this.unit = unit;
 	}
+
+	public String getText() {
+		return this.value + " " + this.getUnit().getUnit();
+	}
 }
