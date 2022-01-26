@@ -15,7 +15,7 @@ import com.java.main.models.helpers.MesUnit;
 public class OperationTestData {
 
 	public static final String OPERATION_NAME = "OP1";
-	public static final long OPERATION_ID = 1248032l;
+	public static final long OPERATION_ID = 1248032L;
 	public static final MesUnit MES_UNIT = MesUnit.KILO_GRAM;
 	public static final MeasuredValue MEASURED_VALUE = new MeasuredValue(BigDecimal.TEN, MES_UNIT);
 	public static final String PRODUCTION_ORDER_NAME = "production1";

@@ -25,7 +25,7 @@ public class GoogleCacheService<K, V extends CacheableElement<K>> implements Bas
 	private ReentrantLock wholeEntityLock = new ReentrantLock();
 
 	@Override
-	public boolean hasKey(String cacheName) {
+	public boolean hasKey(final String cacheName) {
 		return cacheMap.asMap().containsKey(cacheName);
 	}
 

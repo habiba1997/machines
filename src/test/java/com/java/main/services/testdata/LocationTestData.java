@@ -7,7 +7,7 @@ import com.java.main.models.enums.LocationType;
 public class LocationTestData {
 
 	public static final String LOCATION_NAME = "location1";
-	public static final long LOCATION_KEY = 1920l;
+	public static final long LOCATION_KEY = 1920L;
 
 	public static Location generateLocation() {
 		return generateLocation(false);

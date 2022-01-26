@@ -10,7 +10,7 @@ import com.java.main.models.helpers.MesUnit;
 public class MaterialTestData {
 
 	public static final String MATERIAL_NAME = "material1";
-	public static final long MATERIAL_KEY = 34012480l;
+	public static final long MATERIAL_KEY = 34012480L;
 	public static final MesUnit MES_UNIT = MesUnit.KILO_GRAM;
 	public static final MeasuredValue MEASURED_VALUE = new MeasuredValue(BigDecimal.TEN, MES_UNIT);
 
