@@ -1,0 +1,11 @@
+
+spring:
+  jpa:
+#   The simplest way to dump the queries to standard out is to add the following to application.properties:
+    show-sql: true
+    properties:
+      hibernate:
+#        generate_statistics: true
+        #To beautify or pretty print the SQL, we can add:
+#        format_sql: true
+        #  While this is extremely simple, it's not recommended, as it directly unloads everything to standard output without any optimizations of a logging framework.

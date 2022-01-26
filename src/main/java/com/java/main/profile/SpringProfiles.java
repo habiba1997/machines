@@ -16,4 +16,7 @@ public abstract class SpringProfiles {
 
 	public static final String H2 = "h2";
 	public static final String HSQL = "hsql";
+
+	public static final String LOG = "log";
+	public static final String SQL_LOG = "sql-log";
 }
