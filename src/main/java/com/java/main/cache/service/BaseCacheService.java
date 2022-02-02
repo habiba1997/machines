@@ -1,5 +1,6 @@
 package com.java.main.cache.service;
 
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import com.java.main.cache.helpers.CacheableElement;
 public interface BaseCacheService<K, V extends CacheableElement<K>> {
 
 	int LOCK_WAIT_INTERVAL_MILLIS = 3000;
+	long CACHE_EXPIRATION_LIMIT = 300L;
 
 	boolean hasKey(String cacheName);
 
@@ -24,4 +26,9 @@ public interface BaseCacheService<K, V extends CacheableElement<K>> {
 	void releaseLock(String cacheName, K key);
 
 	boolean isLocked(String cacheName, K key);
+
+	void setTimeToLive(String cacheName, Duration customTimeToLive);
+
+	Long getExpireTime(String cacheName);
+
 }

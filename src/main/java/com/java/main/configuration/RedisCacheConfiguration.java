@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import com.java.main.cache.helpers.RedisCacheService;
@@ -39,6 +40,7 @@ public class RedisCacheConfiguration {
 	}
 
 	@Bean
+	@Primary
 	public RedisTemplate<String, Object> redisTemplate() {
 		RedisTemplate<String, Object> template = new RedisTemplate<>();
 		template.setConnectionFactory(redissonConnectionFactory(redisson()));

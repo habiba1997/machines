@@ -1,5 +1,6 @@
 package com.java.main.cache.service;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -23,10 +24,14 @@ public abstract class CacheService<K, V extends CacheableElement<K>> implements 
 
 	protected abstract String getCacheName();
 
+	protected abstract Duration getTimeToLive();
+
 	protected abstract List<V> findAllItemsFromDatabase();
 
 	public boolean isCachePopulated() {
-		return cacheService.hasKey(getCacheName());
+		String cacheName = getCacheName();
+		return cacheService.hasKey(cacheName) && cacheService.getAllCachedElements(cacheName) != null
+				&& cacheService.getExpireTime(cacheName) > BaseCacheService.CACHE_EXPIRATION_LIMIT;
 	}
 
 	// just to make ethe database call transactional
@@ -106,6 +111,7 @@ public abstract class CacheService<K, V extends CacheableElement<K>> implements 
 	private void populateCacheEntries(final List<V> entries) {
 		try {
 			cacheService.putNewCacheElements(getCacheName(), entries);
+			cacheService.setTimeToLive(getCacheName(), getTimeToLive());
 		} catch (Throwable ex) {
 			log.error("*** cache - error occurred trying to write cache entries for model {}.", getCacheName(), ex);
 		}

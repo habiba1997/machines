@@ -1,5 +1,6 @@
 package com.java.main.cache.helpers;
 
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -20,6 +21,7 @@ public class RedisCacheService<K, V extends CacheableElement<K>> implements Base
 
 	public static final String HYPHEN = "_";
 	public static final int LOCK_TIME_IN_SECONDS = 20;
+	private static final Duration DEFAULT_TIME_TO_LIVE = Duration.ofDays(1);
 
 	private RedisTemplate<String, V> redisTemplate;
 
@@ -46,6 +48,11 @@ public class RedisCacheService<K, V extends CacheableElement<K>> implements Base
 	@Override
 	public Map<K, V> getAllCachedElements(final String cacheName) {
 		return redisTemplate.<K, V>boundHashOps(cacheName).entries();
+	}
+
+	@Override
+	public Long getExpireTime(final String cacheName) {
+		return redisTemplate.getExpire(cacheName);
 	}
 
 	@Override
@@ -92,5 +99,11 @@ public class RedisCacheService<K, V extends CacheableElement<K>> implements Base
 		// Redisson's distributed locks allow for thread synchronization across applications/servers.
 		// Redisson's Lock implements java.util.concurrent.locks.Lock interface.
 		return redisson.getLock(lockName(cacheName, key)).isLocked();
+	}
+
+	@Override
+	public void setTimeToLive(final String cacheName, final Duration customTimeToLive) {
+		Duration timeToLive = customTimeToLive != null ? customTimeToLive : DEFAULT_TIME_TO_LIVE;
+		redisTemplate.expire(cacheName, timeToLive);
 	}
 }
