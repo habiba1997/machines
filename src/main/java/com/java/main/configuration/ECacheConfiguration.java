@@ -1,4 +1,4 @@
-package com.java.main.cache;
+package com.java.main.configuration;
 
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -8,12 +8,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
-import com.java.main.cache.helpers.GoogleCacheService;
-import com.java.main.cache.service.BaseCacheService;
-
 @Configuration
 @EnableCaching
-public class CacheConfiguration extends CachingConfigurerSupport {
+public class ECacheConfiguration extends CachingConfigurerSupport {
 	// Ehcache is the central interface. Caches have Elements and are managed by the CacheManager.
 	// The Cache performs logical actions. It delegates physical implementations to its Stores.
 
@@ -24,12 +21,6 @@ public class CacheConfiguration extends CachingConfigurerSupport {
 
 	// Cache Manager: A container for Ehcaches that maintain all aspects of their lifecycle.
 	// A CacheManager holds references to Caches and Ehcaches and manages their creation and lifecycle.
-
-	@Bean
-	public BaseCacheService baseCacheService() {
-		return new GoogleCacheService();
-	}
-
 	@Bean
 	public EhCacheCacheManager ehCacheCacheManager() {
 

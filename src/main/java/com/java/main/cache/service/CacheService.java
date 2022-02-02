@@ -7,6 +7,7 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.java.main.cache.helpers.CacheInvalidation;
 import com.java.main.cache.helpers.CacheableElement;
@@ -28,10 +29,12 @@ public abstract class CacheService<K, V extends CacheableElement<K>> implements 
 		return cacheService.hasKey(getCacheName());
 	}
 
+	// just to make ethe database call transactional
+	@Transactional
 	public Map<K, V> fetchAndLoadAllCachedEntries() {
 		try {
 			if (isCachePopulated()) {
-				log.debug("*** cache - serving cached data for model {}.", getCacheName());
+				log.info("*** cache - serving cached data for model {}.", getCacheName());
 				return cacheService.getAllCachedElements(getCacheName());
 			}
 			if (cacheService.isLocked(getCacheName(), null)) {
@@ -51,14 +54,15 @@ public abstract class CacheService<K, V extends CacheableElement<K>> implements 
 		return cachedEntries == null ? Collections.emptyMap() : cachedEntries;
 	}
 
+	@Transactional
 	public void forceUpdateCacheFromDb() {
 		if (cacheService.acquireLock(getCacheName(), null)) {
 			try {
 				long startTime = System.currentTimeMillis();
-				log.debug("*** cache - loading data from DB for model {}", getCacheName());
+				log.info("*** cache - loading data from DB for model {}", getCacheName());
 				List<V> itemFromDb = findAllItemsFromDatabase();
 				long endTime = System.currentTimeMillis();
-				log.debug("*** cache - data loaded successfully from DB for model {} in {} milliseconds.", getCacheName(), endTime - startTime);
+				log.info("*** cache - data loaded successfully from DB for model {} in {} milliseconds.", getCacheName(), endTime - startTime);
 				populateCacheEntries(itemFromDb);
 			} catch (Exception ex) {
 				log.error("error occurred trying to update cache from DB for model {}.", getCacheName(), ex);
@@ -77,7 +81,7 @@ public abstract class CacheService<K, V extends CacheableElement<K>> implements 
 				}
 			}
 			if (isCachePopulated()) {
-				log.debug("*** cache - serving cached data for model {}.", getCacheName());
+				log.info("*** cache - serving cached data for model {}.", getCacheName());
 				return cacheService.getCachedElementByKey(getCacheName(), key);
 			}
 		} catch (Throwable ex) {

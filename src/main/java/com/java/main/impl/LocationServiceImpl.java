@@ -2,6 +2,9 @@ package com.java.main.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import com.java.main.repositories.LocationRepository;
 import com.java.main.services.LocationService;
 
 @Service
+@Slf4j
 public class LocationServiceImpl extends CacheService<Long, Location> implements LocationService {
 
 	@Autowired
@@ -29,12 +33,16 @@ public class LocationServiceImpl extends CacheService<Long, Location> implements
 
 	@Override
 	public Location findByName(final String locationName) {
-		return this.fetchAndLoadAllCachedEntries().values().stream().filter(l -> l.getName().equals(locationName)).findFirst().orElse(null);
+		long startTime = System.currentTimeMillis();
+		Map<Long, Location> locationMap = this.fetchAndLoadAllCachedEntries();
+		long endTime = System.currentTimeMillis();
+		log.info("Fetch & load all location cache entries in {} milliseconds", (endTime - startTime));
+		return locationMap.values().stream().filter(l -> l.getName().equals(locationName)).findFirst().orElse(null);
 	}
 
 	@Override
 	public Location findByKey(final long locationKey) {
-		return this.fetchAndLoadAllCachedEntries().get(locationKey);
+		return this.getValueByKey(locationKey);
 	}
 
 	@Override

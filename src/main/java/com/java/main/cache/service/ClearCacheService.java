@@ -96,7 +96,7 @@ public class ClearCacheService {
 			String beanName = entry.getKey();
 			CacheInvalidation bean = entry.getValue();
 			if (bean.doesCacheExist(entityName)) {
-				log.debug("call invalidateCache on {} {} {} ", beanName, entityName, key);
+				log.info("call invalidateCache on {} {} {} ", beanName, entityName, key);
 				bean.invalidateCache(entityName, key);
 			}
 		}

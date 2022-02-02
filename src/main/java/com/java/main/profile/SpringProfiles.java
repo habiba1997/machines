@@ -20,4 +20,6 @@ public abstract class SpringProfiles {
 
 	public static final String LOG = "log";
 	public static final String SQL_LOG = "sql-log";
+
+	public static final String NO_TEST = "!test";
 }
