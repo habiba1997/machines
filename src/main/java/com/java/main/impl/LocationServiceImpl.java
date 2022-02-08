@@ -43,7 +43,7 @@ public class LocationServiceImpl extends CacheService<Long, Location> implements
 		long startTime = System.currentTimeMillis();
 		Map<Long, Location> locationMap = this.fetchAndLoadAllCachedEntries();
 		long endTime = System.currentTimeMillis();
-		log.info("Fetch & load all location cache entries in {} milliseconds", (endTime - startTime));
+		log.debug("Fetch & load all location cache entries in {} milliseconds", (endTime - startTime));
 		return locationMap.values().stream().filter(l -> l.getName().equals(locationName)).findFirst().orElse(null);
 	}
 

@@ -40,11 +40,11 @@ public class MockDataServices {
 	 */
 	@PostConstruct
 	public void before() {
-		log.info("mock dataService layer");
+		log.debug("mock dataService layer");
 	}
 
 	@PostConstruct
 	public void init() {
-		log.info("Mock all service exposed by data-access module");
+		log.debug("Mock all service exposed by data-access module");
 	}
 }

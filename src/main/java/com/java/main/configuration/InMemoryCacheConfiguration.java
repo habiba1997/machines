@@ -15,7 +15,7 @@ import com.java.main.cache.service.BaseCacheService;
 public class InMemoryCacheConfiguration {
 	@Bean
 	public BaseCacheService baseCacheService() {
-		log.info("use in memory caching");
+		log.debug("use in memory caching");
 		return new GoogleCacheService();
 	}
 }

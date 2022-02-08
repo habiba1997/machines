@@ -49,7 +49,7 @@ public class RedisCacheConfiguration {
 
 	@Bean
 	public BaseCacheService baseCacheService() {
-		log.info("use in redis caching");
+		log.debug("use in redis caching");
 		return new RedisCacheService();
 	}
 
