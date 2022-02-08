@@ -108,6 +108,11 @@ public abstract class CacheService<K, V extends CacheableElement<K>> implements 
 		fetchAndLoadAllCachedEntries();
 	}
 
+	@Override
+	public void deleteAllCache(final String entityName) {
+		deleteAllCachedEntries();
+	}
+
 	private void populateCacheEntries(final List<V> entries) {
 		try {
 			cacheService.putNewCacheElements(getCacheName(), entries);

@@ -13,8 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.java.main.SpringBootTestApplication;
 import com.java.main.cache.service.ClearCacheService;
 import com.java.main.profile.SpringProfiles;
-import com.java.main.repositories.LocationRepository;
 import com.java.main.repositories.MachineRepository;
+import com.java.main.services.LocationService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootTestApplication.class)
@@ -32,10 +32,13 @@ public class CacheServiceTest {
 		Assert.assertEquals("should increment first time", 1, customComponentService.incrementCache());
 		Assert.assertEquals("should not increment due to cache", 1, customComponentService.incrementCache());
 
-		cacheService.clearAllCache();
+		cacheService.refreshAllCache();
 		Assert.assertEquals("should not increment because cache has been refresh", 2, customComponentService.incrementCache());
 		Assert.assertEquals("should not increment due to cache", 2, customComponentService.incrementCache());
 
+		cacheService.clearAllCache();
+		Assert.assertEquals("should increment because cache has been cleared", 3, customComponentService.incrementCache());
+		Assert.assertEquals("should not increment due to cache", 3, customComponentService.incrementCache());
 	}
 
 	@Autowired
@@ -58,23 +61,30 @@ public class CacheServiceTest {
 
 		long timeDatabaseFetch = time1 - time0;
 		long timeCacheFetch = time3 - time2;
-		long timeAfterCacheClear = time5 - time4;
+		long timeAfterCacheCleared = time5 - time4;
 
 		assertTrue(timeDatabaseFetch > timeCacheFetch);
-		assertTrue(timeCacheFetch <= timeAfterCacheClear);
+		assertTrue(timeAfterCacheCleared > timeCacheFetch);
 	}
 
 	@Autowired
-	private LocationRepository locationRepository;
+	private LocationService locationService;
 
 	@Test
 	public void testLocationCache() {
 		long startTime = System.currentTimeMillis();
-		locationRepository.findByName("mald");
+		locationService.findByName("mald");
 		long afterDatabaseCall = System.currentTimeMillis();
-		locationRepository.findByName("mald");
+		locationService.findByName("mald");
 		long afterCacheCall = System.currentTimeMillis();
-		assertTrue(afterDatabaseCall - startTime > (afterCacheCall - afterDatabaseCall));
+		cacheService.clearAllCache();
+		locationService.findByName("mald");
+		long afterCacheCleared = System.currentTimeMillis();
 
+		long databaseFetchTime = afterDatabaseCall - startTime;
+		long cacheFetchTime = afterCacheCall - afterDatabaseCall;
+		long databaseFetchAgainAfterCacheCleared = afterCacheCleared - afterCacheCall;
+		assertTrue(cacheFetchTime < databaseFetchTime);
+		assertTrue(cacheFetchTime < databaseFetchAgainAfterCacheCleared);
 	}
 }

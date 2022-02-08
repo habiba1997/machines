@@ -45,10 +45,16 @@ public class ClearCacheService {
 	@Autowired
 	private ApplicationContext applicationContext;
 
-	public void clearAllCache() {
+	public void refreshAllCache() {
 		clearAllHibernateCacheRegion();
 		clearAllSpringCache();
 		invalidateOurCreatedCache(CacheConstants.ALL, null);
+	}
+
+	public void clearAllCache() {
+		clearAllHibernateCacheRegion();
+		clearAllSpringCache();
+		deleteOurCreatedCache(CacheConstants.ALL, null);
 	}
 
 	/**
@@ -98,6 +104,24 @@ public class ClearCacheService {
 			if (bean.doesCacheExist(entityName)) {
 				log.debug("call invalidateCache on {} {} {} ", beanName, entityName, key);
 				bean.invalidateCache(entityName, key);
+			}
+		}
+	}
+
+	/**
+	 * This method will call all interface that implement MesCacheInvalidation to delete all caches
+	 *
+	 * @param entityName
+	 * @param key
+	 */
+	public void deleteOurCreatedCache(final String entityName, final String key) {
+		Map<String, CacheInvalidation> services = applicationContext.getBeansOfType(CacheInvalidation.class);
+		for (Map.Entry<String, CacheInvalidation> entry : services.entrySet()) {
+			String beanName = entry.getKey();
+			CacheInvalidation bean = entry.getValue();
+			if (bean.doesCacheExist(entityName)) {
+				log.debug("call deleteAllCache on {} {} {} ", beanName, entityName, key);
+				bean.deleteAllCache(entityName);
 			}
 		}
 	}
