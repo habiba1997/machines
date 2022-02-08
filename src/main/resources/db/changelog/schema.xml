@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- these are to help add libraries need to make intellji auto complete xml file -->
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="Create location table" author="developer97">
+        <createTable tableName="location">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="id" />
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="temporary" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="type" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create machine table" author="developer97">
+        <createTable tableName="machine">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="assembly" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="press" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="location_key" type="bigint">
+                <constraints nullable="true"
+                             referencedTableName="location"
+                             referencedColumnNames="id"
+                             foreignKeyName="location_key"/>
+            </column>
+        </createTable>
+    </changeSet>
+<!--    constraints:-->
+<!--    nullable: false-->
+<!--    foreignKeyName: fk_abc_account-->
+<!--    references: account(accn_id)-->
+<!--    <changeSet id="Create fk_location_linked_machine" author="developer97">-->
+<!--        <addForeignKeyConstraint baseTableName="machine"-->
+<!--                                 baseColumnNames="PRO_BRE_ID"-->
+<!--                                 constraintName="FK_PRO_BRE_ID"-->
+<!--                                 referencedTableName="BREEDS"-->
+<!--                                 referencedColumnNames="BRE_ID" />-->
+<!--    </changeSet>-->
+
+    <changeSet id="Create material table" author="developer97">
+        <createTable tableName="material">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="measure_value" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="base_uom" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create production_order table" author="developer97">
+        <createTable tableName="production_order">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="start_date" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="planned_quantity" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="material_key" type="bigint">
+                <constraints nullable="true"
+                             referencedTableName="material"
+                             referencedColumnNames="id"
+                             foreignKeyName="material_key"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create operation table" author="developer97">
+        <createTable tableName="operation">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="status" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="machine_key" type="bigint">
+                <constraints nullable="true"
+                             referencedTableName="machine"
+                             referencedColumnNames="id"
+                             foreignKeyName="machine_key"/>
+            </column>
+            <column name="material_key" type="bigint">
+                <constraints nullable="true"
+                             foreignKeyName="operation_material_key"
+                             referencedTableName="material"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="production_order_key" type="bigint">
+                <constraints nullable="true"
+                             foreignKeyName="production_order_key"
+                             referencedTableName="production_order"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

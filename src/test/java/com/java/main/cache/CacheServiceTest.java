@@ -18,7 +18,7 @@ import com.java.main.services.LocationService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootTestApplication.class)
-@ActiveProfiles(profiles = { SpringProfiles.CACHE_TEST, SpringProfiles.H2, SpringProfiles.TEST, SpringProfiles.CACHE, SpringProfiles.SQL_LOG })
+@ActiveProfiles(profiles = { SpringProfiles.CACHE, SpringProfiles.CACHE_TEST, SpringProfiles.HSQL, SpringProfiles.TEST })
 public class CacheServiceTest {
 
 	@Autowired
