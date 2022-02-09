@@ -4,4 +4,4 @@ redis:
 
 spring:
     redisson:
-        address: localhost:6379
+        address: redis_machines:6379

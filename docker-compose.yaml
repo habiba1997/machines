@@ -1,0 +1,31 @@
+version: '1'
+services:
+#  don't change the name of docker => so it won't cause a problem b3den
+  redis_machines:
+    image: redis
+    ports:
+      - 6379:6379
+    restart: on-failure
+  redis-insight-machines:
+    image: redislabs/redisinsight:latest
+    ports:
+      - 8001:8001
+    volumes:
+      - C:/Users/Public/machines/data/redisinsight:/db
+    restart: on-failure
+  machines:
+    image: machines:1.0.0
+    ports:
+      - 8080:8080
+
+
+
+# docker-compose up
+# must be created on same network to find host name
+# docker network create redis-net
+# docker network ls
+# docker run -d -p 6379:6379 --net redis-net --name redis-cache redis
+# docker run -d -v redisinsight:/db -p 8001:8001 --net redis-net --name redis-insight redislabs/redisinsight:latest
+# docker run -p 8080:8080 --net redis-net --name machines-project machines:1.0.0
+
+

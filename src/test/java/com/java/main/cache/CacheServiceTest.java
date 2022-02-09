@@ -21,6 +21,7 @@ import com.java.main.services.LocationService;
 @ActiveProfiles(profiles = { SpringProfiles.CACHE, SpringProfiles.CACHE_TEST, SpringProfiles.HSQL, SpringProfiles.TEST })
 public class CacheServiceTest {
 
+	public static final String LOCATION_NAME = "mald";
 	@Autowired
 	private ClearCacheService cacheService;
 
@@ -73,12 +74,12 @@ public class CacheServiceTest {
 	@Test
 	public void testLocationCache() {
 		long startTime = System.currentTimeMillis();
-		locationService.findByName("mald");
+		locationService.findByName(LOCATION_NAME);
 		long afterDatabaseCall = System.currentTimeMillis();
-		locationService.findByName("mald");
+		locationService.findByName(LOCATION_NAME);
 		long afterCacheCall = System.currentTimeMillis();
 		cacheService.clearAllCache();
-		locationService.findByName("mald");
+		locationService.findByName(LOCATION_NAME);
 		long afterCacheCleared = System.currentTimeMillis();
 
 		long databaseFetchTime = afterDatabaseCall - startTime;
