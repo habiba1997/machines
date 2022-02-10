@@ -1,5 +1,6 @@
 package com.java.main.cache.helpers;
 
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -75,5 +76,20 @@ public class GoogleCacheService<K, V extends CacheableElement<K>> implements Bas
 	@Override
 	public boolean isLocked(final String cacheName, final K key) {
 		return wholeEntityLock.isLocked();
+	}
+
+	// set the whole map to time to live
+	@Override
+	public void setTimeToLive(final String cacheName, final Duration customTimeToLive) {
+		Map<String, Map<K, V>> template = cacheMap.asMap();
+		if (customTimeToLive != null) {
+			cacheMap = CacheBuilder.newBuilder().expireAfterWrite(customTimeToLive.getSeconds(), TimeUnit.SECONDS).build();
+		}
+		cacheMap.putAll(template);
+	}
+
+	@Override
+	public Long getExpireTime(final String cacheName) {
+		return BaseCacheService.CACHE_EXPIRATION_LIMIT;
 	}
 }

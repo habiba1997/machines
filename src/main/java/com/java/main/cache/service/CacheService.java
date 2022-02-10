@@ -1,5 +1,6 @@
 package com.java.main.cache.service;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.java.main.cache.helpers.CacheInvalidation;
 import com.java.main.cache.helpers.CacheableElement;
@@ -22,12 +24,18 @@ public abstract class CacheService<K, V extends CacheableElement<K>> implements 
 
 	protected abstract String getCacheName();
 
+	protected abstract Duration getTimeToLive();
+
 	protected abstract List<V> findAllItemsFromDatabase();
 
 	public boolean isCachePopulated() {
-		return cacheService.hasKey(getCacheName());
+		String cacheName = getCacheName();
+		return cacheService.hasKey(cacheName) && cacheService.getAllCachedElements(cacheName) != null
+				&& cacheService.getExpireTime(cacheName) > BaseCacheService.CACHE_EXPIRATION_LIMIT;
 	}
 
+	// just to make ethe database call transactional
+	@Transactional
 	public Map<K, V> fetchAndLoadAllCachedEntries() {
 		try {
 			if (isCachePopulated()) {
@@ -51,6 +59,7 @@ public abstract class CacheService<K, V extends CacheableElement<K>> implements 
 		return cachedEntries == null ? Collections.emptyMap() : cachedEntries;
 	}
 
+	@Transactional
 	public void forceUpdateCacheFromDb() {
 		if (cacheService.acquireLock(getCacheName(), null)) {
 			try {
@@ -99,9 +108,15 @@ public abstract class CacheService<K, V extends CacheableElement<K>> implements 
 		fetchAndLoadAllCachedEntries();
 	}
 
+	@Override
+	public void deleteAllCache(final String entityName) {
+		deleteAllCachedEntries();
+	}
+
 	private void populateCacheEntries(final List<V> entries) {
 		try {
 			cacheService.putNewCacheElements(getCacheName(), entries);
+			cacheService.setTimeToLive(getCacheName(), getTimeToLive());
 		} catch (Throwable ex) {
 			log.error("*** cache - error occurred trying to write cache entries for model {}.", getCacheName(), ex);
 		}

@@ -35,7 +35,7 @@ public class MockRepositories {
 	 */
 	@PostConstruct
 	public void init() {
-		log.info("Mock All Repositories");
+		log.debug("Mock All Repositories");
 	}
 
 }

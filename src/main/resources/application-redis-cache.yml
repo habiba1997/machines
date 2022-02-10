@@ -1,0 +1,7 @@
+redis:
+    cache:
+        enabled: true
+
+spring:
+    redisson:
+        address: redis_machines:6379

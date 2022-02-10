@@ -11,6 +11,6 @@ public class EventListenerClass<T> {
 
 	@EventListener(condition = "#event.success")
 	public void onApplicationEvent(final Event<T> event) {
-		log.info("Event Successfully handled: " + event.getMessage());
+		log.debug("Event Successfully handled: " + event.getMessage());
 	}
 }

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <include file="db/changelog/schema.xml" />
+
+    <changeSet id="sample locations" author="developer97">
+        <insert tableName="location">
+            <column name="id" valueNumeric="1" />
+            <column name="name" value="mald" />
+            <column name="temporary" valueNumeric="1" />
+            <column name="type" value="in_door" />
+        </insert>
+        <insert tableName="location">
+            <column name="id" valueNumeric="2" />
+            <column name="name" value="mvay" />
+            <column name="temporary" valueNumeric="0" />
+            <column name="type" value="on_door" />
+        </insert>
+        <insert tableName="location">
+            <column name="id" valueNumeric="3" />
+            <column name="name" value="refl" />
+            <column name="temporary" valueNumeric="0" />
+            <column name="type" value="floor" />
+        </insert>
+        <insert tableName="location">
+            <column name="id" valueNumeric="4" />
+            <column name="name" value="pluva" />
+            <column name="temporary" valueNumeric="1" />
+            <column name="type" value="inventory" />
+        </insert>
+    </changeSet>
+
+
+
+    <changeSet id="sample machines" author="developer97">
+        <insert tableName="machine">
+            <column name="id" valueNumeric="1" />
+            <column name="name" value="Manlift" />
+            <column name="assembly" valueNumeric="1" />
+            <column name="press" valueNumeric="0" />
+        </insert>
+        <insert tableName="machine">
+            <column name="id" valueNumeric="2" />
+            <column name="name" value="Telehandlers" />
+            <column name="assembly" valueNumeric="0" />
+            <column name="press" valueNumeric="1" />
+            <column name="location_key" valueNumeric="4" />
+        </insert>
+        <insert tableName="machine">
+            <column name="id" valueNumeric="3" />
+            <column name="name" value="Forklift" />
+            <column name="assembly" valueNumeric="0" />
+            <column name="press" valueNumeric="1" />
+        </insert>
+        <insert tableName="machine">
+            <column name="id" valueNumeric="4" />
+            <column name="name" value="Skid Steer Loader" />
+            <column name="assembly" valueNumeric="1" />
+            <column name="press" valueNumeric="0" />
+            <column name="location_key" valueNumeric="1" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="sample materials" author="developer97">
+        <insert tableName="material">
+            <column name="id" valueNumeric="1" />
+            <column name="name" value="Plastic" />
+            <column name="measure_value" value="25 PC" />
+            <column name="base_uom" value="PC" />
+        </insert>
+        <insert tableName="material">
+            <column name="id" valueNumeric="2" />
+            <column name="name" value="Silk" />
+            <column name="measure_value" value="30 m" />
+            <column name="base_uom" value="m" />
+        </insert>
+        <insert tableName="material">
+            <column name="id" valueNumeric="3" />
+            <column name="name" value="Time" />
+            <column name="measure_value" value="100 S" />
+            <column name="base_uom" value="S" />
+        </insert>
+        <insert tableName="material">
+            <column name="id" valueNumeric="4" />
+            <column name="name" value="Paper" />
+            <column name="measure_value" value="37 kg" />
+            <column name="base_uom" value="g" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="sample production orders" author="developer97">
+        <insert tableName="production_order">
+            <column name="id" valueNumeric="1" />
+            <column name="name" value="plastic_formation" />
+            <column name="start_date" value="2018-05-16 04:00:00.000" />
+            <column name="planned_quantity" value="200 g" />
+            <column name="material_key" valueNumeric="1" />
+        </insert>
+        <insert tableName="production_order">
+            <column name="id" valueNumeric="2" />
+            <column name="name" value="calibrating" />
+            <column name="start_date" value="2020-09-16 07:00:00.000" />
+            <column name="planned_quantity" value="500 TS" />
+            <column name="material_key" valueNumeric="3" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="sample operations" author="developer97">
+        <insert tableName="operation">
+            <column name="id" valueNumeric="1" />
+            <column name="name" value="Shaping" />
+            <column name="machine_key" valueNumeric="1" />
+            <column name="material_key" valueNumeric="1" />
+            <column name="production_order_key" valueNumeric="1" />
+            <column name="status" value="in_production" />
+        </insert>
+        <insert tableName="operation">
+            <column name="id" valueNumeric="2" />
+            <column name="name" value="Labeling" />
+            <column name="machine_key" valueNumeric="2" />
+            <column name="material_key" valueNumeric="4" />
+            <column name="production_order_key" valueNumeric="1" />
+            <column name="status" value="suspended" />
+        </insert>
+        <insert tableName="operation">
+            <column name="id" valueNumeric="3" />
+            <column name="name" value="Storing" />
+            <column name="machine_key" valueNumeric="1" />
+            <column name="material_key" valueNumeric="3" />
+            <column name="production_order_key" valueNumeric="1" />
+            <column name="status" value="planned" />
+        </insert>
+        <insert tableName="operation">
+        <column name="id" valueNumeric="4" />
+        <column name="name" value="fixing" />
+        <column name="machine_key" valueNumeric="3" />
+        <column name="material_key" valueNumeric="2" />
+        <column name="production_order_key" valueNumeric="2" />
+        <column name="status" value="planned" />
+        </insert>
+        <insert tableName="operation">
+            <column name="id" valueNumeric="5" />
+            <column name="name" value="calibrating" />
+            <column name="machine_key" valueNumeric="3" />
+            <column name="material_key" valueNumeric="3" />
+            <column name="production_order_key" valueNumeric="2" />
+            <column name="status" value="planned" />
+        </insert>
+        <insert tableName="operation">
+            <column name="id" valueNumeric="6" />
+            <column name="name" value="closing" />
+            <column name="machine_key" valueNumeric="4" />
+            <column name="material_key" valueNumeric="1" />
+            <column name="production_order_key" valueNumeric="2" />
+            <column name="status" value="closed" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

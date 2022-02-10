@@ -47,12 +47,12 @@ public class GlobalRepositoryJPATest {
 	@SuppressWarnings("rawtypes")
 	public void testFindAll() {
 		Map<String, CrudRepository> map = findAllCrudRepositories();
-		log.info("{} repositories", map.size());
+		log.debug("{} repositories", map.size());
 
 		Set<String> beansInErrors = new java.util.HashSet<>();
 		for (Entry<String, CrudRepository> repository : map.entrySet()) {
 			try {
-				log.info("findAll on {}", repository.getKey());
+				log.debug("findAll on {}", repository.getKey());
 				repository.getValue().findAll();
 			} catch (DataAccessException exception) {
 				log.error("cannot call findAll on " + repository.getKey(), exception);

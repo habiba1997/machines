@@ -28,7 +28,7 @@ import com.java.main.profile.SpringProfiles;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles(profiles = { SpringProfiles.CACHE, SpringProfiles.H2, SpringProfiles.TEST, SpringProfiles.SQL_LOG })
+@ActiveProfiles(profiles = { SpringProfiles.CACHE, SpringProfiles.HSQL, SpringProfiles.TEST })
 @Slf4j
 public class ControllersTest {
 	@Autowired
