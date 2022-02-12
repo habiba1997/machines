@@ -6,25 +6,42 @@ pipeline {
                  bat 'mvn clean'
             }
         }
-        stage('test') {
-            steps {
-                 bat 'mvn test'
-            }
-        }
          stage('checkstyle') {
               steps {
                  bat 'mvn checkstyle:checkstyle'
               }
          }
-        stage('package') {
+        stage('test-package') {
             steps {
-                 bat 'mvn package'
+                 bat 'mvn install'
             }
+        }
+        stage('containerize') {
+             steps {
+                 bat 'docker build -t habibahmedmagdy/machines:1.0.0 .'
+             }
+        }
+        stage('publish') {
+             when { branch "master" }
+             steps {
+                 script{
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pwd', usernameVariable: 'username')]) {
+                         bat "docker login -u ${username} -p ${pwd}"
+                         bat 'docker push habibahmedmagdy/machines:1.0.0'
+                    }
+                 }
+             }
         }
         stage('finalize') {
              steps {
-                 echo 'Tests are completed SUCCESSFULLY'
+                 echo 'Tests & Docker publish are completed SUCCESSFULLY'
              }
+        }
+    }
+
+    post {
+        always {
+            bat 'docker logout'
         }
     }
 }
