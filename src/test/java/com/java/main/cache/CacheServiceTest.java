@@ -1,6 +1,9 @@
 package com.java.main.cache;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import net.sf.ehcache.CacheManager;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.java.main.SpringBootTestApplication;
 import com.java.main.cache.service.ClearCacheService;
 import com.java.main.profile.SpringProfiles;
-import com.java.main.repositories.MachineRepository;
+import com.java.main.repositories.LocationRepository;
 import com.java.main.services.LocationService;
 
 @RunWith(SpringRunner.class)
@@ -43,32 +46,6 @@ public class CacheServiceTest {
 	}
 
 	@Autowired
-	private MachineRepository machineRepository;
-
-	@Test
-	public void testMachineClear() {
-		long time0 = System.currentTimeMillis();
-		machineRepository.findAll();
-		long time1 = System.currentTimeMillis();
-
-		long time2 = System.currentTimeMillis();
-		machineRepository.findAll();
-		long time3 = System.currentTimeMillis();
-
-		cacheService.clearAllCache();
-		long time4 = System.currentTimeMillis();
-		machineRepository.findAll();
-		long time5 = System.currentTimeMillis();
-
-		long timeDatabaseFetch = time1 - time0;
-		long timeCacheFetch = time3 - time2;
-		long timeAfterCacheCleared = time5 - time4;
-
-		assertTrue(timeDatabaseFetch > timeCacheFetch);
-		assertTrue(timeAfterCacheCleared > timeCacheFetch);
-	}
-
-	@Autowired
 	private LocationService locationService;
 
 	@Test
@@ -78,14 +55,24 @@ public class CacheServiceTest {
 		long afterDatabaseCall = System.currentTimeMillis();
 		locationService.findByName(LOCATION_NAME);
 		long afterCacheCall = System.currentTimeMillis();
-		cacheService.clearAllCache();
-		locationService.findByName(LOCATION_NAME);
-		long afterCacheCleared = System.currentTimeMillis();
 
 		long databaseFetchTime = afterDatabaseCall - startTime;
 		long cacheFetchTime = afterCacheCall - afterDatabaseCall;
-		long databaseFetchAgainAfterCacheCleared = afterCacheCleared - afterCacheCall;
 		assertTrue(cacheFetchTime < databaseFetchTime);
-		assertTrue(cacheFetchTime < databaseFetchAgainAfterCacheCleared);
+	}
+
+	@Autowired
+	private LocationRepository locationRepository;
+
+	@Test
+	public void testEntityCache() {
+		// we use Ehcache API directly to verify that com.baeldung.hibernate.cache.model.Foo cache is not empty after we load a Foo instance.
+		// this to validate @Cache on each entity
+		locationRepository.findByName("mald");
+		// the fist cache manager is default
+		int locationEntityCacheSize = CacheManager.ALL_CACHE_MANAGERS.get(1).getCache("com.java.main.models.entity.LocationEntity").getSize();
+		int operationEntityCacheSize = CacheManager.ALL_CACHE_MANAGERS.get(1).getCache("com.java.main.models.entity.OperationEntity").getSize();
+		assertTrue(locationEntityCacheSize > 0);
+		assertEquals(operationEntityCacheSize, 0);
 	}
 }
