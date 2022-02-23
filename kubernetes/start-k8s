@@ -1,0 +1,34 @@
+minikube start
+minikube tunnel --cleanup
+
+mvn clean package => for any changes to create a target
+docker build -t habibahmedmagdy/machines:latest . => to build
+in case needed to change name : docker tag machines:2.0.0 habibahmedmagdy/machines:2.0.0
+docker push habibahmedmagdy/machines:latest
+
+
+minikube addons enable ingress
+
+
+kubectl apply -f dev-configmap.yaml
+kubectl apply -f redis-deployment.yaml                        
+kubectl apply -f redis-insight.yaml                           
+kubectl apply -f machines-deployment.yaml                     
+
+kubectl get pods
+kubectl logs machines-deployment-68b497b84f-7ldcv
+
+
+compare to check connection:
+kubectl get pod redis-machines-7b55ddd88d-fcgkk -o wide
+kubectl describe service redis-service
+endpoints in describe must be equal ip of redis
+
+
+
+run ingress-controller:
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/cloud/deploy.yaml
+kubectl get pods --all-namespaces -l app.kubernetes.io/name=ingress-nginx
+kubectl get services ingress-nginx-controller --namespace=ingress-nginx
+
+kubectl apply -f ingress.yaml

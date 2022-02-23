@@ -1,0 +1,58 @@
+minikube start
+minikube tunnel --cleanup
+run: mvn clean package => for any changes to create a target
+
+kubectl apply -f config-file.yaml
+
+minikube
+minikube start
+minikube status
+kubectl get nodes
+                                                                      
+kubectl version                                                                        
+kubectl create deployment machine-in-memory-cache --image=machines:2.0.0               
+kubectl get node                                                                       
+kubectl get pod
+kubectl get deployment
+kubectl get replicaset
+kubectl get all
+kubectl get pod -o wide    (more details including ip and port => ip can be used with desctibe service to check if they are connected)
+kubectl get deployment machine-in-memory-cache -o yaml > result.yaml
+
+
+kubectl create deployment machine-in-memory-cache --image=habibahmedmagdy/machines:2.0.0
+kubectl edit deployment machine-in-memory-cache
+kubectl logs machine-in-memory-cache-78b776b95b-52j8s(pod name)                                 
+
+kubectl describe pod machine-in-memory-cache-65df4bfccb-hflqb
+kubectl describe service machines-service
+
+kubectl apply -f config-file.yaml (config can be a secret secrest is identified in type )
+kubectl delete deployment machines-in-memory-cache
+kubectl delete -f service.yaml
+
+
+
+minikube dashboard --url
+
+kubectl edit deployments.apps -n ingress-nginx ingress-nginx-controller                             
+kubectl describe ingress loadbalancer-ingress                          
+kubectl describe ingress loadbalancer-ingress                                                                           
+minikube ip
+minikube tunnel --cleanup                               
+curl machines.com/                                             
+kubectl edit deployments.apps -n ingress-nginx ingress-nginx-controller
+kubectl get ingress
+minikube addons enable ingress
+
+
+
+echo -n 'habiba' | base64
+
+cli kubctl commands:
+https://gitlab.com/nanuchi/youtube-tutorial-series/-/blob/master/basic-kubectl-commands/cli-commands.md
+
+configMap + java:
+https://capgemini.github.io/engineering/externalising-spring-boot-config-with-kubernetes/
+
+

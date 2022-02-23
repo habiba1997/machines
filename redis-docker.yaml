@@ -1,7 +1,7 @@
 version: '1'
 services:
-  redis_machines:
-    image: redis
+  redis-service:
+    image: redis:latest
     ports:
       - 6379:6379
   redis-insight-machines:
