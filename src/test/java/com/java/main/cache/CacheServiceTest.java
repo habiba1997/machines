@@ -17,7 +17,6 @@ import com.java.main.SpringBootTestApplication;
 import com.java.main.cache.service.ClearCacheService;
 import com.java.main.profile.SpringProfiles;
 import com.java.main.repositories.LocationRepository;
-import com.java.main.services.LocationService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootTestApplication.class)
@@ -43,22 +42,6 @@ public class CacheServiceTest {
 		cacheService.clearAllCache();
 		Assert.assertEquals("should increment because cache has been cleared", 3, customComponentService.incrementCache());
 		Assert.assertEquals("should not increment due to cache", 3, customComponentService.incrementCache());
-	}
-
-	@Autowired
-	private LocationService locationService;
-
-	@Test
-	public void testLocationCache() {
-		long startTime = System.currentTimeMillis();
-		locationService.findByName(LOCATION_NAME);
-		long afterDatabaseCall = System.currentTimeMillis();
-		locationService.findByName(LOCATION_NAME);
-		long afterCacheCall = System.currentTimeMillis();
-
-		long databaseFetchTime = afterDatabaseCall - startTime;
-		long cacheFetchTime = afterCacheCall - afterDatabaseCall;
-		assertTrue(cacheFetchTime < databaseFetchTime);
 	}
 
 	@Autowired

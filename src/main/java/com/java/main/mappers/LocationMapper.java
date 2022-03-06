@@ -8,6 +8,6 @@ import com.java.main.dtos.Location;
 import com.java.main.models.entity.LocationEntity;
 
 @Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, unmappedTargetPolicy = ReportingPolicy.ERROR)
-public interface LocationMapper extends ModelMapper<LocationEntity, Location> {
+public interface LocationMapper extends ModelMapper<LocationEntity, Location>, EntityMapper<LocationEntity, Location> {
 
 }
