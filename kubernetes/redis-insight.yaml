@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-insight-machines
+  labels:
+    app: redis-insight-machines
+    type: cache-monitor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-insight-machines
+      type: cache-monitor
+  template:
+    metadata:
+      labels:
+        app: redis-insight-machines
+        type: cache-monitor
+    spec:
+      containers:
+        - name: redis-insight-machines
+          image: redislabs/redisinsight:latest
+          ports:
+            - containerPort: 8001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-insight-service
+spec:
+  selector:
+    app: redis-insight-machines
+    type: cache-monitor
+#  type: NodePort  #    identifies an external service with IP address
+  ports:
+    - protocol: TCP
+      port: 8001
+#      need to match the containerPort in Deployment
+      targetPort: 8001
+#      nodePort: 31000  #      range from 30,000 to 32767

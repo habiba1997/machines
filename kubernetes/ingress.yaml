@@ -1,0 +1,31 @@
+# If you look in the 1.19 Ingress doc, it looks like the new syntax would be:
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: loadbalancer-ingress
+#  annotations:
+#    appgw.ingress.kubernetes.io/backend-path-prefix: "/"
+spec:
+#  defaultBackend:
+#    service:
+#      name: machines-service
+#      port:
+#        number: 8080
+  rules:
+    - host: machines.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /endpoints
+            backend:
+              service:
+                name: machines-service
+                port:
+                  number: 8080
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: redis-insight-service
+                port:
+                  number: 8001

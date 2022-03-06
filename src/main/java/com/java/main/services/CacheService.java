@@ -1,5 +1,7 @@
 package com.java.main.services;
 
+import java.util.Map;
+
 import javax.persistence.EntityManager;
 
 import org.apache.commons.lang3.StringUtils;
@@ -8,9 +10,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import com.java.main.cache.helpers.CacheInvalidation;
 import com.java.main.profile.CacheConstants;
 
 // First-level cache: is a session scoped cache which ensures that each entity instance is loaded only once in the persistent context.
@@ -36,8 +39,13 @@ public class CacheService {
 	@Autowired
 	private CacheManager cacheManager;
 
-	@CacheEvict(value = CacheConstants.MACHINES, allEntries = true)
-	public void clearMachinesCache() {
+	@Autowired
+	private ApplicationContext applicationContext;
+
+	public void clearAllCache() {
+		clearAllHibernateCacheRegion();
+		clearAllSpringCache();
+		invalidateCache(CacheConstants.ALL, null);
 	}
 
 	/**
@@ -68,6 +76,17 @@ public class CacheService {
 				} else {
 					cache.evict(key);
 				}
+			}
+		}
+	}
+
+	public void invalidateCache(final String entityName, final String key) {
+		Map<String, CacheInvalidation> services = applicationContext.getBeansOfType(CacheInvalidation.class);
+		for (Map.Entry<String, CacheInvalidation> entry : services.entrySet()) {
+			// String beanName = entry.getKey();
+			CacheInvalidation bean = entry.getValue();
+			if (bean.doesCacheExist(entityName)) {
+				bean.invalidateCache(entityName, key);
 			}
 		}
 	}

@@ -4,16 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
+import com.java.main.services.CacheService;
+
 @Component
 public class EventPublisher {
 
 	@Autowired
 	private ApplicationEventPublisher applicationEventPublisher;
 
-	public void publishCustomEvent(final String message, final boolean bool) {
-		System.out.println("Publishing custom event ");
-		Event event = new Event(message, bool);
+	@Autowired
+	private CacheService cacheService;
+
+	public void publish(final Event event) {
 		applicationEventPublisher.publishEvent(event);
+		cacheService.clearAllCache();
 	}
 
 }

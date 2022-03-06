@@ -62,7 +62,7 @@ public class RedisCacheService<K, V extends CacheableElement<K>> implements Base
 
 	@Override
 	public void deleteAllElements(final String cacheName) {
-		redisTemplate.opsForHash().delete(cacheName);
+		redisTemplate.delete(cacheName);
 	}
 
 	@Override
