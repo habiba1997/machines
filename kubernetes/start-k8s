@@ -18,6 +18,8 @@ kubectl apply -f machines-deployment.yaml
 kubectl get pods
 kubectl logs machines-deployment-68b497b84f-7ldcv
 
+kubectl apply -f ingress.yaml
+
 
 compare to check connection:
 kubectl get pod redis-machines-7b55ddd88d-fcgkk -o wide
@@ -31,4 +33,3 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 kubectl get pods --all-namespaces -l app.kubernetes.io/name=ingress-nginx
 kubectl get services ingress-nginx-controller --namespace=ingress-nginx
 
-kubectl apply -f ingress.yaml
