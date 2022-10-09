@@ -1,5 +1,7 @@
 package com.java.main.controller.request;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LocationRequest {
+
+	@NotNull
 	private String name;
 	private boolean temp;
 	private String type;

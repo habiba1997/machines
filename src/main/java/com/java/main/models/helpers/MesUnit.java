@@ -58,22 +58,6 @@ public class MesUnit implements Serializable {
 		this.baseUnitConversion = new BigDecimal(baseUnitConversion);
 	}
 
-	public boolean hasSameUnit(final MesUnit other) {
-		if (other != null) {
-			return this.getUnit().equalsIgnoreCase(other.getUnit());
-		}
-		return false;
-	}
-
-	public boolean hasSameBaseUnit(final MesUnit other) {
-		if (other != null) {
-			if (this.getUnit().equalsIgnoreCase(other.getUnit())) {
-				return true;
-			}
-			return this.getBaseUnit().equalsIgnoreCase(other.getBaseUnit());
-		}
-		return false;
-	}
 
 	public static MesUnit valueOf(final String unit) {
 		if (mesUnits.containsKey(unit)) {

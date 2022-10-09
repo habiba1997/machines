@@ -16,10 +16,4 @@ public interface OrderMapper extends ModelMapper<ProductionOrderEntity, Order> {
 	})
 	Order toModel(ProductionOrderEntity entity);
 
-//	@Mappings({
-//			@Mapping(source = "material", target = "materialEntity"),
-//			@Mapping( target = "id", ignore = true),
-//			@Mapping( target = "operationEntityList", ignore = true),
-//	})
-//	ProductionOrderEntity toEntity(Order model);
 }

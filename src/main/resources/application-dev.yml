@@ -1,4 +1,0 @@
-# for starting out the database only but once teh database is up and running (there is no need for the follwoing lines)
-spring:
-  liquibase:
-    change-log: classpath:db/changelog/schema.xml

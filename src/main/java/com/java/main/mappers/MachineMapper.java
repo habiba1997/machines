@@ -13,11 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.java.main.converters.ConverterEnumsClass;
 import com.java.main.dtos.Machine;
+import com.java.main.interfaces.services.LocationService;
 import com.java.main.models.entity.MachineEntity;
-import com.java.main.services.LocationService;
+import com.java.main.models.enums.MachineType;
 
 @Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, unmappedTargetPolicy = ReportingPolicy.ERROR)
-public abstract class MachineMapper implements ModelMapper<MachineEntity, Machine> {
+public abstract class MachineMapper implements ModelMapper<MachineEntity, Machine>, EntityMapper<MachineEntity, Machine> {
 
 	@Autowired
 	private LocationService locationService;
@@ -40,24 +41,22 @@ public abstract class MachineMapper implements ModelMapper<MachineEntity, Machin
 		}
 	}
 
-//	@Override
-//	@Mappings({
-//			@Mapping(target = "assembly", ignore = true),
-//			@Mapping(target = "press", ignore = true),
-//			@Mapping(target = "id", ignore = true),
-//			@Mapping(target = "locationEntity", source = "location"),
-//	})
-//	public abstract MachineEntity toEntity(Machine machine);
-//
-//	@AfterMapping
-//	void mapMachineToMachineEntity(@MappingTarget final MachineEntity machineEntity, final Machine machine) {
-//		if (machine.getMachineType().equals(MachineType.ASSEMBLY)) {
-//			machineEntity.setAssembly(true);
-//			machineEntity.setPress(false);
-//		} else if (machine.getMachineType().equals(MachineType.PRESS)) {
-//			machineEntity.setPress(true);
-//			machineEntity.setAssembly(false);
-//		}
-//	}
+	@Override
+	public MachineEntity toEntity(final Machine machine) {
+		MachineEntity machineEntity = new MachineEntity();
+		machineEntity.setName(machine.getName());
+
+		if (machine.getMachineType().equals(MachineType.ASSEMBLY)) {
+			machineEntity.setAssembly(true);
+			machineEntity.setPress(false);
+		} else if (machine.getMachineType().equals(MachineType.PRESS)) {
+			machineEntity.setPress(true);
+			machineEntity.setAssembly(false);
+		}
+		if (machine.getLocation().isPresent()) {
+			machineEntity.setLocationKey(locationService.findLocationKey(machine.getLocation().get().getName()));
+		}
+		return machineEntity;
+	}
 
 }

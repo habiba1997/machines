@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.main.dtos.ProductionOrder;
-import com.java.main.services.ProductionOrderService;
+import com.java.main.interfaces.services.ProductionOrderService;
 
 @RestController
 public class ProductionOrderController {

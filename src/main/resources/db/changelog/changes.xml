@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="increase-temporary-length" author="habiba">
+        <modifyDataType tableName="location" columnName="temporary" newDataType="NVARCHAR(2)"/>
+    </changeSet>
+
+    <changeSet id="increase-assembly-length" author="habiba">
+        <modifyDataType tableName="machine" columnName="assembly" newDataType="NVARCHAR(1)"/>
+    </changeSet>
+
+    <changeSet id="increase-press-length" author="habiba">
+        <modifyDataType tableName="machine" columnName="press" newDataType="NVARCHAR(1)"/>
+    </changeSet>
+
+
+</databaseChangeLog>

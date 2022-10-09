@@ -1,5 +1,6 @@
 minikube start
 minikube tunnel --cleanup
+minikube addons enable ingress
 
 mvn clean package => for any changes to create a target
 docker build -t habibahmedmagdy/machines:latest . => to build
@@ -7,20 +8,17 @@ in case needed to change name : docker tag machines:2.0.0 habibahmedmagdy/machin
 docker push habibahmedmagdy/machines:latest
 
 
-minikube addons enable ingress
-
-
 kubectl apply -f dev-configmap.yaml
 kubectl apply -f redis-deployment.yaml                        
 kubectl apply -f redis-insight.yaml                           
 kubectl apply -f machines-deployment.yaml                     
+kubectl apply -f ingress.yaml
+
 
 kubectl get pods
 kubectl logs machines-deployment-68b497b84f-7ldcv
 
-kubectl apply -f ingress.yaml
-
-
+i
 compare to check connection:
 kubectl get pod redis-machines-7b55ddd88d-fcgkk -o wide
 kubectl describe service redis-service
@@ -33,3 +31,15 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 kubectl get pods --all-namespaces -l app.kubernetes.io/name=ingress-nginx
 kubectl get services ingress-nginx-controller --namespace=ingress-nginx
 
+
+
+kubectl delete -f dev-configmap.yaml
+kubectl delete -f redis-deployment.yaml
+kubectl delete -f redis-insight.yaml
+kubectl delete -f machines-deployment.yaml
+kubectl delete -f ingress.yaml
+
+
+
+note:
+"jdbc:mysql://" + IP + ":3306/" + SCHEMA"

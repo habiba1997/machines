@@ -54,4 +54,7 @@ public class OperationEntity implements Serializable {
 	@Column(name = "status")
 	private String status;
 
+	@Column(name = "machine_key")
+	private Long machineKey;
+
 }

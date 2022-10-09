@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import com.java.main.impl.LocationServiceImpl;
+import com.java.main.impl.cache.LocationServiceImpl;
 import com.java.main.profile.SpringProfiles;
 
 /**

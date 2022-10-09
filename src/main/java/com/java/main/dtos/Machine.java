@@ -1,5 +1,7 @@
 package com.java.main.dtos;
 
+import java.util.Optional;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +16,6 @@ import com.java.main.models.enums.MachineType;
 public class Machine {
 	private String name;
 	private MachineType machineType;
-	private Location location;
+	private Optional<Location> location;
 
 }

@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.java.main.cache.helpers.GoogleCacheService;
 import com.java.main.cache.service.BaseCacheService;
+import com.java.main.impl.cache.GoogleCacheService;
 
 @Configuration
 @Slf4j

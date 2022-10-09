@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.main.dtos.Material;
+import com.java.main.interfaces.services.MaterialService;
 import com.java.main.mappers.MaterialMapper;
 import com.java.main.repositories.MaterialRepository;
-import com.java.main.services.MaterialService;
 
 @Service
 public class MaterialServiceImpl implements MaterialService {

@@ -15,7 +15,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.java.main.cache.helpers.CacheInvalidation;
+import com.java.main.interfaces.CacheInvalidation;
 import com.java.main.profile.CacheConstants;
 
 // First-level cache: is a session scoped cache which ensures that each entity instance is loaded only once in the persistent context.

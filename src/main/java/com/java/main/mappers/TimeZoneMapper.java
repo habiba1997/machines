@@ -8,8 +8,13 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public class TimeZoneMapper {
-	protected ZonedDateTime map(final LocalDateTime value) {
+
+	protected ZonedDateTime mapLocalToZone(final LocalDateTime localDateTime) {
 		TimeZone timezone = TimeZone.getTimeZone("Africa/Cairo");
-		return ZonedDateTime.of(value, timezone.toZoneId());
+		return ZonedDateTime.of(localDateTime, timezone.toZoneId());
+	}
+
+	protected LocalDateTime mapZoneToLocal(final ZonedDateTime zonedDateTime) {
+		return LocalDateTime.from(zonedDateTime);
 	}
 }

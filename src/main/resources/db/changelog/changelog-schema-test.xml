@@ -10,6 +10,7 @@
     <include file="changes/insert-material-changelog-4.sql" relativeToChangelogFile="true"/>
     <include file="changes/insert-production-order-changelog-6.sql" relativeToChangelogFile="true"/>
     <include file="changes/insert-operation-changelog-5.sql" relativeToChangelogFile="true"/>
+    <include file="changes/changes-changelog.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
 

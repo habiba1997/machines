@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.main.dtos.ProductionOrder;
+import com.java.main.interfaces.services.ProductionOrderService;
 import com.java.main.mappers.ProductionOrderMapper;
 import com.java.main.repositories.ProductionOrderRepository;
-import com.java.main.services.ProductionOrderService;
 
 @Service
 public class ProductionOrderServiceImpl implements ProductionOrderService {

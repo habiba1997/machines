@@ -1,6 +1,7 @@
 package com.java.main.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,5 +24,7 @@ public interface OperationRepository extends JpaRepository<OperationEntity, Inte
 			"join fetch operation.productionOrderEntity production " +
 			"where production.name = ?1")
 	List<OperationEntity> findByProductionOrderName(String productionOrderName);
+
+	Optional<OperationEntity> findByName(String name);
 
 }

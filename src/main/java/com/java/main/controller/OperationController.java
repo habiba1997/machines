@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.main.dtos.Operation;
+import com.java.main.interfaces.services.OperationService;
 import com.java.main.models.enums.Status;
-import com.java.main.services.OperationService;
 
 @RestController
 public class OperationController {

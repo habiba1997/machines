@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import com.java.main.cache.helpers.RedisCacheService;
 import com.java.main.cache.service.BaseCacheService;
+import com.java.main.interfaces.RedisCacheService;
 
 @Slf4j
 @Configuration
