@@ -1,0 +1,7 @@
+spring:
+  liquibase:
+    change-log: classpath:db/changelog/sample-data.xml
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.redisson.spring.starter.RedissonAutoConfiguration
