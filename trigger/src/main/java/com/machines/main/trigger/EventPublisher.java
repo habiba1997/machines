@@ -19,7 +19,7 @@ public class EventPublisher {
 
 	public void publishEvents(final List<Event> events) {
 		events.forEach(event -> applicationEventPublisher.publishEvent(event));
-//		cacheService.clearAllCache();
+		cacheService.clearAllCache();
 	}
 
 }

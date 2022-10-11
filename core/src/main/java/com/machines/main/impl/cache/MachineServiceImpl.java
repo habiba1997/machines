@@ -22,7 +22,7 @@ import com.machines.main.services.MachineService;
 @Service
 public class MachineServiceImpl extends CacheService<String, Machine> implements MachineService {
 
-	@Value("${cache.ttl.operation:}")
+	@Value("${cache.ttl.machine:}")
 	private Duration timeToLive;
 
 	@Autowired

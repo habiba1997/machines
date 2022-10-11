@@ -54,8 +54,8 @@ public class OperationEntity implements Serializable {
 	@Column(name = "status")
 	private String status;
 
-	@ManyToOne
-	@Column(name = "machine_key")
-	private Long machineKey;
+	@OneToOne
+	@JoinColumn(name = "machine_key")
+	private MachineEntity machineEntity;
 
 }

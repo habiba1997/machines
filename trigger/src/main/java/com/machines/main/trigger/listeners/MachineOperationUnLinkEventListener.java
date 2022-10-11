@@ -23,7 +23,7 @@ public class MachineOperationUnLinkEventListener {
 		log.debug("Event MachineOperationUnLinkEvent ......");
 		OperationEntity operationEntity = operationRepository.findByName(event.getOperationName())
 				.orElseThrow(() -> new NotFoundException(String.format("Operation %s doesn't exist", event.getOperationName())));
-		operationEntity.setMachineKey(null);
+		operationEntity.setMachineEntity(null);
 		operationRepository.save(operationEntity);
 	}
 }

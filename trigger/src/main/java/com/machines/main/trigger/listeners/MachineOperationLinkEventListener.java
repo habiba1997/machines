@@ -31,7 +31,7 @@ public class MachineOperationLinkEventListener {
 
 		MachineEntity machineEntity = machineRepository.findByName(event.getMachineName())
 				.orElseThrow(() -> new NotFoundException(String.format("Machine %s doesn't exist", event.getMachineName())));
-		operationEntity.setMachineKey(machineEntity.getKey());
+		operationEntity.setMachineEntity(machineEntity);
 		operationRepository.save(operationEntity);
 	}
 }
