@@ -2,7 +2,6 @@ package com.machines.main.logic;
 
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
@@ -56,7 +55,7 @@ public class CreateEntityLogic {
 		Validation<Machine> validation = new Validation<>();
 		Machine machine = Machine.builder()
 				.name(name)
-				.location(Optional.ofNullable(location))
+				.location(location)
 				.machineType(type != null ? type : MachineType.NONE)
 				.build();
 		validation.setBody(machine);

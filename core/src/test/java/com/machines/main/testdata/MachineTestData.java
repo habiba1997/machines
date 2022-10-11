@@ -1,7 +1,5 @@
 package com.machines.main.testdata;
 
-import java.util.Optional;
-
 import com.machines.main.dtos.Machine;
 import com.machines.main.models.entity.MachineEntity;
 import com.machines.main.models.enums.MachineType;
@@ -14,7 +12,7 @@ public class MachineTestData {
 		return Machine.builder()
 				.name(MACHINE_NAME)
 				.machineType(MachineType.ASSEMBLY)
-				.location(Optional.ofNullable(LocationTestData.generateLocation(true)))
+				.location(LocationTestData.generateLocation(true))
 				.build();
 	}
 

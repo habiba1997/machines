@@ -18,7 +18,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.machines.main.dtos.Machine;
-import com.machines.main.impl.MachineServiceImpl;
+import com.machines.main.impl.cache.MachineServiceImpl;
 import com.machines.main.mappers.MachineMapper;
 import com.machines.main.repositories.MachineRepository;
 import com.machines.main.services.LocationService;

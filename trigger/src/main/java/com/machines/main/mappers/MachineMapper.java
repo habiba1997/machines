@@ -37,7 +37,7 @@ public abstract class MachineMapper implements ModelMapper<MachineEntity, Machin
 	public void fillMachineType(final MachineEntity machineEntity, @MappingTarget final Machine.MachineBuilder machine) {
 		machine.machineType(ConverterEnumsClass.MACHINE_TYPE.toModel(List.of(machineEntity.isAssembly(), machineEntity.isPress())));
 		if (machineEntity.getLocationKey() != null) {
-			machine.location(locationService.findByKey(machineEntity.getLocationKey()));
+			machine.location(locationService.findByKey(machineEntity.getLocationKey()).orElse(null));
 		}
 	}
 
