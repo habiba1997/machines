@@ -19,6 +19,7 @@ public class ChangeOperationStatusLogic {
 		validation.addEvent(OperationStatusChangeEvent.builder().operationName(operation.getName()).newStatus(newStatus).build());
 		validation.addSuccessMessage("Operation %s status changes from %s to %s", operation.getName(), oldStatus.name(), newStatus.name());
 		operation.setStatus(newStatus);
+		validation.setBody(operation);
 		return validation;
 	}
 }

@@ -28,6 +28,7 @@ public class LinkMachineOperationLogic {
 		}
 		validation.addEvent(MachineOperationLinkEvent.builder().operationName(operation.getName()).machineName(machine.getName()).build());
 		validation.addSuccessMessage("Operation %s is now linked to %s", operation.getName(), machine.getName());
+		validation.setBody(operation);
 		return validation;
 	}
 }

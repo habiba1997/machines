@@ -39,7 +39,7 @@ public abstract class OperationMapper implements ModelMapper<OperationEntity, Op
 			@Mapping(target = "key", ignore = true),
 			@Mapping(target = "materialEntity", ignore = true),
 			@Mapping(target = "productionOrderEntity", ignore = true),
-			@Mapping(target = "machineKey", ignore = true),
+			@Mapping(target = "machineEntity", ignore = true),
 
 	})
 	public abstract OperationEntity toEntity(Operation model);
