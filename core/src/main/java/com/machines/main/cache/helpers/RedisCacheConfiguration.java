@@ -1,5 +1,4 @@
 package com.machines.main.cache.helpers;
-
 import lombok.extern.slf4j.Slf4j;
 
 import org.redisson.Redisson;
@@ -14,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericToStringSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.machines.main.BaseCacheService;
 import com.machines.main.cache.service.RedisCacheService;
@@ -44,6 +45,9 @@ public class RedisCacheConfiguration {
 	public RedisTemplate<String, Object> redisTemplate() {
 		RedisTemplate<String, Object> template = new RedisTemplate<>();
 		template.setConnectionFactory(redissonConnectionFactory(redisson()));
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setHashKeySerializer(new GenericToStringSerializer(Object.class));
+		template.setHashValueSerializer(new JsonRedisSerializer());
 		return template;
 	}
 
