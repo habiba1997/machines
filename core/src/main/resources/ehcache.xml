@@ -1,0 +1,48 @@
+<ehcache>
+<!--    inbuild variable in java to store in temporary directory so by default our com.machines.main.cache is stored in temorary directory-->
+    <diskStore path="java.io.tmpdir"/>
+
+<!--    default com.machines.main.cache 100 com.machines.main.cache elements at a time,
+the com.machines.main.cache object should be destroyed after some time, otherwise run out of memory
+object if not accessed within 5 seconds it is removed from the com.machines.main.cache,
+after 10 seconds object wil be removed from the com.machines.main.cache no matter what,
+if you have any flow memory will be saved on disk
+
+timeToIdleSeconds – The maximum number of seconds an element can exist in the com.machines.main.cache without being accessed.
+
+Read more:
+https://documentation.softwareag.com/terracotta/terracotta_439/bigmemory-max/webhelp/index.html#page/bigmemory-max-webhelp/co-cfgbasics_xml_configuration.html
+-->
+    <defaultCache
+            maxElementsInMemory="100"
+            eternal="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="300"
+            overflowToDisk="true"
+    />
+    <cache name="com.machines.main.models.entity.LocationEntity" maxElementsInMemory="10" />
+    <cache name="com.machines.main.models.entity.OperationEntity" maxElementsInMemory="10" />
+    <cache name="com.machines.main.models.entity.MachineEntity" maxElementsInMemory="10" />
+    <cache name="com.machines.main.models.entity.ProductionOrderEntity" maxElementsInMemory="10" />
+    <cache name="com.machines.main.models.entity.MaterialEntity" maxElementsInMemory="10" />
+
+
+    <cache name="cache_test" maxElementsInMemory="1" />
+    <cache name="machines" maxElementsInMemory="10" />
+    <cache name="operationsByProductionOrder" maxElementsInMemory="10" />
+</ehcache>
+
+<!-- Note:
+If the CacheManager default constructor or factory method is called, Ehcache looks for a file called ehcache.xml in the top level of the classpath.
+Failing that, it looks for ehcache-failsafe.xml in the classpath. The ehcache-failsafe.xml file is packaged in the Ehcache JAR and should always be found.
+
+ehcache-failsafe.xml provides a simple default com.machines.main.configuration to enable users to get started before they create their own ehcache.xml.
+When ehcache-failsafe.xml is used,Ehcache will emit a warning, reminding the user to set up a proper com.machines.main.configuration.
+
+
+About Default Cache
+The defaultCache com.machines.main.configuration is applied to any com.machines.main.cache that is not explicitly configured.
+The defaultCache appears in the ehcache-failsafe.xml file by default, and can also be added to any BigMemory Max com.machines.main.configuration file.
+While the defaultCache com.machines.main.configuration is not required, an com.machines.main.error is generated if caches are created by name (programmatically) with no defaultCache loaded.
+
+-->
