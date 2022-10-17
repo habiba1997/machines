@@ -1,0 +1,26 @@
+{
+  "name": "consume-kafka-write-redis",
+  "version": "1.0.0",
+  "description": "This project consume messages from kafka server and create objects in redis accordingly",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "server": "nodemon server"
+  },
+  "author": "Habiba Ahmed",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.8",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "hashmap": "^2.4.0",
+    "kafka-node": "^5.0.0",
+    "redis": "^4.3.1",
+    "request": "^2.88.2",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
