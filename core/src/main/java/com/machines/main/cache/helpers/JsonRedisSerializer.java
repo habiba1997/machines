@@ -56,12 +56,12 @@ public class JsonRedisSerializer implements RedisSerializer<Object> {
 		mapper.addMixIn(MesUnit.class, MesUnitMixIn.class);
 	}
 
-	public void addClassMap(Class<?> source, Class<?> tgt, String[] ignorableProperties) {
+	public void addClassMap(final Class<?> source, final Class<?> tgt, final String[] ignorableProperties) {
 		classMap.put(source, new Dataum(tgt, ignorableProperties));
 	}
 
 	@Override
-	public byte[] serialize(Object source) throws SerializationException {
+	public byte[] serialize(final Object source) throws SerializationException {
 		if (source == null) {
 			return EMPTY_ARRAY;
 		}
@@ -73,7 +73,7 @@ public class JsonRedisSerializer implements RedisSerializer<Object> {
 	}
 
 	@Override
-	public Object deserialize(byte[] source) throws SerializationException {
+	public Object deserialize(final byte[] source) throws SerializationException {
 		if (isEmpty(source)) {
 			return null;
 		}
@@ -93,7 +93,7 @@ public class JsonRedisSerializer implements RedisSerializer<Object> {
 		}
 	}
 
-	private boolean isEmpty(byte[] data) {
+	private boolean isEmpty(final byte[] data) {
 		return (data == null || data.length == 0);
 	}
 
@@ -109,7 +109,7 @@ public class JsonRedisSerializer implements RedisSerializer<Object> {
 
 		@Override
 		public void serialize(
-				NullValue value, JsonGenerator jsonGenerator, SerializerProvider provider)
+				final NullValue value, final JsonGenerator jsonGenerator, final SerializerProvider provider)
 				throws IOException {
 			jsonGenerator.writeStartObject();
 			jsonGenerator.writeStringField(classIdentifier, NullValue.class.getName());
