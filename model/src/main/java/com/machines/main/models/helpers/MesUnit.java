@@ -13,9 +13,12 @@ import lombok.ToString;
 
 import org.apache.commons.lang3.Validate;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 @Getter
 @ToString
 @EqualsAndHashCode(of = "unit")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
 public class MesUnit implements Serializable {
 
 	private static Map<String, MesUnit> mesUnits = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);

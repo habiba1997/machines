@@ -49,10 +49,11 @@ public class JsonRedisSerializer implements RedisSerializer<Object> {
 		this.mapper = mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.registerModule(new Jdk8Module());
 		mapper.registerModule(new JavaTimeModule());
-		mapper.addMixIn(MesUnit.class, MesUnitMixIn.class);
-		mapper.addMixIn(MeasuredValue.class, MeasureValueMixIn.class);
 
-		this.mapper = mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+		this.mapper = mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+
+		mapper.addMixIn(MeasuredValue.class, MeasureValueMixIn.class);
+		mapper.addMixIn(MesUnit.class, MesUnitMixIn.class);
 	}
 
 	public void addClassMap(Class<?> source, Class<?> tgt, String[] ignorableProperties) {
