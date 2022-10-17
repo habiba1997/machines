@@ -72,6 +72,7 @@ public class ClearCacheServiceImpl implements ClearCacheService {
 	}
 
 	public void clearAllSpringCache() {
+		// cache manager get cache that are defined in ecache.xml file
 		for (String cacheName : cacheManager.getCacheNames()) {
 			clearSpringCache(cacheName, null);
 		}
