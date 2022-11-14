@@ -1,7 +1,6 @@
 const Material = require('./Material');
 
 function ProductionOrder({ name, startDate, material, plannedQuantity }) {
-  // Accept name and age in the constructor
   this.startDate = startDate || null;
   this.name = name || null;
   this.plannedQuantity = plannedQuantity || null;
