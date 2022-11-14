@@ -1,7 +1,15 @@
 package com.machines.main.kafka;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -28,6 +36,9 @@ public class KafkaConfiguration {
 	@Value(value = "${kafka.bootstrapAddress}")
 	private String bootstrapAddress;
 
+	@Value(value = "${kafka.source.config}")
+	private String configPathFile;
+
 	@Bean
 	public KafkaAdmin kafkaAdmin() {
 		Map<String, Object> configs = new HashMap<>();
@@ -40,7 +51,6 @@ public class KafkaConfiguration {
 		configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
 		configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 		configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-		// Commons for Default and No retry ON
 		configProps.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true); // Ensure message are not produced multiple time by Kafka thread
 		return configProps;
 	}
@@ -57,10 +67,31 @@ public class KafkaConfiguration {
 
 	private static ObjectMapper objectMapperForKafka() {
 		ObjectMapper objectMapper = new ObjectMapper();
-		// objectMapper.registerModule(new Jdk8Module());
 		objectMapper.registerModule(new JavaTimeModule());
 		objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		return objectMapper;
+	}
+
+
+	//todo
+	public Properties loadConfig() throws IOException {
+		String configFile = configPathFile;
+		final Properties cfg = new Properties();
+		if (isBlank(configFile) || !Files.exists(Paths.get(configFile))) {
+			return new Properties();
+		}
+		try (InputStream inputStream = new FileInputStream(configFile)) {
+			cfg.load(inputStream);
+		}
+		return cfg;
+	}
+
+	public Properties loadConfigProperties() {
+		try {
+			return loadConfig();
+		} catch (Exception e) {
+			return new Properties();
+		}
 	}
 }

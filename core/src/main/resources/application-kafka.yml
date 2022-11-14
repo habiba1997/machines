@@ -1,5 +1,6 @@
 kafka:
   enabled: true
   bootstrapAddress: 127.0.0.1:9092
-
+  source:
+    config: src/main/java/com/machines/main/configuration/kafka.config
 

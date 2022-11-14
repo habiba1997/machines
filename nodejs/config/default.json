@@ -4,8 +4,8 @@
         "port": "6379"
     },
     "kafka":{
-        "host": "127.0.0.1",
-        "port": "9092",
-        "groupId": "kafka-node-group-machines"
+      "host": "pkc-6ojv2.us-west4.gcp.confluent.cloud",
+      "port": "9092",
+      "groupId": "kafka-node-group-machines"
     }
 }
