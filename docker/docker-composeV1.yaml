@@ -1,13 +1,10 @@
 version: '1'
 services:
-  #  don't change the name of docker => so it won't cause a problem b3den
-  redis_machines:
+#  don't change the name of docker => so it won't cause a problem b3den
+  redis-service:
     image: redis
     ports:
       - 6379:6379
-    networks:
-      - redis-net
-      - webnet
     restart: on-failure
   redis-insight-machines:
     image: redislabs/redisinsight:latest
@@ -15,18 +12,16 @@ services:
       - 8001:8001
     volumes:
       - C:/Users/Public/machines/data/redisinsight:/db
-    networks:
-      - redis-net
     restart: on-failure
   machines:
-    image: machines:1.0.0
+    image: habibahmedmagdy/machines:latest
     ports:
       - 8080:8080
-    networks:
-      - webnet
-networks:
-  redis-net: {}
-  webnet: {}
+    environment:
+      - "redis.server=redis-service"
+      - "redis.port=6379"
+
+
 
 # docker-compose up
 # must be created on same network to find host name
