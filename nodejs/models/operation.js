@@ -2,12 +2,10 @@ const Material = require('./Material');
 const ProductionOrder = require('./ProductionOrder');
 
 function Operation({ name, status, material, productionOrder }) {
-  // Accept name and age in the constructor
   this.status = status || null;
   this.name = name || null;
   this.material = (material && new Material(material)) || null;
-  this.productionOrder =
-    (productionOrder && new ProductionOrder(productionOrder)) || null;
+  this.productionOrder = (productionOrder && new ProductionOrder(productionOrder)) || null;
 }
 
 Operation.prototype.getStataus = function () {

@@ -1,7 +1,6 @@
 const Location = require('./location');
 
 function Machine({ name, machineType, location }) {
-  // Accept name and age in the constructor
   this.machineType = machineType || null;
   this.name = name || null;
   const machineLocation = location && new Location(location);

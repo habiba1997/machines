@@ -1,5 +1,4 @@
 function Location({ key, name, temp, type }) {
-  // Accept name and age in the constructor
   this.key = key || null;
   this.name = name || null;
   this.temp = temp || null;
