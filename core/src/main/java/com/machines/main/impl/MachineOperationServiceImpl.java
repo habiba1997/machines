@@ -1,12 +1,15 @@
 package com.machines.main.impl;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.machines.main.cache.service.CacheService;
 import com.machines.main.converters.ConverterEnumsClass;
 import com.machines.main.dtos.Machine;
 import com.machines.main.dtos.MachineOperation;
@@ -14,11 +17,15 @@ import com.machines.main.error.NotFoundException;
 import com.machines.main.mappers.LocationMapper;
 import com.machines.main.mappers.OperationMapper;
 import com.machines.main.models.entity.MachineOperationEntity;
+import com.machines.main.profile.CacheConstants;
 import com.machines.main.repositories.MachineOperationRepository;
 import com.machines.main.services.MachineOperationService;
 
 @Service
-public class MachineOperationServiceImpl implements MachineOperationService {
+public class MachineOperationServiceImpl extends CacheService<String, MachineOperation> implements MachineOperationService {
+
+	@Value("${cache.ttl.machine-operation:}")
+	private Duration timeToLive;
 
 	@Autowired
 	private MachineOperationRepository repository;
@@ -74,5 +81,20 @@ public class MachineOperationServiceImpl implements MachineOperationService {
 				.build();
 		return new MachineOperation(machine, operationMapper.toModel(moe.getOperationEntity()));
 
+	}
+
+	@Override
+	protected String getCacheName() {
+		return CacheConstants.MACHINE_OPERATION;
+	}
+
+	@Override
+	protected Duration getTimeToLive() {
+		return timeToLive;
+	}
+
+	@Override
+	protected List<MachineOperation> findAllItemsFromDatabase() {
+		return findAll();
 	}
 }

@@ -1,6 +1,9 @@
-function MachineOperation(machine, operation) {
-  this.machine = machine || null;
-  this.operation = operation || null;
+const Operation = require("./operation");
+const Machine = require("./machine");
+
+function MachineOperation({machine, operation}) {
+  this.machine = new Machine(machine) || null;
+  this.operation = new Operation(operation) || null;
 }
 
 MachineOperation.prototype.getMachine = function () {

@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const redisClient = require('../config/redis-connect');
-const {MATERIAL, OPERATION, MACHINE, LOCATION} = require('../constants');
+const {MATERIAL, OPERATION, MACHINE, LOCATION, MACHINE_OPERATION} = require('../constants');
 const Material = require('../models/material');
 const Location = require('../models/location');
 const Machine = require('../models/machine');
 const Operation = require('../models/operation');
+const MachineOperation = require('../models/machine-operation');
 
 // @route   GET /
 // @desc    Fetch material
@@ -36,13 +37,13 @@ router.get('/locations', async (request, response) => {
         const redisLocationList = await redisClient.hGetAll(LOCATION);
         Object.entries(redisLocationList).map((jsonStringLocationEntry) => {
             let jsonStringLocation = jsonStringLocationEntry[1];
-            const locationObject = JSON.parse(jsonStringLocation[1]);
+            const locationObject = JSON.parse(jsonStringLocation);
             const location = new Location(locationObject);
             locations.push(location);
         });
         response.json(locations);
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
         response.status(500).send({errors: [{msg: 'Server Error'}]});
     }
 });
@@ -57,7 +58,7 @@ router.get('/machines', async (request, response) => {
         Object.entries(redisMachineList).forEach((jsonStringMachineEntry) => {
             let jsonStringMachine = jsonStringMachineEntry[1];
             const machineObject = JSON.parse(jsonStringMachine);
-            const machine = new Material(machineObject);
+            const machine = new Machine(machineObject);
             machines.push(machine);
         });
         response.json(machines);
@@ -77,7 +78,7 @@ router.get('/operations', async (request, response) => {
         Object.entries(redisOperationList).map((jsonStringOperationEntry) => {
             let jsonStringOperation = jsonStringOperationEntry[1];
             const operationObject = JSON.parse(jsonStringOperation);
-            const operation = new Material(operationObject);
+            const operation = new Operation(operationObject);
             operations.push(operation);
         });
         response.json(operations);
@@ -87,4 +88,24 @@ router.get('/operations', async (request, response) => {
     }
 });
 
+
+// @route   GET /
+// @desc    Fetch material
+// @access  public
+router.get('/machine-operations', async (request, response) => {
+    try {
+        var mors = [];
+        const redisMorList = await redisClient.hGetAll(MACHINE_OPERATION);
+        Object.entries(redisMorList).forEach((jsonStringMap) => {
+            let jsonStringValue = jsonStringMap[1];
+            const object = JSON.parse(jsonStringValue);
+            const mor = new MachineOperation(object);
+            mors.push(mor);
+        });
+        response.json(mors);
+    } catch (err) {
+        console.error(err.message);
+        response.status(500).send({errors: [{msg: 'Server Error'}]});
+    }
+});
 module.exports = router;

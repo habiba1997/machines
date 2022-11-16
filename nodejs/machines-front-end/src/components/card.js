@@ -6,8 +6,8 @@ const Card = ({image, actionName, actionPath}) => {
 
     return (
         <Link to={actionPath}>
-            <div className="card">
-                <img src={image} className="image"/>
+            <div className="card action">
+                <img src={image} alt="card image" className="image"/>
                 <div className="container">
                     <h2><b>{actionName}</b></h2>
                 </div>

@@ -1,7 +1,7 @@
 function Location({ key, name, temp, type }) {
   this.key = key || null;
   this.name = name || null;
-  this.temp = temp || null;
+  this.temp = temp || false;
   this.type = type || null;
 }
 

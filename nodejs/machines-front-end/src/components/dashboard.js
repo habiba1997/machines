@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import {Link} from "react-router-dom";
 import Dropdown from "./dropdown";
 import CacheEnums from "./enums/cache-objects";
@@ -8,7 +8,7 @@ import Item from "./models/item";
 const Dashboard = () => {
     const getCacheEnums = () => {
         return Object.values(CacheEnums).map(value => new Item({
-            name: value.toString(), path: "/" + value.toString()
+            name: value.toString(), path: "/cache/" + value.toString()
         }));
     };
     const getSqlEnums = () => {
@@ -20,7 +20,7 @@ const Dashboard = () => {
         <div className="float-left">
             <h4>
                 <Link to='/' className="font-white padding-left no-underline"><i
-                    className='fas fa-user'></i> Machines</Link>
+                    className='fas fa-truck'></i> <span>{' '} </span>Machines</Link>
             </h4>
         </div>
         <div className="float-left">

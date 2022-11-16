@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import com.machines.main.impl.MachineOperationServiceImpl;
 import com.machines.main.impl.MaterialServiceImpl;
 import com.machines.main.impl.cache.LocationServiceImpl;
 import com.machines.main.impl.cache.MachineServiceImpl;
@@ -33,9 +34,12 @@ public class PreLoadObjectInCache {
 	private OperationServiceImpl operationService;
 	@Autowired
 	private MaterialServiceImpl materialService;
+	@Autowired
+	private MachineOperationServiceImpl machineOperationService;
 
 	@PostConstruct
 	public void init() {
+		loadMachineOperationCache();
 		loadLocationCache();
 		loadMachineCache();
 		loadMaterialCache();
@@ -45,6 +49,12 @@ public class PreLoadObjectInCache {
 	private void loadMaterialCache() {
 		if (!materialService.isCachePopulated()) {
 			materialService.forceUpdateCacheFromDb();
+		}
+	}
+
+	private void loadMachineOperationCache() {
+		if (!machineOperationService.isCachePopulated()) {
+			machineOperationService.forceUpdateCacheFromDb();
 		}
 	}
 

@@ -10,6 +10,7 @@ public class CacheConstants {
 
 	public static final String LOCATION = "location";
 	public static final String MACHINE = "machine";
+	public static final String MACHINE_OPERATION = "machine-operation";
 	public static final String OPERATION = "operation";
 	public static final String MATERIAL = "material";
 
