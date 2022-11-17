@@ -13,7 +13,7 @@ const Dashboard = () => {
     };
     const getSqlEnums = () => {
         return Object.values(SqlEnums).map(value => new Item({
-            name: value.toString(), path: "/" + value.toString()
+            name: value.toString(), path: "/create/" + value.toString()
         }));
     };
     return (<nav className='navbar bg-dark'>
@@ -24,10 +24,10 @@ const Dashboard = () => {
             </h4>
         </div>
         <div className="float-left">
-            <Dropdown className="menu-item" dropdownMenuName="Cache Mater Data (nodejs)" items={getCacheEnums()}/>
+            <Dropdown className="menu-item" dropdownMenuName="Cache Mater Data" items={getCacheEnums()}/>
         </div>
         <div className="float-left">
-            <Dropdown className="menu-item" dropdownMenuName="Sql Mater Data (java)" items={getSqlEnums()}/>
+            <Dropdown className="menu-item" dropdownMenuName="Create" items={getSqlEnums()}/>
         </div>
     </nav>);
 };

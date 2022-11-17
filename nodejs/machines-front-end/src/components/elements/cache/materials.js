@@ -6,7 +6,7 @@ import Spinner from "../../Spinner";
 import ObjectCard from "../object-card";
 import materialImage from '../../images/material.png';
 
-const Materials = ({cache, getAllCacheMaterials, state: {materials, material_loading}}) => {
+const Materials = ({getAllCacheMaterials, state: {materials, material_loading}}) => {
     useEffect(() => {
         getAllCacheMaterials();
     }, [getAllCacheMaterials]);
@@ -37,7 +37,6 @@ const Materials = ({cache, getAllCacheMaterials, state: {materials, material_loa
 };
 
 Materials.propTypes = {
-    cache: PropTypes.bool.isRequired,
     getAllCacheMaterials: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
 };

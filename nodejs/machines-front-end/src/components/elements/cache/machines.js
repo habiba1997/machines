@@ -6,8 +6,7 @@ import Spinner from "../../Spinner";
 import ObjectCard from "../object-card";
 import machineImage from '../../images/machine.png';
 
-//todo: remove cache
-const Machines = ({cache, getAllCacheMachines, state: {machines, machine_loading}}) => {
+const Machines = ({getAllCacheMachines, state: {machines, machine_loading}}) => {
     useEffect(() => {
         getAllCacheMachines();
     }, [getAllCacheMachines]);
@@ -38,7 +37,7 @@ const Machines = ({cache, getAllCacheMachines, state: {machines, machine_loading
 };
 
 Machines.propTypes = {
-    cache: PropTypes.bool.isRequired,
+
     getAllCacheMachines: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
 };

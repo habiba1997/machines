@@ -1,5 +1,7 @@
 package com.machines.main.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,10 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 	@Override
 	public ProductionOrder findByName(final String productionOrderName) {
 		return mapper.toModel(repository.findByName(productionOrderName));
+	}
+
+	@Override
+	public List<ProductionOrder> findAll() {
+		return mapper.toModels(repository.findAll());
 	}
 }

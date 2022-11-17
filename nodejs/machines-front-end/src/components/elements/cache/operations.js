@@ -6,7 +6,7 @@ import Spinner from "../../Spinner";
 import ObjectCard from "../object-card";
 import operationImage from '../../images/operation.png';
 
-const Operations = ({cache, getAllCacheOperations, state: {operations, operation_loading}}) => {
+const Operations = ({getAllCacheOperations, state: {operations, operation_loading}}) => {
     useEffect(() => {
         getAllCacheOperations();
     }, [getAllCacheOperations]);
@@ -38,7 +38,6 @@ const Operations = ({cache, getAllCacheOperations, state: {operations, operation
 };
 
 Operations.propTypes = {
-    cache: PropTypes.bool.isRequired,
     getAllCacheOperations: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
 };

@@ -5,22 +5,19 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
+import javax.annotation.PostConstruct;
 
 @Configuration
 @EnableWebMvc
 public class CORSConfiguration implements WebMvcConfigurer {
 
+	@PostConstruct
+	void init(){
+		System.out.println("init conf");
+	}
 	@Override
 	public void addCorsMappings(final CorsRegistry registry) {
-		registry.addMapping("/api")
-				.allowedHeaders("Access-Control-Allow-Origin", "*",
-						"Access-Control-Allow-Methods",
-						"POST, GET, OPTIONS, PUT, DELETE",
-						"Access-Control-Allow-Headers",
-						"Origin, X-Requested-With, Content-Type, Accept")
-				.allowedOrigins("*")
-				.allowedMethods("*");
+		registry.addMapping("/**");
 
 	}
 

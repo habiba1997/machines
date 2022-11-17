@@ -1,5 +1,7 @@
 package com.machines.main.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,12 @@ public class ProductionOrderController {
 	public ResponseEntity<ProductionOrder> getProductionOrderByName(@RequestParam(name = "name") final String productionOrderName) {
 		ProductionOrder productionOrder = this.productionOrderService.findByName(productionOrderName);
 		return new ResponseEntity<>(productionOrder, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/production-orders")
+	public ResponseEntity<List<ProductionOrder>> getAll() {
+		List<ProductionOrder> productionOrders = this.productionOrderService.findAll();
+		return new ResponseEntity<>(productionOrders, HttpStatus.OK);
 	}
 
 }

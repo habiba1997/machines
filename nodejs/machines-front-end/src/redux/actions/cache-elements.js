@@ -21,7 +21,7 @@ export const getAllCacheMachines = () => async (dispatch) => {
             type: GET_CACHE_MACHINES, payload: res.data,
         });
     } catch (err) {
-        setAlert(err.response.statusText);
+        dispatch(setAlert(err.response.statusText, 'danger'));
     }
 };
 
@@ -32,7 +32,7 @@ export const getAllCacheOperations = () => async (dispatch) => {
             type: GET_CACHE_OPERATIONS, payload: res.data,
         });
     } catch (err) {
-        setAlert(err.response.statusText);
+        dispatch(setAlert(err.response.statusText,'danger'));
     }
 };
 
@@ -44,7 +44,7 @@ export const getAllCacheMaterials = () => async (dispatch) => {
             type: GET_CACHE_MATERIALS, payload: res.data,
         });
     } catch (err) {
-        setAlert(err.response.statusText);
+        dispatch(setAlert(err.response.statusText,'danger'));
     }
 };
 
@@ -56,7 +56,7 @@ export const getAllCacheLocations = () => async (dispatch) => {
             type: GET_CACHE_LOCATIONS, payload: res.data,
         });
     } catch (err) {
-        setAlert(err.response.statusText);
+        dispatch(setAlert(err.response.statusText,'danger'));
     }
 };
 
@@ -68,7 +68,7 @@ export const getAllCacheMachineOperations = () => async (dispatch) => {
             type: GET_CACHE_MACHINE_OPERATIONS, payload: res.data,
         });
     } catch (err) {
-        setAlert(err.response.statusText);
+        dispatch(setAlert(err.response.statusText,'danger'));
     }
 };
 

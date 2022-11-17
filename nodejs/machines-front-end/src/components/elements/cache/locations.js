@@ -7,7 +7,7 @@ import ObjectCard from "../object-card";
 import locationImage from '../../images/location.png';
 
 //todo: remove cache
-const Locations = ({cache, getAllCacheLocations, state: {locations, location_loading}}) => {
+const Locations = ({getAllCacheLocations, state: {locations, location_loading}}) => {
     useEffect(() => {
         getAllCacheLocations();
     }, [getAllCacheLocations]);
@@ -31,7 +31,6 @@ const Locations = ({cache, getAllCacheLocations, state: {locations, location_loa
 };
 
 Locations.propTypes = {
-    cache: PropTypes.bool.isRequired,
     getAllCacheLocations: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
 };

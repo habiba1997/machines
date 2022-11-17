@@ -6,7 +6,7 @@ import Spinner from "../../Spinner";
 import ObjectCard from "../object-card";
 import machineOperationImage from '../../images/machine-operation.webp';
 
-const MachineOperations = ({cache, getAllCacheMachineOperations, state: {machine_operations, mor_loading}}) => {
+const MachineOperations = ({getAllCacheMachineOperations, state: {machine_operations, mor_loading}}) => {
     useEffect(() => {
         getAllCacheMachineOperations();
     }, [getAllCacheMachineOperations]);
@@ -37,7 +37,7 @@ const MachineOperations = ({cache, getAllCacheMachineOperations, state: {machine
 };
 
 MachineOperations.propTypes = {
-    cache: PropTypes.bool.isRequired,
+
     getAllCacheMachineOperations: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
 };

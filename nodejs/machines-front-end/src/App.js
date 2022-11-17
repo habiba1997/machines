@@ -4,8 +4,6 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Dashboard from "./components/dashboard";
 import Landing from "./components/landing";
 import Alert from "./components/alert";
-
-//Redux
 import {Provider} from 'react-redux';
 import store from './redux/store';
 import NotFound from "./components/NotFound";
@@ -14,6 +12,11 @@ import Locations from "./components/elements/cache/locations";
 import Operations from "./components/elements/cache/operations";
 import Materials from "./components/elements/cache/materials";
 import MachineOperations from "./components/elements/cache/machine-operations";
+import CreateLocation from "./components/elements/create/create-location";
+import CreateMaterial from "./components/elements/create/create-material";
+import CreateMachine from "./components/elements/create/create-machine";
+import CreateProductionOrder from "./components/elements/create/create-production-order";
+import CreateOperation from "./components/elements/create/create-operation";
 
 function App() {
     return (
@@ -25,11 +28,16 @@ function App() {
                     <section className='container'>
                         <Routes>
                             <Route path='/' element={<Landing/>}/>
-                            <Route path='/cache/machines' element={<Machines cache={true}/>}/>
-                            <Route path='/cache/locations' element={<Locations cache={true}/>}/>
-                            <Route path='/cache/operations' element={<Operations cache={true}/>}/>
-                            <Route path='/cache/materials' element={<Materials cache={true}/>}/>
-                            <Route path='/cache/machine-operations' element={<MachineOperations cache={true}/>}/>
+                            <Route path='/cache/machines' element={<Machines/>}/>
+                            <Route path='/cache/locations' element={<Locations/>}/>
+                            <Route path='/cache/operations' element={<Operations/>}/>
+                            <Route path='/cache/materials' element={<Materials/>}/>
+                            <Route path='/cache/machine-operations' element={<MachineOperations/>}/>
+                            <Route path='/create/location' element={<CreateLocation/>}/>
+                            <Route path='/create/machine' element={<CreateMachine/>}/>
+                            <Route path='/create/operation' element={<CreateOperation/>}/>
+                            <Route path='/create/material' element={<CreateMaterial/>}/>
+                            <Route path='/create/production-order' element={<CreateProductionOrder/>}/>
                             <Route path='/*' element={<NotFound/>}/>
                         </Routes>
                     </section>

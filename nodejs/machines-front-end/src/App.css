@@ -6,6 +6,44 @@
     --success-color: #28a745;
 }
 
+.alert {
+    padding: 0.8rem;
+    margin: 1rem 0;
+    opacity: 0.9;
+    background: var(--light-color);
+    color: #333;
+}
+
+.close {
+    display: inline-block;
+    padding: 0.4rem 1.3rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    transition: opacity 0.2s ease-in;
+    outline: none;
+}
+
+.float-right {
+    float: right
+}
+
+.btn {
+    display: inline-block;
+    background: var(--light-color);
+    color: #333;
+    padding: 0.4rem 1.3rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    transition: opacity 0.2s ease-in;
+    outline: none;
+
+}
+
 .padding-left {
     padding-left: 1rem;
 }
@@ -122,6 +160,7 @@
 .text-dark {
     color: var(--dark-color);
 }
+
 .text-red {
     color: var(--danger-color);
 }
@@ -193,6 +232,7 @@
     margin-right: auto;
     text-align: center;
 }
+
 .list {
     width: auto;
     color: var(--dark-color);
@@ -216,3 +256,101 @@
 .action:hover {
     box-shadow: 0 4rem 5rem 0 rgba(0, 0, 0, 0.2);
 }
+
+.block {
+    display: block;
+}
+
+.card-form {
+    box-shadow: 0 .5rem 1rem 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    display: inline-block;
+    margin: 1rem 2rem;
+    width: 60%;
+}
+
+.form .form-group {
+    margin: 1.2rem auto;
+}
+
+.form {
+    margin: 1rem 1rem;
+}
+
+.form .form-text {
+    display: block;
+    margin-top: 0.3rem;
+    color: #888;
+}
+
+/*.form-group table, .form-group h2 {*/
+/*    padding: 0.4rem;*/
+/*    width: 90%;*/
+/*    font-size: 1.2rem;*/
+/*    margin: auto;*/
+/*}*/
+
+.form input[type='text'],
+.form input[type='email'],
+.form input[type='password'],
+.form input[type='date'],
+.form input[type='number'],
+.form select,
+.form textarea {
+    display: block;
+    padding: 0.4rem;
+    width: 90%;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+    /*margin: auto;*/
+}
+.width-wide{
+    width: 100%;
+}
+
+.inline {
+    display: inline;
+}
+
+.no-bold {
+    font-weight: normal;
+}
+
+.checkbox {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* Margin */
+.m {
+    margin: 0.5rem;
+}
+
+.m-1 {
+    margin: 1rem;
+}
+
+.m-2 {
+    margin: 2rem;
+}
+
+.m-3 {
+    margin: 3rem;
+}
+
+.my {
+    margin: 0.5rem 0;
+}
+
+.my-1 {
+    margin: 1rem 0;
+}
+
+.my-2 {
+    margin: 2rem 0;
+}
+
+.my-3 {
+    margin: 3rem 0;
+}
+
