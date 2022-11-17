@@ -29,7 +29,7 @@ const CreateProductionOrder = ({saveProductionOrder, getAllMaterials, state: {ma
     } = productionOrder;
 
     const {
-        unit, value
+        unit
     } = plannedQuantity;
 
     const onChange = (e) => {

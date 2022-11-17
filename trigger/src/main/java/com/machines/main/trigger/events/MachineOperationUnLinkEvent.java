@@ -11,4 +11,5 @@ import com.machines.main.trigger.Event;
 @AllArgsConstructor
 public class MachineOperationUnLinkEvent extends Event {
 	private String operationName;
+	private String machineName;
 }

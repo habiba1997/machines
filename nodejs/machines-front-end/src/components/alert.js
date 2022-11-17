@@ -14,8 +14,7 @@ const Alert = ({alerts, closeAlert}) => {
             <div key={alert.id} className={`alert alert-${alert.alertType}`}>
                 {alert.msg}
                 <i
-                    icon='fas fa-times'
-                    className='close float-right'
+                    className='fas fa-times close float-right text-white'
                     onClick={() => close(alert)}
                 />
             </div>

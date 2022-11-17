@@ -8,7 +8,6 @@ import {Link} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import Spinner from "../../Spinner";
 import OperationStatus from "../../enums/operation-status";
-import MesUnit from "../../enums/mes-unit";
 
 const CreateOperation = ({
                              saveOperation,

@@ -4,6 +4,7 @@ import Dropdown from "./dropdown";
 import CacheEnums from "./enums/cache-objects";
 import SqlEnums from "./enums/sql-objects";
 import Item from "./models/item";
+import actions from "./actions";
 
 const Dashboard = () => {
     const getCacheEnums = () => {
@@ -16,6 +17,7 @@ const Dashboard = () => {
             name: value.toString(), path: "/create/" + value.toString()
         }));
     };
+
     return (<nav className='navbar bg-dark'>
         <div className="float-left">
             <h4>
@@ -28,6 +30,9 @@ const Dashboard = () => {
         </div>
         <div className="float-left">
             <Dropdown className="menu-item" dropdownMenuName="Create" items={getSqlEnums()}/>
+        </div>
+        <div className="float-left">
+            <Dropdown className="menu-item" dropdownMenuName="Change" items={actions}/>
         </div>
     </nav>);
 };

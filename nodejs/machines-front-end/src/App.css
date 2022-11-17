@@ -160,6 +160,9 @@
 .text-dark {
     color: var(--dark-color);
 }
+.text-white {
+    color: var(--light-color);
+}
 
 .text-red {
     color: var(--danger-color);
@@ -212,14 +215,14 @@
 }
 
 .action {
-    width: 25rem;
+    width: 18.3rem;
     color: #175db8;
     text-decoration: underline;
 }
 
 .action img {
-    width: 25rem;
-    height: 25rem;
+    width: 18.3rem;
+    height: 18.3rem;
     border-radius: 1rem;
     border: 1px solid #ddd;
     display: block;

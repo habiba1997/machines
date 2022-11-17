@@ -21,9 +21,6 @@ public class UnLinkMachineOperationService {
 	private UnLinkMachineOperationLogic logic;
 
 	@Autowired
-	private OperationService operationService;
-
-	@Autowired
 	private MachineOperationService machineService;
 
 
@@ -34,7 +31,7 @@ public class UnLinkMachineOperationService {
 	public Response<Void> unlinkMachineOperation(final String operationName, final String machineName) {
 		MachineOperation machineOperation = machineService.findByNameOrThrow(machineName);
 
-		Validation<Operation> validation = logic.unlinkMachineOperation(machineOperation.getOperation(), machineOperation.getMachine());
+		Validation<Operation> validation = logic.unlinkMachineOperation(machineOperation.getOperation(), machineOperation.getMachine(), operationName);
 		if (validation.isSuccess()) {
 			eventPublisher.publishEvents(validation.getEvents());
 		}

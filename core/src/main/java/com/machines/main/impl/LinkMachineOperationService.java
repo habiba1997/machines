@@ -24,17 +24,23 @@ public class LinkMachineOperationService {
 	private OperationService operationService;
 
 	@Autowired
-	private MachineOperationService machineService;
+	private MachineOperationService machineOperationService;
 
 	@Autowired
 	private EventPublisher eventPublisher;
 
 	@KafkaAnnotation(topicName = TopicName.LINK_OPERATION_TO_MACHINE_TOPIC)
 	public Response<Void> linkMachineOperation(final String operationName, final String machineName) {
-		MachineOperation machine = machineService.findByName(machineName);
+		boolean isOperationLinked = machineOperationService.isOperationLinkedToOtherMachine(operationName);
+		Validation<Operation> validation = new Validation<>();
+		if (isOperationLinked) {
+			validation.addFailMessage("Operation %s is connected to another machines", operationName);
+			return Response.<Void>builder().success(validation.isSuccess()).messages(validation.getMessages()).build();
+		}
+		MachineOperation machine = machineOperationService.findByName(machineName);
 		Operation operation = operationService.findByName(operationName);
 
-		Validation<Operation> validation = logic.linkMachineOperation(operation, machine);
+		validation = logic.linkMachineOperation(operation, machine);
 		if (validation.isSuccess()) {
 			eventPublisher.publishEvents(validation.getEvents());
 		}

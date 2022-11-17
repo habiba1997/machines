@@ -1,5 +1,5 @@
 import {
-    CREATE_LOCATION, CREATE_MACHINE, CREATE_MATERIAL, CREATE_OPERATION, CREATE_PRODUCTION_ORDER
+    CREATE_LOCATION, CREATE_MACHINE, CREATE_MATERIAL, CREATE_OPERATION, CREATE_PRODUCTION_ORDER, SQL_ERROR
 } from '../actions/types';
 
 const initialState = {
@@ -30,6 +30,8 @@ const saveElement = (state = initialState, action) => {
             return {
                 ...state, material: payload,
             };
+        case SQL_ERROR:
+            return {...state, error: payload};
         default:
             return state;
     }

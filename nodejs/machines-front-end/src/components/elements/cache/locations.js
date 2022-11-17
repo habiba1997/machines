@@ -6,12 +6,10 @@ import Spinner from "../../Spinner";
 import ObjectCard from "../object-card";
 import locationImage from '../../images/location.png';
 
-//todo: remove cache
 const Locations = ({getAllCacheLocations, state: {locations, location_loading}}) => {
     useEffect(() => {
         getAllCacheLocations();
     }, [getAllCacheLocations]);
-
 
     return (<Fragment>
         {location_loading ? (<Spinner/>) : (<Fragment>

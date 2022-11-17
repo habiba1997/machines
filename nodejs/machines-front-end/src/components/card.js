@@ -7,7 +7,7 @@ const Card = ({image, actionName, actionPath}) => {
     return (
         <Link to={actionPath}>
             <div className="card action">
-                <img src={image} alt="card image" className="image"/>
+                <img src={image} alt="card" className="image"/>
                 <div className="container">
                     <h2><b>{actionName}</b></h2>
                 </div>

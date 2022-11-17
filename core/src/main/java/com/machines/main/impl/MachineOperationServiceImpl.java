@@ -3,6 +3,7 @@ package com.machines.main.impl;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,10 @@ import com.machines.main.error.NotFoundException;
 import com.machines.main.mappers.LocationMapper;
 import com.machines.main.mappers.OperationMapper;
 import com.machines.main.models.entity.MachineOperationEntity;
+import com.machines.main.models.entity.OperationEntity;
 import com.machines.main.profile.CacheConstants;
 import com.machines.main.repositories.MachineOperationRepository;
+import com.machines.main.repositories.OperationRepository;
 import com.machines.main.services.MachineOperationService;
 
 @Service
@@ -29,6 +32,9 @@ public class MachineOperationServiceImpl extends CacheService<String, MachineOpe
 
 	@Autowired
 	private MachineOperationRepository repository;
+
+	@Autowired
+	private OperationRepository operationRepository;
 
 	@Autowired
 	private LocationMapper locationMapper;
@@ -65,6 +71,13 @@ public class MachineOperationServiceImpl extends CacheService<String, MachineOpe
 				.location(locationMapper.toModel(moe.getLocationEntity()))
 				.build();
 		return new MachineOperation(machine, operationMapper.toModel(moe.getOperationEntity()));
+	}
+
+	@Override
+	public boolean isOperationLinkedToOtherMachine(final String operationName) {
+		OperationEntity operationEntity = operationRepository.findByName(operationName)
+				.orElseThrow(() -> new NotFoundException(String.format("Operation %s doesn't exist", operationName)));
+		return Optional.ofNullable(operationEntity.getMachineEntity()).isPresent();
 
 	}
 

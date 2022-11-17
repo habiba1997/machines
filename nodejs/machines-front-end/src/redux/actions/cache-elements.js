@@ -1,16 +1,16 @@
 import {
-    GET_CACHE_OPERATIONS, GET_CACHE_MACHINES, GET_CACHE_MACHINE_OPERATIONS, GET_CACHE_MATERIALS, GET_CACHE_LOCATIONS
+    GET_CACHE_OPERATIONS,
+    GET_CACHE_MACHINES,
+    GET_CACHE_MACHINE_OPERATIONS,
+    GET_CACHE_MATERIALS,
+    GET_CACHE_LOCATIONS,
+    MATERIALS_CACHE_ERROR,
+    MACHINE_CACHE_ERROR,OPERATION_CACHE_ERROR,MACHINE_OPERATIONS_CACHE_ERROR,LOCATIONS_CACHE_ERROR
 } from './types';
-import {CACHE_ENDPOINT} from './endpoints';
+import {CACHE_ENDPOINT} from '../endpoints';
 import axios from 'axios';
 import {setAlert} from './alert-action';
 
-
-const config = {
-    headers: {
-        'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*',
-    },
-};
 
 const endpoint = 'http://' + CACHE_ENDPOINT + '/redis';
 
@@ -21,7 +21,8 @@ export const getAllCacheMachines = () => async (dispatch) => {
             type: GET_CACHE_MACHINES, payload: res.data,
         });
     } catch (err) {
-        dispatch(setAlert(err.response.statusText, 'danger'));
+        dispatch(setAlert(err.message, 'danger'));
+        dispatch({type: MACHINE_CACHE_ERROR, payload: err});
     }
 };
 
@@ -32,7 +33,8 @@ export const getAllCacheOperations = () => async (dispatch) => {
             type: GET_CACHE_OPERATIONS, payload: res.data,
         });
     } catch (err) {
-        dispatch(setAlert(err.response.statusText,'danger'));
+        dispatch(setAlert(err.message, 'danger'));
+        dispatch({type: OPERATION_CACHE_ERROR, payload: err});
     }
 };
 
@@ -44,7 +46,8 @@ export const getAllCacheMaterials = () => async (dispatch) => {
             type: GET_CACHE_MATERIALS, payload: res.data,
         });
     } catch (err) {
-        dispatch(setAlert(err.response.statusText,'danger'));
+        dispatch(setAlert(err.message, 'danger'));
+        dispatch({type: MATERIALS_CACHE_ERROR, payload: err});
     }
 };
 
@@ -56,7 +59,8 @@ export const getAllCacheLocations = () => async (dispatch) => {
             type: GET_CACHE_LOCATIONS, payload: res.data,
         });
     } catch (err) {
-        dispatch(setAlert(err.response.statusText,'danger'));
+        dispatch(setAlert(err.message, 'danger'));
+        dispatch({type: LOCATIONS_CACHE_ERROR, payload: err});
     }
 };
 
@@ -68,7 +72,8 @@ export const getAllCacheMachineOperations = () => async (dispatch) => {
             type: GET_CACHE_MACHINE_OPERATIONS, payload: res.data,
         });
     } catch (err) {
-        dispatch(setAlert(err.response.statusText,'danger'));
+        dispatch(setAlert(err.message, 'danger'));
+        dispatch({type: MACHINE_OPERATIONS_CACHE_ERROR, payload: err});
     }
 };
 

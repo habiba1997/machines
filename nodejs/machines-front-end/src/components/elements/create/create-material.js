@@ -22,7 +22,7 @@ const CreateMaterial = ({saveMaterial}) => {
     } = material;
 
     const {
-        unit, value
+        unit
     } = measuredValue;
 
     const onChangeMaterial = (e) => {

@@ -2,9 +2,9 @@ import {
     CREATE_PRODUCTION_ORDER,
     CREATE_OPERATION,
     CREATE_MACHINE,
-    CREATE_LOCATION, CREATE_MATERIAL
+    CREATE_LOCATION, CREATE_MATERIAL, SQL_ERROR
 } from './types';
-import {SQL_ENDPOINT} from './endpoints';
+import {SQL_ENDPOINT} from '../endpoints';
 import axios from 'axios';
 import {setAlert} from './alert-action';
 
@@ -29,7 +29,9 @@ export const saveLocation = (location, navigate) => async (dispatch) => {
         navigate('/cache/locations')
 
     } catch (err) {
-        dispatch(setAlert(err.name + " : " + err.message, 'danger'));
+        let errMessage = err.response.data.message;
+        dispatch(setAlert(errMessage, 'danger'));
+        dispatch({type: SQL_ERROR, payload: err.response.data});
     }
 };
 
@@ -45,7 +47,9 @@ export const saveMaterial = (material, navigate) => async (dispatch) => {
         navigate('/cache/materials')
 
     } catch (err) {
-        dispatch(setAlert(err.name + " : " + err.message, 'danger'));
+        let errMessage = err.response.data.message;
+        dispatch(setAlert(errMessage, 'danger'));
+        dispatch({type: SQL_ERROR, payload: err.response.data});
     }
 };
 
@@ -61,7 +65,9 @@ export const saveMachine = (machine, navigate) => async (dispatch) => {
         navigate('/cache/machines')
 
     } catch (err) {
-        dispatch(setAlert(err.name + " : " + err.message, 'danger'));
+        let errMessage = err.response.data.message;
+        dispatch(setAlert(errMessage, 'danger'));
+        dispatch({type: SQL_ERROR, payload: err.response.data});
     }
 };
 
@@ -77,7 +83,9 @@ export const saveOperation = (operation, navigate) => async (dispatch) => {
         navigate('/cache/operations')
 
     } catch (err) {
-        dispatch(setAlert(err.name + " : " + err.message, 'danger'));
+        let errMessage = err.response.data.message;
+        dispatch(setAlert(errMessage, 'danger'));
+        dispatch({type: SQL_ERROR, payload: err.response.data});
     }
 };
 
@@ -93,7 +101,9 @@ export const saveProductionOrder = (productionOrder, navigate) => async (dispatc
         navigate('/');
 
     } catch (err) {
-        setAlert(err.name + " : " + err.message, 'danger');
+        let errMessage = err.response.data.message;
+        dispatch(setAlert(errMessage, 'danger'));
+        dispatch({type: SQL_ERROR, payload: err.response.data});
     }
 };
 

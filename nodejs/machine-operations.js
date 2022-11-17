@@ -8,9 +8,9 @@ const MachineOperation = require('./models/machine-operation');
 const kafkaConsumer = require('./config/kafka-connect');
 
 kafkaConsumer.on('message', async (message) => {
-    console.log(message);
     const topicName = message.topic;
     const topicValue = JSON.parse(message.value);
+    console.log(topicName, ': ', message.value);
     switch (topicName) {
         case TopicNames.OPERATION_CHANGE_STATUS:
             await changeOperationStatus(topicValue);
@@ -27,17 +27,12 @@ kafkaConsumer.on('message', async (message) => {
 const changeOperationStatus = async ({operation, status}) => {
     await redisClient.hGetAll(OPERATION).then((operationJsonStringMapEntry) => {
         Object.entries(operationJsonStringMapEntry).forEach((operationJsonStringEntry) => {
-            var operationStringObject = operationJsonStringMapEntry[1];
+            var operationStringObject = operationJsonStringEntry[1];
             const operationJsonObject = JSON.parse(operationStringObject);
             // if we found our operation
             if (operationJsonObject.name === operation) {
                 operationJsonObject.status = status;
-                setHashValueInRedis(
-                    OPERATION,
-                    operationJsonObject.name,
-                    operationJsonObject,
-                    'change operation ' + operation + ' to ' + status
-                );
+                setHashValueInRedis(OPERATION, operationJsonObject.name, operationJsonObject, 'change operation ' + operation + ' to ' + status);
             }
         });
     });
@@ -55,12 +50,7 @@ const changeOperationStatus = async ({operation, status}) => {
             let machineOperationStringObject = machineOperationStringEntry[1];
             const machineOperationObject = JSON.parse(machineOperationStringObject);
             machineOperationObject.operation.status = status;
-            setHashValueInRedis(
-                MACHINE_OPERATION,
-                machineOperationKeyName,
-                machineOperationObject,
-                'change machine operation status to ' + status
-            );
+            setHashValueInRedis(MACHINE_OPERATION, machineOperationKeyName, machineOperationObject, 'change machine operation status to ' + status);
         }
     });
 };
@@ -71,13 +61,10 @@ const linkMachineOperation = async ({operation, machine}) => {
     let operationRedisObjectList = await redisClient.hGetAll(OPERATION);
     const resultOperation = findObjectByNameFromStringJsonList(operationRedisObjectList, operation)
 
-    if (resultMachine && resultOperation) {
-        setHashValueInRedis(
-            MACHINE_OPERATION,
-            getMachineOperationName(machine, operation),
-            new MachineOperation(new Machine(resultMachine), new Operation(resultOperation)),
-            'link ' + machine + ' to ' + operation
-        );
+    if (resultMachine !== undefined && resultOperation !== undefined) {
+        setHashValueInRedis(MACHINE_OPERATION, getMachineOperationName(machine, operation), new MachineOperation({
+            machine: new Machine(resultMachine), operation: new Operation(resultOperation)
+        }), 'link ' + machine + ' to ' + operation);
     }
 };
 
@@ -92,19 +79,11 @@ const unlinkMachineOperation = async ({operation, machine}) => {
         return machineOperationKeyName !== getMachineOperationName(machine, operation);
     });
     if (resultMachineOperation) {
-        redisClient.hDel(MACHINE_OPERATION, getMachineOperationName(machine, operation)).then(
-            (success) => {
-                console.log(
-                    'redis have successfully unlink ',
-                    machine,
-                    ' from ',
-                    operation
-                );
-            },
-            (error) => {
-                console.log('ERROR: ', error);
-            }
-        );
+        redisClient.hDel(MACHINE_OPERATION, getMachineOperationName(machine, operation)).then((success) => {
+            console.log('redis have successfully unlink ', machine, ' from ', operation);
+        }, (error) => {
+            console.log('ERROR: ', error);
+        });
     }
 };
 
@@ -117,26 +96,23 @@ const getObjectFromStringMapEntry = (StringMapEntry) => {
 };
 
 const findObjectByNameFromStringJsonList = (stringList, name) => {
-    return Object.entries(stringList)
+    let filteredArray = Object.entries(stringList)
         .filter((stringEntry) => {
             const object = getObjectFromStringMapEntry(stringEntry);
             return object.name === name;
-        })
-        .map((stringEntry) => {
-            let listObjects = getObjectFromStringMapEntry(stringEntry);
-            return listObjects[0]; // return only the first one
         });
+    let returnFirstThatFilterMethodApplyOn = filteredArray.map((stringEntry) => {
+        return getObjectFromStringMapEntry(stringEntry);
+    });
+    return returnFirstThatFilterMethodApplyOn[0];
 }
 
 const setHashValueInRedis = (hashKey, hashField, hashValue, successfulMessage) => {
-    redisClient.hSet(hashKey, hashField, JSON.stringify(hashValue)).then(
-        (value) => {
-            console.log('redis have successfully ' + successfulMessage);
-        },
-        (error) => {
-            console.log('ERROR: ', error);
-        }
-    );
+    redisClient.hSet(hashKey, hashField, JSON.stringify(hashValue)).then((value) => {
+        console.log('redis have successfully ' + successfulMessage);
+    }, (error) => {
+        console.log('ERROR: ', error);
+    });
 };
 
 

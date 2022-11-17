@@ -53,8 +53,12 @@ public class PreLoadObjectInCache {
 	}
 
 	private void loadMachineOperationCache() {
-		if (!machineOperationService.isCachePopulated()) {
-			machineOperationService.forceUpdateCacheFromDb();
+		try {
+			if (!machineOperationService.isCachePopulated()) {
+				machineOperationService.forceUpdateCacheFromDb();
+			}
+		} catch (Exception e) {
+			log.debug("ERROR: " + e.getMessage());
 		}
 	}
 

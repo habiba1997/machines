@@ -96,11 +96,14 @@ router.get('/machine-operations', async (request, response) => {
     try {
         var mors = [];
         const redisMorList = await redisClient.hGetAll(MACHINE_OPERATION);
-        Object.entries(redisMorList).forEach((jsonStringMap) => {
+        Object.entries(redisMorList).filter((obj) => obj!==null && obj!== undefined).forEach((jsonStringMap) => {
             let jsonStringValue = jsonStringMap[1];
             const object = JSON.parse(jsonStringValue);
-            const mor = new MachineOperation(object);
-            mors.push(mor);
+            if(object!==null && object!== undefined)
+            {
+                const mor = new MachineOperation(object);
+                mors.push(mor);
+            }
         });
         response.json(mors);
     } catch (err) {

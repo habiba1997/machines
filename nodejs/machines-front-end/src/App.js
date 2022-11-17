@@ -17,34 +17,44 @@ import CreateMaterial from "./components/elements/create/create-material";
 import CreateMachine from "./components/elements/create/create-machine";
 import CreateProductionOrder from "./components/elements/create/create-production-order";
 import CreateOperation from "./components/elements/create/create-operation";
+import ChangeOperationStatus from "./components/elements/sql/change-operation-status";
+import LinkOrUnlinkMachineOperation from "./components/elements/sql/link-unlink-machine-operation";
+import MachineOperationsFromSQL from "./components/elements/sql/machine-operations";
 
 function App() {
-    return (
-        <Provider store={store}>
-            <BrowserRouter>
-                <Fragment>
-                    <Alert/>
-                    <Dashboard/>
-                    <section className='container'>
-                        <Routes>
-                            <Route path='/' element={<Landing/>}/>
-                            <Route path='/cache/machines' element={<Machines/>}/>
-                            <Route path='/cache/locations' element={<Locations/>}/>
-                            <Route path='/cache/operations' element={<Operations/>}/>
-                            <Route path='/cache/materials' element={<Materials/>}/>
-                            <Route path='/cache/machine-operations' element={<MachineOperations/>}/>
-                            <Route path='/create/location' element={<CreateLocation/>}/>
-                            <Route path='/create/machine' element={<CreateMachine/>}/>
-                            <Route path='/create/operation' element={<CreateOperation/>}/>
-                            <Route path='/create/material' element={<CreateMaterial/>}/>
-                            <Route path='/create/production-order' element={<CreateProductionOrder/>}/>
-                            <Route path='/*' element={<NotFound/>}/>
-                        </Routes>
-                    </section>
-                </Fragment>
-            </BrowserRouter>
-        </Provider>
-    );
+    return (<Provider store={store}>
+        <BrowserRouter>
+            <Fragment>
+                <Alert/>
+                <Dashboard/>
+                <section className='container'>
+                    <Routes>
+                        <Route path='/' element={<Landing/>}/>
+                        <Route path='/cache/machines' element={<Machines/>}/>
+                        <Route path='/cache/locations' element={<Locations/>}/>
+                        <Route path='/cache/operations' element={<Operations/>}/>
+                        <Route path='/cache/materials' element={<Materials/>}/>
+                        <Route path='/cache/machine-operations' element={<MachineOperations/>}/>
+
+                        <Route path='/create/location' element={<CreateLocation/>}/>
+                        <Route path='/create/machine' element={<CreateMachine/>}/>
+                        <Route path='/create/operation' element={<CreateOperation/>}/>
+                        <Route path='/create/material' element={<CreateMaterial/>}/>
+                        <Route path='/create/production-order' element={<CreateProductionOrder/>}/>
+
+                        <Route path='/change-operation-status' element={<ChangeOperationStatus/>}/>
+                        <Route path='/machine-operations' element={<MachineOperationsFromSQL/>}/>
+                        <Route path='/link-machine-operation'
+                               element={<LinkOrUnlinkMachineOperation link={true}/>}/>
+                        <Route path='/unlink-machine-operation'
+                               element={<LinkOrUnlinkMachineOperation link={false}/>}/>
+
+                        <Route path='/*' element={<NotFound/>}/>
+                    </Routes>
+                </section>
+            </Fragment>
+        </BrowserRouter>
+    </Provider>);
 }
 
 export default App;

@@ -31,7 +31,7 @@ public abstract class CacheService<K, V extends CacheableElement<K>> implements 
 
 	public boolean isCachePopulated() {
 		String cacheName = getCacheName();
-		return cacheService.hasKey(cacheName) && cacheService.getAllCachedElements(cacheName) != null
+		return cacheService.hasKey(cacheName)
 				&& cacheService.getExpireTime(cacheName) > BaseCacheService.CACHE_EXPIRATION_LIMIT;
 	}
 
