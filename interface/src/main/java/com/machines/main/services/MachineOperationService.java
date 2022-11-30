@@ -11,4 +11,6 @@ public interface MachineOperationService {
 	MachineOperation findByName(String machineName);
 
 	MachineOperation findByNameOrThrow(String machineName);
+
+	boolean isOperationLinkedToOtherMachine(String operationName);
 }

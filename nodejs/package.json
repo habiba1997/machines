@@ -4,9 +4,11 @@
   "description": "This project consume messages from kafka server and create objects in redis accordingly",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
-    "server": "nodemon server"
+    "server": "nodemon server",
+    "machines-front-end": "npm start --prefix machines-front-end",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run server\" \"npm run machines-front-end\""
   },
   "author": "Habiba Ahmed",
   "license": "ISC",

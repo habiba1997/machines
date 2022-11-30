@@ -52,7 +52,8 @@ public class LocationServiceImpl extends CacheService<Long, Location> implements
 	@Override
 	public Long findLocationKey(final String locationName) {
 		Map<Long, Location> locationMap = this.fetchAndLoadAllCachedEntries();
-		return locationMap.entrySet().stream().filter(entry -> entry.getValue().getName().equals(locationName)).findFirst().map(entry -> entry.getKey())
+		return locationMap.values().stream().filter(location -> location.getName().equals(locationName)).findFirst()
+				.map(location -> location.getKey())
 				.orElseThrow(() -> new NotFoundException(String.format("Location %s doesn't exist", locationName)));
 	}
 
