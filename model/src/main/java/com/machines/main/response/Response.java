@@ -18,8 +18,14 @@ public class Response<B> {
 	private boolean success = true;
 	private List<Message> messages;
 
-	Response() {
+	public Response() {
 		this.success = true;
+		messages = List.of();
+	}
+
+	public Response(final B body) {
+		this();
+		this.setBody(body);
 	}
 
 	public Response<B> fromValidation(final Validation<B> validation) {
